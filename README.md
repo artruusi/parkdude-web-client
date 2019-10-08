@@ -3,11 +3,11 @@
 ## Setup instructions
 
 ### Required:
--install node
+- install node
 - install ESLint (and optionally Prettier) extension for code editor (VSCode for example)
 
 ### Build & run:
-  -clone this repository
+  - clone this repository
   - ```cd parkdude-web-client```
   - install depencies ```npm install```
   - run program  ```npm start```
