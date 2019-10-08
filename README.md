@@ -9,8 +9,8 @@
 ### Build & run:
   -clone this repository
   - ```cd parkdude-web-client```
-  - ```npm install```
-  -run program  ```npm start```
+  - install depencies ```npm install```
+  - run program  ```npm start```
   
   ### Tests:
 - Jest is used for testing the application
