@@ -1,29 +1,37 @@
-import React from 'react';
-import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    console.log(response);
-  }
 
-// dokumentaaation mukaan onSuccess ja onFailure pakollisia kenttiä, vaikka emme niitä tarvitse kun uudelleen ohjaamme 
-// kirjautumisen back endiin
-const LogIn: React.FC = () => {
-    return (
-        <div >
-        <p>Kirjaudu siään käyttäen Google tiliäsi</p>
-        
-        <GoogleLogin
-            clientId = "658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-            buttonText = "Kirjaudu sisään"
-            onSuccess = {responseGoogle}
-            onFailure = {responseGoogle}
-            cookiePolicy = {'single_host_origin'}
-            responseType = "code"
-            uxMode = "redirect"
-            redirectUri = "meidän bank end AWS URL"
-        />
-        </div>
-    );
+
+interface LogInProps {
+    loggedIn: boolean;
 }
 
-export default LogIn;
+class LogIn extends Component <LogInProps, {}> {
+
+    renderRedirect = () => {
+        if (this.props.loggedIn) {
+          return <Redirect to='/' />
+        }
+      }
+
+    render() {
+        return (
+            <div >
+                {this.renderRedirect()}
+
+                <p>Kirjaudu siään käyttäen Google tiliäsi</p>
+                
+            </div>
+        );
+    }
+
+    }
+    
+const mapState = (state: any) => {
+    return {
+        loggedIn: state.user.loggedIn
+    }
+}
+export default connect(mapState)(LogIn);
