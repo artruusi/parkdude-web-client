@@ -9,7 +9,7 @@ The React app is inside parkdude-web-client-folder ant it's structure is followi
   - `/store` Redux folder
     - `/actions` all action creators are here and they handle async code
     - `/reducers` eacth file is a peace of global state and they are merged into one global state in index.ts file. They handle also functionality to modify the state
-  - types.ts file includes the types and interfaces for the Redux folder.
+    - types.ts file includes the types and interfaces for the Redux folder.
   
 
 ## Setup instructions
