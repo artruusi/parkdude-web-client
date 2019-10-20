@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import {AppState} from './../../store/types';
 
 interface LogInProps {
     loggedIn: boolean;
@@ -19,7 +20,7 @@ class LogIn extends Component <LogInProps, {}> {
             <div >
                 {this.renderRedirect()}
 
-                <p>Kirjaudu siään käyttäen Google tiliäsi</p>
+                <p>Kirjaudu sisään käyttäen Google tiliäsi</p>
                 
             </div>
         );
@@ -27,7 +28,7 @@ class LogIn extends Component <LogInProps, {}> {
 
     }
     
-const mapState = (state: any) => {
+const mapState = (state: AppState) => {
     return {
         loggedIn: state.user.loggedIn,
     };

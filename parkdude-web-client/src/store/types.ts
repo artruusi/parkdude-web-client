@@ -12,19 +12,27 @@ export type ActionsUnion<A extends StringMap<AnyFunction>> = ReturnType<
   A[keyof A]
 >;
 
-export type State = {};
-
-export type Store = ReduxStore<State, Action> & {
+export type Store = ReduxStore<{}, Action> & {
   dispatch: Dispatch;
 };
 
-export type Dispatch = ThunkDispatch<State, void, Action>;
+export type Dispatch = ThunkDispatch<{}, void, Action>;
 
 export type Actions =  Action<any>;
 
 export type DispatchAction<T = void> = ThunkAction<
   Promise<T>,
-  State,
+  {},
   void,
   Action
 >;
+
+// interfaces for reducers
+
+export interface AppState {
+  user: UserState;
+}
+
+export interface UserState {
+  loggedIn: boolean;
+}

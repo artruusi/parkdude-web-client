@@ -16,7 +16,7 @@ export const LogOut = () => {
 export const checkLogIn = () => {
     return (dispath: Dispatch) => {
         const baseURL = 'http://localhost:3000';
-        axios.get(baseURL)
+        axios.get<any>(baseURL)
         .then(data => {dispath(LogUserIn()); })
         .catch(error => {dispath(LogOut()); });
     };

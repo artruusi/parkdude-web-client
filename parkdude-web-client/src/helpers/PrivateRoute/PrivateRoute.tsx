@@ -1,6 +1,7 @@
 import React, { FunctionComponent, Component} from 'react';
 import {  Redirect, Route } from 'react-router-dom';
 import {connect} from 'react-redux';
+import {AppState} from './../../store/types';
 
 interface PrivateRouteProps {
     component: FunctionComponent<{}>;
@@ -32,7 +33,7 @@ class PrivateRoute extends Component<PrivateRouteProps, {}> {
   }
 }
 
-const mapState = (state: any) => {
+const mapState = (state: AppState) => {
     return {
       loggedIn: state.user.loggedIn,
     };
