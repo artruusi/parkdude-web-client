@@ -6,7 +6,6 @@ import Header from './components/Header/Header';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import CheckAuth from './helpers/CheckAuth/CheckAuth';
 
-
 const App: React.FC = () => {
   
   return (
@@ -20,11 +19,10 @@ const App: React.FC = () => {
         <PrivateRoute path="/suojattu" component={Header}/>
 
       </BrowserRouter> 
-      
-     
+         
     </div>
    
   );
-}
+};
 
 export default App;

@@ -1,9 +1,7 @@
-import React, { Component} from 'react'
+import React, { Component} from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from './../../store/types';
 import {checkLogIn, LogOut, LogUserIn} from './../../store/actions/userActions';
-
-
 
 interface CheckAuthProps {
     clearStore: () => void;
@@ -11,7 +9,7 @@ interface CheckAuthProps {
     logUserIn: () => void;
 }
 
-class CheckAuth extends Component <CheckAuthProps, {}>{
+class CheckAuth extends Component <CheckAuthProps, {}> {
     render() {
         this.props.checkLogIn();
         return(
@@ -30,11 +28,11 @@ class CheckAuth extends Component <CheckAuthProps, {}>{
 const mapDispatch = (dispatch: Dispatch) => {
 
     return {
-        clearStore: () => dispatch(LogOut()),
         checkLogIn: () => dispatch(checkLogIn()),
-        logUserIn: () => dispatch(LogUserIn())
-    }
+        clearStore: () => dispatch(LogOut()),      
+        logUserIn: () => dispatch(LogUserIn()),
+    };
 
-}
+};
 
 export default connect(null, mapDispatch)(CheckAuth);

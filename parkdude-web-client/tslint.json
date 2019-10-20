@@ -1,7 +1,8 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint-react"
+        "tslint-react",
+        "tslint:recommended"
     ],
     "jsRules": {
     },
@@ -10,8 +11,10 @@
         "ordered-imports": false,
         "quotemark": false,
         "no-console": false,
-        "semicolon": false,
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "no-trailing-whitespace": false,
+        "interface-name": false
+
     },
     "rulesDirectory": [
     ],

@@ -1,9 +1,8 @@
-import React, { FunctionComponent, Component} from 'react'
+import React, { FunctionComponent, Component} from 'react';
 import {  Redirect, Route } from 'react-router-dom';
 import {connect} from 'react-redux';
 
-
-type PrivateRouteProps = {
+interface PrivateRouteProps {
     component: FunctionComponent<{}>;
     path: string;
     loggedIn: boolean;
@@ -22,26 +21,22 @@ type PrivateRouteProps = {
     />
   ) */
 
-  class PrivateRoute extends Component<PrivateRouteProps, {}>{
-    render() {
-      const Content = this.props.component;
-      return(
-        <Route path= {this.props.path} render={(props) => (
-          this.props.loggedIn 
-          ? <Content />
-          : <Redirect to={{ pathname: '/kirjaudu'  }}  />
-          )} 
-        />
+class PrivateRoute extends Component<PrivateRouteProps, {}> {
+  render() {
+    const Content = this.props.component;
+    const routeContent = this.props.loggedIn ? <Content /> : <Redirect to={{ pathname: '/kirjaudu'  }}  />;
 
-      );
-    }
+    return(
+      <Route path={this.props.path} render={(props) => ( routeContent )}  />
+    );
   }
+}
 
-  const mapState = (state: any) => {
+const mapState = (state: any) => {
     return {
-      loggedIn: state.user.loggedIn
-    }
+      loggedIn: state.user.loggedIn,
+    };
 
-  }
+};
 
-  export default connect(mapState)(PrivateRoute);
+export default connect(mapState)(PrivateRoute);

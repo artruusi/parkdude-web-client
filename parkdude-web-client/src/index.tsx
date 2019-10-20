@@ -7,7 +7,7 @@ import { Store } from "./store/types";
 import {Provider} from 'react-redux';
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
-import {userReducer} from './store/reducers/userReducer'
+import {userReducer} from './store/reducers/userReducer';
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -15,12 +15,12 @@ const composeEnhancers =
     : compose;
 
 const rootReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
 });
 
 const store: Store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunkMiddleware))
+  composeEnhancers(applyMiddleware(thunkMiddleware)),
 );
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
