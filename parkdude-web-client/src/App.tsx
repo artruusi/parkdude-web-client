@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import "./App.css";
 import LogIn from "./components/LogIn/LogIn";
@@ -21,5 +22,21 @@ const App: React.FC = () => {
 };
 
 const ProtectedComponent = () => <p>Protected route contents</p>;
+=======
+import React from 'react';
+import './App.css';
+import LogIn from './components/LogIn/LogIn';
+
+const App: React.FC = () => {
+  
+  return (
+    <div >
+      <p>parkdude-web-client works</p>
+      <LogIn></LogIn>
+    </div>
+   
+  );
+}
+>>>>>>> origin/master
 
 export default App;
