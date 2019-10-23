@@ -2,7 +2,9 @@ import { Action as ReduxAction, Store as ReduxStore } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 type AnyFunction = (...args: any[]) => any;
-interface StringMap<T> { [key: string]: T; }
+interface StringMap<T> {
+  [key: string]: T;
+}
 
 export type Action<T extends string = string, P = void> = P extends void
   ? ReduxAction<T>
@@ -18,7 +20,7 @@ export type Store = ReduxStore<{}, Action> & {
 
 export type Dispatch = ThunkDispatch<{}, void, Action>;
 
-export type Actions =  Action<any>;
+export type Actions = Action<any>;
 
 export type DispatchAction<T = void> = ThunkAction<
   Promise<T>,
@@ -35,4 +37,19 @@ export interface AppState {
 
 export interface UserState {
   loggedIn: boolean;
+}
+
+// interfaces for api
+
+export enum UserRole {
+  ADMIN = "admin",
+  UNVERIFIED = "unverified",
+  VERIFIED = "verified",
+  SLACK = "slack",
+}
+
+export interface LoginState {
+  isAuthenticated: boolean;
+  userRole?: UserRole;
+  name?: string;
 }

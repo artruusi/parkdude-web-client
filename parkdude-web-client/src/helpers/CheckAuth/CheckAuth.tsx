@@ -1,40 +1,47 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "./../../store/types";
-import {
-  checkLogIn,
-  LogOut,
-  LogUserIn,
-} from "./../../store/actions/userActions";
+import { Dispatch, AppState } from "./../../store/types";
+import { logOutFromServer } from "../../store/actions/userActions";
+import { checkLogIn, LogUserIn } from "./../../store/actions/userActions";
 
 interface CheckAuthProps {
-  clearStore: () => void;
   checkLogIn: () => void;
-  logUserIn: () => void;
+  logOut: () => void;
+  loggedIn: boolean;
 }
 
 class CheckAuth extends Component<CheckAuthProps, {}> {
   render() {
     this.props.checkLogIn();
+    const button = this.props.loggedIn ? (
+      <button onClick={this.props.logOut}>Log out</button>
+    ) : (
+      <a href="http://localhost:3000/api/auth/google/web">Log in</a>
+    );
     return (
       <div>
         <p>CheckAuth works</p>
-        <button onClick={this.props.clearStore}>Log in</button>
-        <button onClick={this.props.logUserIn}>Log out</button>
+        {button}
       </div>
     );
   }
 }
 
+const mapState = (state: AppState) => {
+  return {
+    loggedIn: state.user.loggedIn,
+  };
+};
+
 const mapDispatch = (dispatch: Dispatch) => {
   return {
     checkLogIn: () => dispatch(checkLogIn()),
-    clearStore: () => dispatch(LogOut()),
+    logOut: () => dispatch(logOutFromServer()),
     logUserIn: () => dispatch(LogUserIn()),
   };
 };
 
 export default connect(
-  null,
+  mapState,
   mapDispatch,
 )(CheckAuth);
