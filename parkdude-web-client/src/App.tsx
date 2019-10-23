@@ -7,21 +7,17 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import CheckAuth from './helpers/CheckAuth/CheckAuth';
 
 const App: React.FC = () => {
-  
   return (
-    <div >
-      <CheckAuth/>
+    <div>
+      <CheckAuth />
       <BrowserRouter>
-        <Link to='/suojattu'>Suojattu</Link>
-        
-        <Route exact={true} path="/" component={LogIn}/>
-        <Route path="/kirjaudu" component={LogIn}/>
-        <PrivateRoute path="/suojattu" component={Header}/>
+        <Link to='/protected'>Protected</Link>
 
-      </BrowserRouter> 
-         
+        <Route exact={true} path='/' component={LogIn} />
+        <Route path='/login' component={LogIn} />
+        <PrivateRoute path='/protected' component={Header} />
+      </BrowserRouter>
     </div>
-   
   );
 };
 
