@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -32,17 +31,3 @@ const mapState = (state: AppState) => {
   };
 };
 export default connect(mapState)(LogIn);
-=======
-import React from 'react';
-
-
-const LogIn: React.FC = () => {
-    return (
-        <div >
-        <p>LogIn works</p>
-        </div>
-    );
-}
-
-export default LogIn;
->>>>>>> origin/master
