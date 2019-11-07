@@ -1,0 +1,32 @@
+#table-view {
+    width: 90%;
+    max-width: 1800px;
+    margin: 8vh auto;
+    background-color: #90A4AE;
+    padding-top: 3vh;
+    padding-bottom: 8vh;
+}
+
+#table-view-create-user-button-container,
+#table-view-delete-user-button-container {
+    justify-content: flex-end;
+    margin-bottom: 4vh;
+}
+
+#table-view-create-user-button,
+#table-view-delete-user-button {
+    margin-right: 10%;
+}
+
+#table-view-create-user-button {
+    background-color: #673AB7;
+}
+
+#table-view-paper {
+    width: 80%;
+}
+
+#table-view-delete-user-button {
+    margin-top: 3vh;
+    background-color: #d32f2f;
+}

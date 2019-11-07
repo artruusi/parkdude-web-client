@@ -20,6 +20,7 @@ class LogIn extends Component<LogInProps, {}> {
         {this.renderRedirect()}
 
         <p>Login with your Google account</p>
+        <a href="http://localhost:3000/api/auth/google/web">Log in</a>
       </div>
     );
   }

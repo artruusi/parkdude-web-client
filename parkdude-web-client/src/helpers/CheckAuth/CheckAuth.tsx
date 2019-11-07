@@ -12,17 +12,16 @@ interface CheckAuthProps {
 
 class CheckAuth extends Component<CheckAuthProps, {}> {
   render() {
-    this.props.checkLogIn();
+    // this.props.checkLogIn();
     const button = this.props.loggedIn ? (
       <button onClick={this.props.logOut}>Log out</button>
     ) : (
       <a href="http://localhost:3000/api/auth/google/web">Log in</a>
     );
     return (
-      <div>
-        <p>CheckAuth works</p>
-        {button}
-      </div>
+      <>
+      
+      </>
     );
   }
 }

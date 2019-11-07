@@ -22,6 +22,13 @@ export type Dispatch = ThunkDispatch<{}, void, Action>;
 
 export type Actions = Action<any>;
 
+// export type UserAction Action<ActionType>;
+
+/* interface ActionType {
+  type: string;
+  v?: any;
+} */
+
 export type DispatchAction<T = void> = ThunkAction<
   Promise<T>,
   {},
@@ -37,6 +44,8 @@ export interface AppState {
 
 export interface UserState {
   loggedIn: boolean;
+  userName: string;
+  currentPage: string;
 }
 
 // interfaces for api

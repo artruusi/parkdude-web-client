@@ -39,3 +39,10 @@ export const checkLogIn = () => {
       });
   };
 };
+
+export const ChangePage = (page: string) => {
+  return {
+    payload: page,
+    type: actionTypes.CHANGEPAGE, 
+  };
+};
