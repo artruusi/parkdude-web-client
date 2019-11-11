@@ -1,7 +1,6 @@
 # ParkDude-web-client
 
 ## Folder structure
-The React app is inside parkdude-web-client-folder ant it's structure is following:
 
 - `/src` source code folder
   - `/components` all components which are rendered into the view
@@ -27,3 +26,7 @@ The React app is inside parkdude-web-client-folder ant it's structure is followi
   ### Tests:
 - Jest is used for testing the application
 - run tests: ```npm test```
+
+### Linter:
+- run linter: ```npm run lint```
+- fix linting errors: ```npm run fix```
