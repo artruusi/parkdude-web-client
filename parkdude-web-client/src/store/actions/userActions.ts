@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { Dispatch } from "./../types";
 import { LoginState } from "../types";
+import { log } from "util";
 
 export const LogUserIn = () => {
   return {
