@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { AppState } from "./../../store/types";
 
 interface PrivateRouteProps {
-  component: FunctionComponent<{}>;
+  component: FunctionComponent<{}> | any;
   path: string;
   loggedIn: boolean;
 }

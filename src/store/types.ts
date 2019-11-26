@@ -37,6 +37,8 @@ export interface AppState {
 
 export interface UserState {
   loggedIn: boolean;
+  userName: string;
+  currentPage: string;
 }
 
 // interfaces for api
