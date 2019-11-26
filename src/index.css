@@ -33,3 +33,12 @@ code {
 .bold {
   font-weight: bold;
 }
+
+.button {
+  font-size: 22px;
+  width: 170px;
+  height: 50px;
+  border: none;
+  color: white;
+  border-radius: 30px;
+}

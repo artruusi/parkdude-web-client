@@ -1,9 +1,27 @@
 import React, {Component} from 'react';
 import './TableView.css';
+import Modal from './../Modal/Modal';
 
-class TableView  extends Component<{}, {}> {
+interface TableViewState {
+    showModal: boolean;
+}
+
+class TableView  extends Component<{}, TableViewState> {
+
+    state = {
+        showModal: false,
+    };
+
+    openModal = () => {
+        this.setState({showModal: true});
+    }
+    closeModal = () => {
+        this.setState({showModal: false});
+    }
 
     render() {
+
+        const modal = this.state.showModal ? <Modal close={this.closeModal}/> : null;
 
         return(
             <div id="table-view">
@@ -79,8 +97,9 @@ class TableView  extends Component<{}, {}> {
                     </table>
                 </div>
                 <div id="table-view-delete-button-container" className="flex-row">
-                    <button id="table-view-delete-button" className="button">Delete selected</button>
+                    <button id="table-view-delete-button" className="button" onClick={this.openModal}>Delete selected</button>
                 </div>
+                {modal}
             </div>
         );
    
