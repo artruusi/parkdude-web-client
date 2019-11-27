@@ -70,18 +70,18 @@ class Header extends Component < HeaderProps , {} > {
 }
 
 const mapState = (state: AppState) => {
-    return {
-        currentPage: state.user.currentPage,
-        userName: state.user.userName,
-       
-    };
+  return {
+    currentPage: state.user.currentPage,
+    userName: state.user.userName,
+    
+  };
 
 };
 
 const mapDispatch = (dispatch: Dispatch) => {
-   return {
-        changePage: (page: string) => dispatch(ChangePage(page)),
-   };
+  return {
+    changePage: (page: string) => dispatch(ChangePage(page)),
+  };
 };
    
 export default connect(mapState, mapDispatch)(Header);

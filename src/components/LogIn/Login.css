@@ -1,0 +1,47 @@
+#log-in {
+  padding-top: 10vh;
+}
+
+#log-in h3 {
+  font-size: 24px;
+}
+
+#log-in-logo {
+  width: 560px;
+  margin-bottom: 3vh;
+}
+
+#log-in-log-button {
+  background-color: #ffd800;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+#log-in-email, #log-in-password {
+
+  border: none;
+  margin: 10px 0;
+  height: 40px;
+  width: 300px;
+  border-bottom: 1px solid black;
+}
+
+#log-in-google-button {
+  background-color: #FF6C6C;
+  width: 300px;
+  font-size: 18px;
+  margin-top: 2vh;
+}
+
+#log-in-or-container {
+  width: 300px;
+  margin: 8px 0;
+}
+#log-in-or-container span {
+  margin: 0 15px;
+ 
+}
+
+#log-in hr {
+  flex-grow: 1;
+}

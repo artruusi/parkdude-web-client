@@ -1,31 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { AppState } from './../../store/types';
+import { AppState, Dispatch, LoginState } from './../../store/types';
 
-import picture from './../../img/parkdude.svg';
+import parkDudeLogo from './../../img/parkdude.svg';
+import './Login.css';
+import { LogUserIn } from '../../store/actions/userActions';
 
 interface LogInProps {
   loggedIn: boolean;
+  
 }
 
-class LogIn extends Component<LogInProps, {}> {
+interface LogInState {
+  dummyLogIn: boolean;
+}
+class LogIn extends Component<LogInProps, LogInState> {
+
+  state = {
+    dummyLogIn: false,
+  };
+
   renderRedirect = () => {
-    if (this.props.loggedIn) {
-      return <Redirect to='/' />;
+    if (this.props.loggedIn && this.state.dummyLogIn) {
+      return <Redirect to='/customers'/>;
     }
+  }
+  changeDummyState = () => {
+    this.setState({dummyLogIn: true});
   }
 
   render() {
     return (
-      <div>
+      <div id="log-in" className="flex-column-center">
         {this.renderRedirect()}
 
-        <img src={picture} alt=""/>
+        <img src={parkDudeLogo} alt="parkDude logo" id="log-in-logo"/>
+        <h3>Log in</h3>
+        
+        <input type="text" placeholder="email" id="log-in-email"/>
+        <input type="password" placeholder="password" id="log-in-password"/>
+
+        <button className="button" id="log-in-log-button" onClick={this.changeDummyState}>Log in</button>
+
+        <div className="flex-row-center" id="log-in-or-container">
+          <hr/>
+          <span>OR</span>
+          <hr/>
+        </div>
+
+        <button className="button" id="log-in-google-button" onClick={this.changeDummyState}>Log in with Google</button>
       </div>
     );
   }
 }
+
 
 const mapState = (state: AppState) => {
   return {
