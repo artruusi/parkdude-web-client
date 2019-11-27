@@ -11,7 +11,7 @@ const App: React.FC = () => {
       <CheckAuth />
       <BrowserRouter>
        
-        <Route exact={true} path="/" component={Layout} />
+        <Route exact={true} path="/" component={LogIn} />
         <Route path="/login" component={LogIn} />
         <PrivateRoute path="/protected" component={ProtectedComponent} />
         <PrivateRoute path="/customers" component={Layout} />

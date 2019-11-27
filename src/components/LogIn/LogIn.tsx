@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { AppState } from './../../store/types';
 
+import picture from './../../img/parkdude.svg';
+
 interface LogInProps {
   loggedIn: boolean;
 }
@@ -19,7 +21,7 @@ class LogIn extends Component<LogInProps, {}> {
       <div>
         {this.renderRedirect()}
 
-        <p>Login with your Google account</p>
+        <img src={picture} alt=""/>
       </div>
     );
   }

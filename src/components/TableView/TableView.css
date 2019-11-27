@@ -1,105 +1,63 @@
 #table-view{
-    width: 80%;
-    margin: 3vh auto;
-    max-width: 1800px;
+  width: 80%;
+  margin: 3vh auto;
+  max-width: 1800px;
 }
 #table-view h2 {
-    font-size: 36px;
-    flex-grow: 1;
+  font-size: 36px;
+  flex-grow: 1;
 }
 
 #table-view-add-user{
-    margin-right: 2vw;
-    background-color: #ffd800;
-    color: white;
+  margin-right: 2vw;
+  background-color: #ffd800;
+  color: white;
    
 }
 #table-view-delete-button {
-    margin-right: 2vw;
-    background-color: #FF6C6C;
-    color: white;
+  margin-right: 2vw;
+  background-color: #FF6C6C;
+  color: white;
 
 }
 
 .button:hover{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #table-view-header-container {
-    align-items: center;
+  align-items: center;
 } 
 #table-view-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 #table-view-table th {
-    background-color: #e7e7e7;
-    padding: 15px 0; 
-    text-align: left;
-    padding-left: 20px;
-    border: none;
+  background-color: #e7e7e7;
+  padding: 15px 0; 
+  text-align: left;
+  padding-left: 20px;
+  border: none;
 }
 
 #table-view-table td {
-    padding: 4px 0; 
-    text-align: left;
+  padding: 4px 0; 
+  text-align: left;
 }
 #table-view-delete-button-container{
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 4vh;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 4vh;
 }
 
 .button {
-    font-size: 22px;
-    width: 170px;
-    height: 50px;
-    border: none;
-    color: white;
-    border-radius: 30px;
+  font-size: 22px;
+  width: 170px;
+  height: 50px;
+  border: none;
+  color: white;
+  border-radius: 30px;
 }
 
-#modal-container {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0,0,0,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-}
-#modal {
-    background-color: white;
-    border-radius: 30px;
-    width: 600px;
-    height: 250px;
-   
-
-    
-}
-
-#modal h3 {
-    font-size: 22px;
-}
-#modal p {
-    font-size: 18px;
-    font-weight: 400;
-    flex-grow: 1;
-}
-#modal-button-container {
-    margin-bottom: 10px;
-}
-
-#modal-yes-button {
-    background-color: #FF6C6C;
-}
-
-#modal-cancel-button {
-    background-color: white;
-    color: black;
-}
 

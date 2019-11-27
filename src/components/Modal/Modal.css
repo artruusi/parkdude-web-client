@@ -1,42 +1,42 @@
 #modal-container {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0,0,0,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
 }
 #modal {
-    background-color: white;
-    border-radius: 30px;
-    width: 600px;
-    height: 250px;
-   
+  background-color: white;
+  border-radius: 30px;
+  width: 600px;
+  height: 250px;
+
 
     
 }
 
 #modal h3 {
-    font-size: 22px;
+  font-size: 22px;
 }
 #modal p {
-    font-size: 18px;
-    font-weight: 400;
-    flex-grow: 1;
+  font-size: 18px;
+  font-weight: 400;
+  flex-grow: 1;
 }
 #modal-button-container {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 #modal-yes-button {
-    background-color: #FF6C6C;
+  background-color: #FF6C6C;
 }
 
 #modal-cancel-button {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
