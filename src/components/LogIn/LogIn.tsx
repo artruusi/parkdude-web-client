@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { AppState, Dispatch, LoginState } from './../../store/types';
+import { AppState } from './../../store/types';
 
 import parkDudeLogo from './../../img/parkdude.svg';
 import './Login.css';
-import { LogUserIn } from '../../store/actions/userActions';
 
 interface LogInProps {
   loggedIn: boolean;
@@ -54,7 +53,6 @@ class LogIn extends Component<LogInProps, LogInState> {
     );
   }
 }
-
 
 const mapState = (state: AppState) => {
   return {

@@ -7,31 +7,21 @@ interface PrivateRouteProps {
   component: FunctionComponent<{}> | any;
   path: string;
   loggedIn: boolean;
+  page: string;
 }
-
-/* const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        true 
-        ? <Component />
-        : <Redirect to={{
-            pathname: '/kirjaudu',
-            state: { from: props.location }
-            }} 
-          />
-      )} 
-    />
-  ) */
 
 class PrivateRoute extends Component<PrivateRouteProps, {}> {
   render() {
-    const Content = this.props.component;
+    const Layout = this.props.component;
+    const page = this.props.page;
+
     const routeContent = this.props.loggedIn ? (
-      <Content />
+      <Layout page={page} />
     ) : (
       <Redirect to={{ pathname: "/login" }} />
     );
 
-    return <Route path={this.props.path} render={props => routeContent} />;
+    return <Route path={this.props.path} render={props => routeContent} exact={true} />;
   }
 }
 

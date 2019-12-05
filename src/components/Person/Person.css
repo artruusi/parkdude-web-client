@@ -1,0 +1,71 @@
+#person {
+  width: 80%;
+  background-color: #e7e7e7;
+  margin: 8vh auto;
+  padding-bottom: 4vh;
+}
+
+.person-button {
+  background-color: #ffd800;
+  font-size: 16px;
+  height: 35px;
+}
+
+#person-delete-button {
+  background-color: #FF6C6C;
+   transform: translateY(-50px);
+   margin-right: 3vw;
+   height: 35px;
+}
+
+#person-header-container {
+  justify-content: center;
+  width: 100%;
+}
+
+#person-delete-button-container {
+  justify-content: flex-end;
+  width: 100%;
+}
+
+#person-button-contaier {
+  justify-content: space-around;
+  width: 80%;
+  margin-top: 10vh;
+}
+
+#person-history-container {
+ width: 33%;
+}
+#person-history-list-container {
+  background-color: white;
+  width: 70%;
+}
+
+#person-info-container {
+  width: 33%;
+  padding-left: 3vw;
+}
+
+#person-table {
+  width:80% ;
+  margin-top: 2vh;
+  border-collapse: collapse;
+  margin-bottom: 2vh;
+}
+
+#person-future-reservation-container {
+  width: 33%;
+}
+
+#person-info-container div {
+  margin-top: 2vh;
+}
+
+.person-check {
+  width: 18px;
+}
+
+#person-table th {
+  background-color: yellow;
+}

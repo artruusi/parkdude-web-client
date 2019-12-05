@@ -42,3 +42,7 @@ code {
   color: white;
   border-radius: 30px;
 }
+
+*:focus{
+   outline: none;
+}

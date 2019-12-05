@@ -1,38 +1,71 @@
 import React, {Component} from 'react';
 import './TableView.css';
-import Modal from './../Modal/Modal';
+import Modal from '../Modal/Modal';
+import { Redirect } from 'react-router-dom';
 
 interface TableViewState {
-    showModal: boolean;
+    showDeleteModal: boolean;
+    showAddUserModal: boolean;
+    employeeSelected: number;
 }
 
 class TableView  extends Component<{}, TableViewState> {
 
   state = {
-    showModal: false,
+
+    employeeSelected: 0,
+    showAddUserModal: false,
+    showDeleteModal: false,
+    
   };
 
-  openModal = () => {
-    this.setState({showModal: true});
+  openDeleteModal = () => {
+    this.setState({showDeleteModal: true});
   }
-  closeModal = () => {
-    this.setState({showModal: false});
+  closeDeleteModal = () => {
+    this.setState({showDeleteModal: false});
+  }
+
+  openAddUserModal = () => {
+    this.setState({showAddUserModal: true});
+  }
+
+  closeAdduserModal = () => {
+    this.setState({showAddUserModal: false});
+  }
+
+  renderRedirect = () => {
+    if (this.state.employeeSelected !== 0) {
+      console.log('seex');
+      return  <Redirect to='/employees/1'/>;
+      
+    }
+  } 
+
+  setEmployeeSelected = () => {
+    this.setState({employeeSelected: 1});
+   
   }
 
   render() {
-
-    const modal = this.state.showModal ? <Modal close={this.closeModal}/> : null;
-
+   
+    const deleteModal = this.state.showDeleteModal ? <Modal close={this.closeDeleteModal} type='delete'/> : null;
+    const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAdduserModal} type='addUser' /> : null;
+   
     return(
+      
       <div id="table-view">
+        {this.renderRedirect()}
+        
         <div id="table-view-header-container" className="flex-row">
           <h2> Employees</h2>
-          <button id="table-view-add-user" className="button"> Add user</button>
+          <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}> Add user</button>
         </div>
+
         <div id="table-view-table-container">
           <table id="table-view-table">
             <thead>
-              <tr>
+              <tr onClick={this.setEmployeeSelected}>
                 <th>{}</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -96,10 +129,14 @@ class TableView  extends Component<{}, TableViewState> {
                                   
           </table>
         </div>
+
         <div id="table-view-delete-button-container" className="flex-row">
-          <button id="table-view-delete-button" className="button" onClick={this.openModal}>Delete selected</button>
+          <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete selected</button>
         </div>
-        {modal}
+
+        {deleteModal}
+        {addUserModal}
+     
       </div>
       );
   

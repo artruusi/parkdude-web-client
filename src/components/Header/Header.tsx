@@ -16,7 +16,6 @@ class Header extends Component < HeaderProps , {} > {
 
   render() {
     const userName = this.props.userName;
-    console.log(process.env.REACT_APP_URL);
     
     return(
       <div id="header" className="flex-row">

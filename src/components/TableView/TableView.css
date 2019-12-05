@@ -45,6 +45,11 @@
   padding: 4px 0; 
   text-align: left;
 }
+#table-view-table tr:hover {
+  background-color: #999966;
+  cursor: pointer;
+}
+
 #table-view-delete-button-container{
   width: 100%;
   justify-content: flex-end;

@@ -13,11 +13,13 @@ const App: React.FC = () => {
        
         <Route exact={true} path="/" component={LogIn} />
         <Route path="/login" component={LogIn} />
-        <PrivateRoute path="/protected" component={ProtectedComponent} />
-        <PrivateRoute path="/customers" component={Layout} />
-        <PrivateRoute path="/employees" component={Layout} />
-        <PrivateRoute path="/parking-spots" component={Layout} />
-        <PrivateRoute path="/accept-users" component={Layout} />
+        <PrivateRoute path="/protected" component={ProtectedComponent} page='protected' />
+        <PrivateRoute path="/customers" component={Layout} page='customers'  />
+        <PrivateRoute path="/employees" component={Layout} page='employees' />
+        <PrivateRoute path="/employees/:id" component={Layout} page='employee' />
+        <PrivateRoute path="/parking-spots" component={Layout} page='parking-spots' />
+        <PrivateRoute path="/accept-users" component={Layout} page='accept-users' />
+         
       </BrowserRouter>
     </div>
   );

@@ -13,8 +13,7 @@
 #modal {
   background-color: white;
   border-radius: 30px;
-  width: 600px;
-  height: 250px;
+ 
 
 
     
@@ -26,10 +25,11 @@
 #modal p {
   font-size: 18px;
   font-weight: 400;
-  flex-grow: 1;
 }
+
 #modal-button-container {
   margin-bottom: 10px;
+  margin-top: auto;
 }
 
 #modal-yes-button {
@@ -39,4 +39,38 @@
 #modal-cancel-button {
   background-color: white;
   color: black;
+}
+
+#modal-add-user-button {
+   background-color: #ffd800;
+}
+
+#modal-add-user-button-container {
+  margin-bottom: 18px;
+  margin-top: auto;
+}
+
+.modal-input {
+  border: none;
+  margin: 10px 0;
+  height: 40px;
+  width: 300px;
+  border-bottom: 1px solid black;
+}
+
+.modal-add-user {
+   width: 600px;
+  height: 380px;
+  
+}
+
+.modal-delete {
+
+ width: 600px;
+ height: 250px;
+}
+
+.modal-add-user-header {
+  margin-top: 28px;
+  margin-bottom: 14px;
 }
