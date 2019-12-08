@@ -31,14 +31,43 @@ export type DispatchAction<T = void> = ThunkAction<
 
 // interfaces for reducers
 
+export interface ParkingSpot {
+  id: string;
+  number: number;
+  permanent: boolean;
+  owner: string;
+  ownerName: string;
+}
+
 export interface AppState {
   user: UserState;
+  parkingSpot: ParkingSpotState;
+  persons: PersonsState;
 }
 
 export interface UserState {
   loggedIn: boolean;
   userName: string;
   currentPage: string;
+}
+
+export interface ParkingSpotState {
+  parkingSpotList: ParkingSpot [];
+  selectedSpotIndex: number;
+}
+
+export interface Person {
+  id: string;
+  name: string;
+  email: string;
+  parkingSpot: string;
+  usageStatic: number;
+
+}
+
+export interface PersonsState {
+  personList: Person [];
+  selectedPersonIndex: number;
 }
 
 // interfaces for api

@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import LogIn from "./components/LogIn/LogIn";
 import PrivateRoute from "./helpers/PrivateRoute/PrivateRoute";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import CheckAuth from "./helpers/CheckAuth/CheckAuth";
 import Layout from "./components/Layout/Layout";
 const App: React.FC = () => {

@@ -2,14 +2,28 @@ import React, {Component} from 'react';
 import './TableView.css';
 import Modal from '../Modal/Modal';
 import { Redirect } from 'react-router-dom';
+import { AppState } from '../../store/types';
+import { connect } from 'react-redux';
+import { ParkingSpot} from '../../store/types';
 
-interface TableViewState {
-    showDeleteModal: boolean;
-    showAddUserModal: boolean;
-    employeeSelected: number;
+interface OwnTableViewProps {
+  type: string;
+  
 }
 
-class TableView  extends Component<{}, TableViewState> {
+interface ReduxTableViewProps {
+  parkingSpots: ParkingSpot [];
+}
+
+interface TableViewState {
+  showDeleteModal: boolean;
+  showAddUserModal: boolean;
+  employeeSelected: number;
+}
+
+type TableViewProps = OwnTableViewProps & ReduxTableViewProps;
+
+class TableView  extends Component<TableViewProps, TableViewState> {
 
   state = {
 
@@ -51,6 +65,60 @@ class TableView  extends Component<{}, TableViewState> {
    
     const deleteModal = this.state.showDeleteModal ? <Modal close={this.closeDeleteModal} type='delete'/> : null;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAdduserModal} type='addUser' /> : null;
+
+    let header;
+    let tableHeader;
+    let content;
+
+    if (this.props.type === 'employees') {
+      header = 'Employees';
+      tableHeader = (
+        <tr>
+          <th>{}</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Admin</th>
+          <th>Parking spot</th>
+          <th>Usage statistic</th>
+        </tr>
+      );
+    } else if (this.props.type === 'customers') {
+      header = 'Customers';
+
+      tableHeader = (
+        <tr>
+          <th>{}</th>
+          <th>Approved</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Usage statistic</th>
+        </tr>
+      );
+    }  else if (this.props.type === 'accept-users') {
+      header = 'Accept users';
+
+      tableHeader = (
+        <tr>
+          <th>{}</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      );
+    }  else if (this.props.type === 'parking-spots') {
+      header = 'Parking spots';
+
+      tableHeader = (
+        <tr>
+          <th>{}</th>
+          <th>Number</th>
+          <th>Regular spot</th>
+          <th>Owner</th>
+        </tr>
+      );
+      console.log(this.props.parkingSpots);
+      content = this.props.parkingSpots.map((item, key) =>  <tr key={item.id}><td>{item.number}</td></tr>); 
+                 
+    }
    
     return(
       
@@ -58,24 +126,19 @@ class TableView  extends Component<{}, TableViewState> {
         {this.renderRedirect()}
         
         <div id="table-view-header-container" className="flex-row">
-          <h2> Employees</h2>
+          <h2> {header}</h2>
           <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}> Add user</button>
         </div>
 
         <div id="table-view-table-container">
           <table id="table-view-table">
             <thead>
-              <tr onClick={this.setEmployeeSelected}>
-                <th>{}</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Admin</th>
-                <th>Parking spot</th>
-                <th>Usage statistic</th>
-              </tr>
+              {tableHeader}
 
             </thead>
             <tbody>
+              {content}
+  
               <tr>
                   <td><input type="checkbox"/></td>
                   <td>Harri Rajala</td>
@@ -144,4 +207,11 @@ class TableView  extends Component<{}, TableViewState> {
 
 }
 
-export default TableView;
+const mapState = (state: AppState) => {
+
+  return {
+    parkingSpots: state.parkingSpot.parkingSpotList,
+  };
+};
+
+export default connect(mapState)(TableView) ;

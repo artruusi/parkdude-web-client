@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Store } from "./store/types";
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
-import {userReducer} from './store/reducers/userReducer';
+import { userReducer } from './store/reducers/userReducer';
+import { parkingSpotReducer } from './store/reducers/parkingSpotReducer';
+import { personsReducer } from './store/reducers/personsReducer';
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -15,7 +17,10 @@ const composeEnhancers =
     : compose;
 
 const rootReducer = combineReducers({
+    parkingSpot: parkingSpotReducer,
+    persons: personsReducer,
     user: userReducer,
+   
 });
 
 const store: Store = createStore(

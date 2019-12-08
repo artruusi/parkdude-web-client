@@ -17,8 +17,18 @@ class Layout extends Component<LayoutProps, {}> {
 
     if (this.props.page === 'employee') {
       content = <Person/>;
-    } else {
-      content = <TableView/>;
+
+    } else if (this.props.page === 'customers') {
+      content = <TableView type="customers"/>;
+
+    } else if (this.props.page === 'employees') {
+      content = <TableView type="employees"/>;
+
+    } else if (this.props.page === 'parking-spots') {
+      content = <TableView type="parking-spots"/>;
+
+    } else if (this.props.page === 'accept-users') {
+      content = <TableView type="accept-users"/>;
     }
 
     return (

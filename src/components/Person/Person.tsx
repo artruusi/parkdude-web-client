@@ -44,17 +44,40 @@ class Person extends Component {
 
           <div className="flex-column" id="person-history-container">
             <span className="bold">Reservation history</span>
-            <div id="person-history-list-container" className="flex-column">
-              <span>1.1.2000</span>
-              <span>1.1.2000</span>
-              <span>1.1.2000</span>
-              <span>1.1.2000</span>
-            </div>
+           
+              <table className="person-table">
+              <thead>
+                <tr>
+                 
+                  <th>Date</th>
+                  <th>Spot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                 
+                  <td>1.1.2222</td>
+                  <td>2</td>
+                </tr>
+                 <tr>
+                  
+                  <td>1.1.2222</td>
+                  <td>2</td>
+                </tr>
+                 <tr>
+          
+                  <td>1.1.2222</td>
+                  <td>2</td>
+                </tr>
+
+              </tbody>
+            </table>
+            
           </div>
 
-          <div id="person-future-reservation-container" className="flex-column-center">
+          <div id="person-future-reservation-container" className="flex-column">
             <span className="bold">Future reservations</span>
-            <table id="person-table">
+            <table className="person-table">
               <thead>
                 <tr>
                   <th>{}</th>
@@ -81,7 +104,7 @@ class Person extends Component {
 
               </tbody>
             </table>
-            <button className="button person-button "> Free selected spots</button>
+            <button className="button person-button " id="person-free-selected-spots-button"> Free selected spots</button>
           </div>
 
         </div>
