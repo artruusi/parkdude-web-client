@@ -20,6 +20,9 @@
   color: white;
 
 }
+#table-view-accept-button {
+  background-color: #ffd800;
+}
 
 .button:hover{
   cursor: pointer;

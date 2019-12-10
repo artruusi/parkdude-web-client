@@ -53,7 +53,7 @@ class ModalDelete  extends Component<DeleteModalProps, {}> {
 
       content = (
         
-        <div id="modal" className="flex-column-center modal-add-user">
+        <div id="modal" className="flex-column-center modal-add-spot">
 
           <h3>Create a new parking spot</h3>
 

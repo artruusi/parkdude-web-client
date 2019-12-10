@@ -60,14 +60,23 @@ export interface Person {
   id: string;
   name: string;
   email: string;
-  parkingSpot: string;
+  parkingSpot: number| null;
   usageStatic: number;
+  admin: boolean;
 
+}
+
+export interface PersonNameEmail {
+  id: string;
+  name: string;
+  email: string;
 }
 
 export interface PersonsState {
   personList: Person [];
   selectedPersonIndex: number;
+  waitingForAccept?: PersonNameEmail [];
+
 }
 
 // interfaces for api

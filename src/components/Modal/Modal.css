@@ -41,7 +41,7 @@
   color: black;
 }
 
-#modal-add-user-button {
+#modal-add-user-button, #modal-add-spot-button  {
    background-color: #ffd800;
 }
 
@@ -59,11 +59,16 @@
 }
 
 .modal-add-user {
-   width: 600px;
+  width: 600px;
   height: 380px;
   
 }
 
+.modal-add-spot {
+  width: 600px;
+  height: 340px;
+  
+}
 .modal-delete {
 
  width: 600px;
