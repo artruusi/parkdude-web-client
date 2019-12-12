@@ -3,6 +3,7 @@ import Header from './../Header/Header';
 import './Layout.css';
 import TableView from './../TableView/TableView';
 import Person from './../Person/Person';
+import CheckAuth from './../../helpers/CheckAuth/CheckAuth';
 
 interface LayoutProps {
   page?: string;
@@ -33,6 +34,7 @@ class Layout extends Component<LayoutProps, {}> {
 
     return (
       <div id="layout" className="flex-column">
+        <CheckAuth/>
         <Header/>
         {content}
       </div>

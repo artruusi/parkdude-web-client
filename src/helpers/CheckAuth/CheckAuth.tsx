@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dispatch, AppState } from "./../../store/types";
-import { logOutFromServer } from "../../store/actions/userActions";
-import { checkLogIn, LogUserIn } from "./../../store/actions/userActions";
+import { Redirect } from "react-router-dom";
 
 interface CheckAuthProps {
-  checkLogIn: () => void;
-  logOut: () => void;
   loggedIn: boolean;
 }
 
 class CheckAuth extends Component<CheckAuthProps, {}> {
   render() {
-    // this.props.checkLogIn();
-    const button = this.props.loggedIn ? (
-      <button onClick={this.props.logOut}>Log out</button>
-    ) : (
-      <a href="http://localhost:3000/api/auth/google/web">Log in</a>
-    );
+    const content = null;
+
+    if ( !this.props.loggedIn) {
+      const ownURL = process.env.REACT_APP_OWN_URL ? process.env.REACT_APP_OWN_URL : '';
+      // content = <Redirect to={ownURL}/>;
+    }
+   
     return (
-     <> </>
+    <> 
+      {content}
+    </>
     );
   }
 }
@@ -32,13 +32,8 @@ const mapState = (state: AppState) => {
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {
-    checkLogIn: () => dispatch(checkLogIn()),
-    logOut: () => dispatch(logOutFromServer()),
-    logUserIn: () => dispatch(LogUserIn()),
+   
   };
 };
 
-export default connect(
-  mapState,
-  mapDispatch,
-)(CheckAuth);
+export default connect(mapState, mapDispatch)(CheckAuth);

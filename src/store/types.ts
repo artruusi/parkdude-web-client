@@ -91,5 +91,10 @@ export enum UserRole {
 export interface LoginState {
   isAuthenticated: boolean;
   userRole?: UserRole;
-  name?: string;
+  name: string;
+}
+
+export interface PasswordLogInData {
+  email: string;
+  password: string;
 }

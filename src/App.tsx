@@ -13,7 +13,6 @@ const App: React.FC = () => {
        
         <Route exact={true} path="/" component={LogIn} />
         <Route path="/login" component={LogIn} />
-        <PrivateRoute path="/protected" component={ProtectedComponent} page='protected' />
         <PrivateRoute path="/customers" component={Layout} page='customers'  />
         <PrivateRoute path="/employees" component={Layout} page='employees' />
         <PrivateRoute path="/employees/:id" component={Layout} page='employee' />
@@ -24,7 +23,5 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-const ProtectedComponent = () => <p>Protected route contents</p>;
 
 export default App;

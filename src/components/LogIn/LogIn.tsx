@@ -1,35 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { AppState } from './../../store/types';
+import { AppState, Dispatch, PasswordLogInData } from './../../store/types';
+import { checkLogIn, passwordLogIn } from './../../store/actions/userActions';
 
 import parkDudeLogo from './../../img/parkdude.svg';
 import './Login.css';
 
 interface LogInProps {
   loggedIn: boolean;
+  checkLogIn: () => void;
+  passwordLogIn: (data: PasswordLogInData) => void;
   
 }
 
-interface LogInState {
-  dummyLogIn: boolean;
+interface LogInSate {
+  emailInput: string;
+  passwordInput: string;
 }
-class LogIn extends Component<LogInProps, LogInState> {
+
+class LogIn extends Component<LogInProps, LogInSate> {
 
   state = {
-    dummyLogIn: false,
+    emailInput: '',
+    passwordInput: '',
   };
 
   renderRedirect = () => {
-    if (this.props.loggedIn && this.state.dummyLogIn) {
+    if (this.props.loggedIn) {
       return <Redirect to='/customers'/>;
     }
   }
-  changeDummyState = () => {
-    this.setState({dummyLogIn: true});
+
+  googleLogIn = () => {
+
+    const googleURL = process.env.REACT_APP_GOOGLE_LOG_IN ? process.env.REACT_APP_GOOGLE_LOG_IN : '';
+    console.log(googleURL);
+    document.location.href = googleURL;
+  }
+  passwordLogIn = () => {
+    const data = {
+      email: this.state.emailInput,
+      password: this.state.passwordInput,
+    };
+    this.props.passwordLogIn(data);
   }
 
   render() {
+    this.props.checkLogIn();
     return (
       <div id="log-in" className="flex-column-center">
         {this.renderRedirect()}
@@ -40,7 +58,7 @@ class LogIn extends Component<LogInProps, LogInState> {
         <input type="text" placeholder="email" id="log-in-email"/>
         <input type="password" placeholder="password" id="log-in-password"/>
 
-        <button className="button" id="log-in-log-button" onClick={this.changeDummyState}>Log in</button>
+        <button className="button" id="log-in-log-button" onClick={this.passwordLogIn}>Log in</button>
 
         <div className="flex-row-center" id="log-in-or-container">
           <hr/>
@@ -48,7 +66,7 @@ class LogIn extends Component<LogInProps, LogInState> {
           <hr/>
         </div>
 
-        <button className="button" id="log-in-google-button" onClick={this.changeDummyState}>Log in with Google</button>
+        <button className="button" id="log-in-google-button" onClick={this.googleLogIn}>Log in with Google</button>
       </div>
     );
   }
@@ -59,4 +77,11 @@ const mapState = (state: AppState) => {
     loggedIn: state.user.loggedIn,
   };
 };
-export default connect(mapState)(LogIn);
+
+const mapDispatch = (dispatch: Dispatch) => {
+  return {
+    checkLogIn: () => dispatch(checkLogIn()),
+    passwordLogIn: (data: PasswordLogInData) => dispatch(passwordLogIn(data)),
+  };
+};
+export default connect(mapState, mapDispatch)(LogIn);

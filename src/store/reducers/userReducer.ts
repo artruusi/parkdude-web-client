@@ -6,8 +6,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState: UserState = {
 
   currentPage: 'customers',
-  loggedIn: true,
-  userName: 'Smith',
+  loggedIn: false,
+  userName: '',
     
 };
 
@@ -25,7 +25,7 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
       return {
         currentPage: state.currentPage,
         loggedIn: true,
-        userName: state.userName,
+        userName: action.payload,
       };
 
     case actionTypes.CHANGEPAGE:
