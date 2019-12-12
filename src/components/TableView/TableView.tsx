@@ -6,6 +6,8 @@ import { AppState } from '../../store/types';
 import { connect } from 'react-redux';
 import { ParkingSpot, Person} from '../../store/types';
 
+import checkIcon from './../../img/ic_check.svg';
+
 interface OwnTableViewProps {
   type: string;
   
@@ -79,6 +81,8 @@ class TableView  extends Component<TableViewProps, TableViewState> {
   }
 
   render() {
+    console.log(process.env.REACT_APP_API_URL);
+    console.log('env yllä');
    
     const deleteModal = this.state.showDeleteModal ? <Modal close={this.closeDeleteModal} type='delete'/> : null;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAdduserModal} type='addUser' /> : null;
@@ -89,6 +93,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
     let content;
     let addButton;
     let deleteButton;
+    let searchReservations = null;
 
     if (this.props.type === 'employees') {
 
@@ -115,7 +120,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
               <td><input type="checkbox"/></td>
               <td>{item.name}</td>
               <td>{item.email}</td>
-              <td>{item.admin.toString()}</td>
+              <td>{item.admin ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
               <td>{item.parkingSpot}</td>
               <td>{item.usageStatic}</td>
             </tr>
@@ -146,7 +151,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
             <tr key={item.id} onClick={this.setEmployeeSelected}>
               <td><input type="checkbox"/></td>
-              <td>Yes</td>
+              <td>{<img src={checkIcon} className="table-check" alt="check icon"/>}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.usageStatic}</td>
@@ -204,11 +209,23 @@ class TableView  extends Component<TableViewProps, TableViewState> {
       <tr key={item.id}>
         <td><input type="checkbox"/></td>
         <td>{item.number}</td>
-        <td>{item.permanent.toString()}</td>
+        <td>{item.permanent ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
         <td>{item.ownerName}</td>
       </tr>
 
       )); 
+
+      searchReservations = (
+        <div className="flex-column" id="search-reservation-container">
+          <h3>Search reservations</h3>
+          <div className="flex-row">
+            <input className="table-input" type="text" placeholder="start day"/>
+            <input className="table-input"  type="text" placeholder="end day"/>
+            <input className="table-input"  type="text" placeholder="parking spot"/>
+            <button className="button" id="table-search-reservations-button">Search</button>
+          </div>
+        </div>
+      );
                  
     }
    
@@ -234,11 +251,14 @@ class TableView  extends Component<TableViewProps, TableViewState> {
             </tbody>
                                   
           </table>
+       
         </div>
 
         <div id="table-view-delete-button-container" className="flex-row">
          {deleteButton}
         </div>
+
+         {searchReservations}
 
         {deleteModal}
         {addUserModal}
