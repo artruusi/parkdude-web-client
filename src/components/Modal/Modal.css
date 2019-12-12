@@ -12,11 +12,7 @@
 }
 #modal {
   background-color: white;
-  border-radius: 30px;
- 
-
-
-    
+  border-radius: 30px;   
 }
 
 #modal h3 {
@@ -70,7 +66,6 @@
   
 }
 .modal-delete {
-
  width: 600px;
  height: 250px;
 }
