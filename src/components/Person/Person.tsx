@@ -109,10 +109,10 @@ class Person extends Component {
 
         </div>
         <div id="person-button-contaier" className="flex-row">
-          <button className="button person-button" id="">Make admin</button>
-          <button className="button person-button" id="">Kill session</button>
-          <button className="button person-button" id="">Reserve regular spot</button>
-          <button className="button person-button" id="">Change password</button>
+          <button className="button person-button">Make admin</button>
+          <button className="button person-button">Kill session</button>
+          <button className="button person-button">Reserve regular spot</button>
+          <button className="button person-button">Change password</button>
         </div>
 
       </div>

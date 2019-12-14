@@ -1,6 +1,5 @@
 #person {
   width: 70%;
-  /* background-color:#EEEDE5; */
   margin: 8vh auto;
   padding-bottom: 4vh;
   padding-left: 2vw;
@@ -38,13 +37,10 @@
 
 #person-history-container {
   width: 23%;
-  /* background-color: #e7e7e7; */
-  /* background-color: #E7E6DB; */
   border-radius: 30px;
   margin-right: 10%;
 }
 #person-history-list-container {
-  /* background-color: #e7e7e7; */
   width: 70%;
  
 }
@@ -52,8 +48,6 @@
 #person-info-container {
   width: 23%;
   padding-left: 3vw;
-  /* background-color: #e7e7e7; */
-  /* background-color: #E7E6DB; */
   margin-right: 10%;
   border-radius: 30px;
 }
@@ -67,8 +61,6 @@
 
 #person-future-reservation-container {
   width: 33%;
-  /* background-color: #e7e7e7; */
-  /* background-color: #E7E6DB; */
   border-radius: 30px;
 }
 

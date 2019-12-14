@@ -18,7 +18,6 @@
 }
 
 #log-in-email, #log-in-password {
-
   border: none;
   margin: 10px 0;
   height: 40px;
@@ -37,9 +36,9 @@
   width: 300px;
   margin: 8px 0;
 }
+
 #log-in-or-container span {
   margin: 0 15px;
- 
 }
 
 #log-in hr {

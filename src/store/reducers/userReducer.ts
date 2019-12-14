@@ -17,7 +17,7 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
       return {
         currentPage: state.currentPage,
         loggedIn: false,
-        userName: state.userName,
+        userName: '',
           
       };
 

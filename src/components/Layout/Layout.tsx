@@ -30,6 +30,9 @@ class Layout extends Component<LayoutProps, {}> {
 
     } else if (this.props.page === 'accept-users') {
       content = <TableView type="accept-users"/>;
+
+    } else if (this.props.page === 'reservations') {
+      content = <TableView type="reservations"/>;
     }
 
     return (

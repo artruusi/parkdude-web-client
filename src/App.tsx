@@ -18,6 +18,7 @@ const App: React.FC = () => {
         <PrivateRoute path="/employees/:id" component={Layout} page='employee' />
         <PrivateRoute path="/parking-spots" component={Layout} page='parking-spots' />
         <PrivateRoute path="/accept-users" component={Layout} page='accept-users' />
+        <PrivateRoute path="/reservations" component={Layout} page='reservations' />
          
       </BrowserRouter>
     </div>

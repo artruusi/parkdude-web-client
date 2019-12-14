@@ -33,10 +33,9 @@ export type DispatchAction<T = void> = ThunkAction<
 
 export interface ParkingSpot {
   id: string;
-  number: number;
-  permanent: boolean;
-  owner: string;
-  ownerName: string;
+  name: string;
+  owner: string | null;
+  n?: string;
 }
 
 export interface AppState {

@@ -10,16 +10,14 @@
 
 #table-view-add-user{
   margin-right: 2vw;
-  background-color: #ffd800;
-  
-   
+  background-color: #ffd800;  
 }
+
 #table-view-delete-button {
   margin-right: 2vw;
   background-color: #FF6C6C;
-  
-
 }
+
 #table-view-accept-button, #table-search-reservations-button {
   background-color: #ffd800;
 }
@@ -31,6 +29,7 @@
 #table-view-header-container {
   align-items: center;
 } 
+
 #table-view-table {
   width: 100%;
   border-collapse: collapse;
@@ -58,17 +57,7 @@
   justify-content: flex-end;
   margin-top: 4vh;
 }
-
-/* .button {
-  font-size: 22px;
-  width: 170px;
-  height: 50px;
-  border: none;
-  color: white;
-  border-radius: 30px;
-} */
 .table-check {
-
   width: 20px;
 }
 

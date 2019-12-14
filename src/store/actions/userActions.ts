@@ -3,6 +3,8 @@ import axios from "axios";
 import { Dispatch } from "./../types";
 import { LoginState, PasswordLogInData } from "../types";
 
+axios.defaults.withCredentials = true;
+
 export const LogUserIn = (name: string) => {
   return {
     payload: name,
@@ -18,9 +20,9 @@ export const LogOut = () => {
 
 export const logOutFromServer = () => {
   return (dispatch: Dispatch) => {
+    
     const url =  process.env.REACT_APP_API_URL + "auth/logout";
-    axios
-      .get<LoginState>(url, { withCredentials: true })
+    axios.post<LoginState>(url, {})      
       .then(response => dispatch(LogOut()));
   };
 };
@@ -30,9 +32,12 @@ export const passwordLogIn = (data: PasswordLogInData) => {
 
     const url = process.env.REACT_APP_API_URL + 'auth/'; // TODO oikea url
     axios.post(url, data)
-    .then(res => {
-      dispatch(LogUserIn(res.data.name));
-    });
+      .then(res => 
+        dispatch(LogUserIn(res.data.name)),
+      )
+      .catch(error => {
+        console.log(error);
+      });
 
   };
 

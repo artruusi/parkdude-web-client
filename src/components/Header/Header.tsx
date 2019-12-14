@@ -4,13 +4,23 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from './../../store/types';
 
-import { ChangePage } from "./../../store/actions/userActions";
+import { ChangePage, logOutFromServer } from "./../../store/actions/userActions";
 
-interface HeaderProps {
+import personIcon from './../../img/person-icon-white.png';
+
+interface OwnHeaderProps {
   userName?: string;
-  changePage: (page: string) => void;
   currentPage?: string;
+  
 }
+
+interface ReduxHeaderprops {
+  logOutFromServer: () => void;
+  changePage: (page: string) => void;
+ 
+}
+
+type HeaderProps = OwnHeaderProps & ReduxHeaderprops;
 
 class Header extends Component < HeaderProps , {} > {
 
@@ -54,12 +64,18 @@ class Header extends Component < HeaderProps , {} > {
             {this.props.currentPage === 'accept-users' ?  <hr/> : null}
           </div>
 
+          <div className="tab-container flex-column-center">
+            <Link to="/reservations" className="header-link" onClick={() => this.props.changePage('reservations')}>
+              Reservations
+            </Link>
+
+            {this.props.currentPage === 'reservations' ?  <hr/> : null}
+          </div>
+
         </div>
       
-        <div id="header-user-container" className="flex-column">
-            
-          <span>{userName}</span>
-          <span>Log out</span>
+        <div className="flex-row-center">
+          <img id="header-user-icon" src={personIcon} alt="person"/>
         </div>
       
       </div>
@@ -80,6 +96,7 @@ const mapState = (state: AppState) => {
 const mapDispatch = (dispatch: Dispatch) => {
   return {
     changePage: (page: string) => dispatch(ChangePage(page)),
+    logOutFromServer: () => dispatch(logOutFromServer()),
   };
 };
    

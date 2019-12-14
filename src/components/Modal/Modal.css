@@ -57,13 +57,11 @@
 .modal-add-user {
   width: 600px;
   height: 380px;
-  
 }
 
 .modal-add-spot {
   width: 600px;
-  height: 340px;
-  
+  height: 340px; 
 }
 .modal-delete {
  width: 600px;

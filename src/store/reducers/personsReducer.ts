@@ -25,7 +25,10 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
  switch (action.type) {
 
    case actionTypes.GETPERSONS:
-     return state;
+     return {
+       ...state,
+       personList: action.payload,
+     };
 
     default:
       return state;

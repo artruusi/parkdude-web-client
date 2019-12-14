@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component } from 'react';
 import './TableView.css';
 import Modal from '../Modal/Modal';
 import { Redirect } from 'react-router-dom';
-import { AppState } from '../../store/types';
+import { AppState, Dispatch } from '../../store/types';
 import { connect } from 'react-redux';
 import { ParkingSpot, Person} from '../../store/types';
+import { getParkingSpots} from '../../store/actions/parkingSpotActions';
+import { getPersons} from '../../store/actions/personsActions';
 
 import checkIcon from './../../img/ic_check.svg';
 
 interface OwnTableViewProps {
-  type: string;
+  type?: string;
   
 }
 // syystä X typescript menee Reduxin kanssa sekaisin, jos antaa personsWaiting: PersonNameEmail []. Ei käänny silloin ollenkaan, tutkitaan
@@ -17,6 +19,8 @@ interface ReduxTableViewProps {
   parkingSpots: ParkingSpot [];
   persons: Person [];
   personsWaiting: any;
+  getParkingSpots: () => void;
+  getPersons: () => void;
 }
 
 interface TableViewState {
@@ -24,12 +28,6 @@ interface TableViewState {
   showAddUserModal: boolean;
   showAddSpotModal: boolean;
   employeeSelected: number;
-}
-
-interface PersonNameEmail {
-  id: string;
-  name: string;
-  email: string;
 }
 
 type TableViewProps = OwnTableViewProps & ReduxTableViewProps;
@@ -80,10 +78,16 @@ class TableView  extends Component<TableViewProps, TableViewState> {
    
   }
 
+  componentWillMount() {
+    if (this.props.type === 'parking-spots') {
+      this.props.getParkingSpots();
+    } else if (this.props.type === 'employees' || this.props.type === 'customers') {
+      this.props.getPersons();
+    }
+  }
+
   render() {
-    console.log(process.env.REACT_APP_API_URL);
-    console.log('env yllä');
-   
+
     const deleteModal = this.state.showDeleteModal ? <Modal close={this.closeDeleteModal} type='delete'/> : null;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAdduserModal} type='addUser' /> : null;
     const addSpotModal = this.state.showAddSpotModal ? <Modal close={this.closeAddSpotModal} type='addSpot' /> : null;
@@ -208,13 +212,14 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
       <tr key={item.id}>
         <td><input type="checkbox"/></td>
-        <td>{item.number}</td>
-        <td>{item.permanent ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
-        <td>{item.ownerName}</td>
+        <td>{item.name}</td>
+        <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
+        <td>{item.owner}</td>
       </tr>
 
-      )); 
-
+      ));     
+                 
+    } else if (this.props.type === 'reservations') {
       searchReservations = (
         <div className="flex-column" id="search-reservation-container">
           <h3>Search reservations</h3>
@@ -222,17 +227,19 @@ class TableView  extends Component<TableViewProps, TableViewState> {
             <input className="table-input" type="text" placeholder="start day"/>
             <input className="table-input"  type="text" placeholder="end day"/>
             <input className="table-input"  type="text" placeholder="parking spot"/>
+            <input className="table-input"  type="text" placeholder="user"/>
             <button className="button" id="table-search-reservations-button">Search</button>
           </div>
         </div>
       );
-                 
+
     }
    
     return(
       
       <div id="table-view">
         {this.renderRedirect()}
+        {searchReservations}
         
         <div id="table-view-header-container" className="flex-row">
           <h2> {header}</h2>
@@ -256,9 +263,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
         <div id="table-view-delete-button-container" className="flex-row">
          {deleteButton}
-        </div>
-
-         {searchReservations}
+        </div>      
 
         {deleteModal}
         {addUserModal}
@@ -280,4 +285,11 @@ const mapState = (state: AppState) => {
   };
 };
 
-export default connect(mapState)(TableView) ;
+const mapDispatch = (dispatch: Dispatch) => {
+  return {
+    getParkingSpots: () => dispatch(getParkingSpots()),
+    getPersons: () => dispatch(getPersons()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(TableView) ;
