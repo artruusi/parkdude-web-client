@@ -4,8 +4,8 @@ import Modal from '../Modal/Modal';
 import { Redirect } from 'react-router-dom';
 import { AppState, Dispatch } from '../../store/types';
 import { connect } from 'react-redux';
-import { ParkingSpot, Person} from '../../store/types';
-import { getParkingSpots} from '../../store/actions/parkingSpotActions';
+import { ParkingSpot, Person, CreateParkingSpotData} from '../../store/types';
+import { getParkingSpots, createParkingSpot, deleteParkingSpot} from '../../store/actions/parkingSpotActions';
 import { getPersons} from '../../store/actions/personsActions';
 
 import checkIcon from './../../img/ic_check.svg';
@@ -21,6 +21,8 @@ interface ReduxTableViewProps {
   personsWaiting: any;
   getParkingSpots: () => void;
   getPersons: () => void;
+  createParkingSpot: (data: CreateParkingSpotData) => void;
+  deleteParkingSpot: (id: string) => void;
 }
 
 interface TableViewState {
@@ -287,8 +289,11 @@ const mapState = (state: AppState) => {
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {
+    createParkingSpot: (data: CreateParkingSpotData) => dispatch(createParkingSpot(data)),
+    deleteParkingSpot: (id: string) => dispatch(deleteParkingSpot(id)),  
     getParkingSpots: () => dispatch(getParkingSpots()),
     getPersons: () => dispatch(getPersons()),
+    
   };
 };
 

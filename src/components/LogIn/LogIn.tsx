@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { AppState, Dispatch, PasswordLogInData } from './../../store/types';
@@ -32,6 +32,14 @@ class LogIn extends Component<LogInProps, LogInSate> {
     }
   }
 
+  handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({emailInput: event.target.value});
+  }
+
+  handlePWChange = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({passwordInput: event.target.value});
+  }
+
   googleLogIn = () => {
 
     const googleURL = process.env.REACT_APP_GOOGLE_LOG_IN ? process.env.REACT_APP_GOOGLE_LOG_IN : '';
@@ -43,6 +51,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
       email: this.state.emailInput,
       password: this.state.passwordInput,
     };
+   
     this.props.passwordLogIn(data);
   }
 
@@ -55,8 +64,8 @@ class LogIn extends Component<LogInProps, LogInSate> {
         <img src={parkDudeLogo} alt="parkDude logo" id="log-in-logo"/>
         <h3>Log in</h3>
         
-        <input type="text" placeholder="email" id="log-in-email"/>
-        <input type="password" placeholder="password" id="log-in-password"/>
+        <input type="text" placeholder="email" id="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
+        <input type="password" placeholder="password" id="log-in-password" value={this.state.passwordInput} onChange={this.handlePWChange}/>
 
         <button className="button" id="log-in-log-button" onClick={this.passwordLogIn}>Log in</button>
 

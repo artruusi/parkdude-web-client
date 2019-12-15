@@ -97,3 +97,9 @@ export interface PasswordLogInData {
   email: string;
   password: string;
 }
+export interface CreateParkingSpotData {
+  name: string;
+  user: string | null;
+  created: string;
+  updated: string;
+}
