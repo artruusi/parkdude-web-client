@@ -1,15 +1,47 @@
-import React, { Component } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 
 import './Modal.css';
+import { connect } from 'react-redux';
+import { AppState, Dispatch, CreateParkingSpotData } from './../../store/types';
+import {createParkingSpot} from './../../store/actions/parkingSpotActions';
 
-interface DeleteModalProps {
+interface OwnModalProps {
 
   close: () => void;
   type: string;
 
 }
 
-class ModalDelete  extends Component<DeleteModalProps, {}> {
+interface ReduxModalprops {
+  createParkingSpot: (data: CreateParkingSpotData) => void;
+}
+
+type ModalProps = OwnModalProps & ReduxModalprops;
+
+interface ModalState {
+  spotNumberInput: string;
+}
+
+class ModalDelete  extends Component<ModalProps, ModalState> {
+
+  state = {
+    spotNumberInput: '',
+  };
+
+  handleSpotNumber = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({spotNumberInput: event.target.value});
+  }
+  createNewSpot = () => {
+    const data = {
+      created: new Date().toString(),
+      name: this.state.spotNumberInput,
+      updated: new Date().toString(),
+      user: null,    
+    };
+
+    this.props.createParkingSpot(data);
+    this.props.close();
+  }
 
   render() {
 
@@ -57,12 +89,12 @@ class ModalDelete  extends Component<DeleteModalProps, {}> {
 
           <h3>Create a new parking spot</h3>
 
-          <input type="text" placeholder="Number" className="modal-input"/>
+          <input type="text" placeholder="Number" className="modal-input" onChange={this.handleSpotNumber} value={this.state.spotNumberInput}/>
           <input type="text" placeholder="Select owner" className="modal-input"/>
 
            <div id="modal-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-spot-button">Create</button>
+            <button className="button" id="modal-add-spot-button" onClick={this.createNewSpot}>Create</button>
           </div>
 
         </div>
@@ -77,5 +109,10 @@ class ModalDelete  extends Component<DeleteModalProps, {}> {
   }
 
 }
+const MapDispatch = (dispatch: Dispatch) => {
+  return {
+    createParkingSpot: (data: CreateParkingSpotData) => dispatch(createParkingSpot(data)),
+  };
+};
 
-export default ModalDelete;
+export default connect(null, MapDispatch)(ModalDelete);

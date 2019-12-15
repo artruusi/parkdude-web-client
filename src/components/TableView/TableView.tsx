@@ -18,7 +18,6 @@ interface OwnTableViewProps {
 interface ReduxTableViewProps {
   parkingSpots: ParkingSpot [];
   persons: Person [];
-  personsWaiting: any;
   getParkingSpots: () => void;
   getPersons: () => void;
   createParkingSpot: (data: CreateParkingSpotData) => void;
@@ -118,7 +117,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
         </tr>
       );
 
-      content = this.props.persons.map((item, key) => {
+      content = this.props.persons.map((item) => {
         if ( item.email.includes('@innogiant')) {
           return (
 
@@ -132,7 +131,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
             </tr>
 
           );
-        }
+        } else {return null; }
       });
     
     } else if (this.props.type === 'customers') {
@@ -151,7 +150,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
         </tr>
       );
       console.log(this.props.persons);
-      content = this.props.persons.map((item, key) => {
+      content = this.props.persons.map((item) => {
         if ( !item.email.includes('@innogiant')) {
           return (
 
@@ -164,7 +163,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
             </tr>
 
           );
-        }
+        } else {return null; }
       });
 
     }  else if (this.props.type === 'accept-users') {
@@ -181,17 +180,19 @@ class TableView  extends Component<TableViewProps, TableViewState> {
         </tr>
       );
 
-      console.log(this.props.personsWaiting);
-      content = this.props.personsWaiting.map((item: any, key: any) => {
-        return (
+      content = this.props.persons.map((item) => {
+        if ( item.role === 'unverified') {
+          return (
 
-          <tr key={item.id}>
-            <td><input type="checkbox"/></td>
-            <td>{item.name}</td>
-            <td>{item.email}</td>
-          </tr>
-
-        );
+            <tr key={item.id}>
+              <td><input type="checkbox"/></td>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+            </tr>
+  
+          );
+        } else {return null; }
+       
       });
 
     }  else if (this.props.type === 'parking-spots') {
@@ -283,7 +284,7 @@ const mapState = (state: AppState) => {
   return {
     parkingSpots: state.parkingSpot.parkingSpotList,
     persons: state.persons.personList,
-    personsWaiting: state.persons.waitingForAccept,
+   
   };
 };
 

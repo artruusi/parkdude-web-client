@@ -62,6 +62,7 @@ export interface Person {
   parkingSpot: number| null;
   usageStatic: number;
   admin: boolean;
+  role: string;
 
 }
 
@@ -74,7 +75,6 @@ export interface PersonNameEmail {
 export interface PersonsState {
   personList: Person [];
   selectedPersonIndex: number;
-  waitingForAccept?: PersonNameEmail [];
 
 }
 

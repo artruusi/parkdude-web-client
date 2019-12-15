@@ -20,64 +20,90 @@ interface ReduxHeaderprops {
  
 }
 
+interface HeaderState {
+  showDropDown: boolean;
+}
+
 type HeaderProps = OwnHeaderProps & ReduxHeaderprops;
 
-class Header extends Component < HeaderProps , {} > {
+class Header extends Component < HeaderProps , HeaderState > {
+
+  state = {
+    showDropDown: false,
+  };
+
+  showDropDown = () => {
+    this.setState({showDropDown: true});
+  }
+  hideDropDown = () => {
+    this.setState({showDropDown: false});
+  }
 
   render() {
-    const userName = this.props.userName;
+
+    const dropdown = (
+      <div id="header-dropdown-content" onMouseLeave={this.hideDropDown}>
+        <span id="header-dropdown-username">{this.props.userName}</span>
+        <span onClick={logOutFromServer} id="header-log-out-span">Log out</span>
+      </div>
+    );
+
+    const visibleDropdown = this.state.showDropDown ? dropdown : null; 
     
     return(
-      <div id="header" className="flex-row">
+      <div>
+        <div id="header" className="flex-row">
+          
+          <div id="header-tab-container" className="flex-row">
 
-        <div id="header-tab-container" className="flex-row">
+            <div className="tab-container flex-column-center">
+              <Link to="/employees" className="header-link" onClick={() => this.props.changePage('employees')}>
+                Employees
+              </Link>
 
-          <div className="tab-container flex-column-center">
-            <Link to="/employees" className="header-link" onClick={() => this.props.changePage('employees')}>
-              Employees
-            </Link>
+              {this.props.currentPage === 'employees' ?  <hr/> : null}
+            </div>
 
-            {this.props.currentPage === 'employees' ?  <hr/> : null}
+            <div className="tab-container flex-column-center ">
+              <Link to="/customers" className="header-link" onClick={() => this.props.changePage('customers')}>
+                Customers
+              </Link>
+
+              {this.props.currentPage === 'customers' ?  <hr/> : null}
+            </div>
+
+            <div className="tab-container flex-column-center">
+              <Link to="/parking-spots" className="header-link" onClick={() => this.props.changePage('parking-spots')}>
+                Parking spots
+              </Link>
+
+              {this.props.currentPage === 'parking-spots' ?  <hr/> : null}
+            </div>
+
+            <div className="tab-container flex-column-center">
+              <Link to="/accept-users" className="header-link" onClick={() => this.props.changePage('accept-users')}>
+                Accept users
+              </Link>
+
+              {this.props.currentPage === 'accept-users' ?  <hr/> : null}
+            </div>
+
+            <div className="tab-container flex-column-center">
+              <Link to="/reservations" className="header-link" onClick={() => this.props.changePage('reservations')}>
+                Reservations
+              </Link>
+
+              {this.props.currentPage === 'reservations' ?  <hr/> : null}
+            </div>
+
           </div>
-
-          <div className="tab-container flex-column-center ">
-            <Link to="/customers" className="header-link" onClick={() => this.props.changePage('customers')}>
-              Customers
-            </Link>
-
-            {this.props.currentPage === 'customers' ?  <hr/> : null}
-          </div>
-
-          <div className="tab-container flex-column-center">
-            <Link to="/parking-spots" className="header-link" onClick={() => this.props.changePage('parking-spots')}>
-              Parking spots
-            </Link>
-
-            {this.props.currentPage === 'parking-spots' ?  <hr/> : null}
-          </div>
-
-          <div className="tab-container flex-column-center">
-            <Link to="/accept-users" className="header-link" onClick={() => this.props.changePage('accept-users')}>
-              Accept users
-            </Link>
-
-            {this.props.currentPage === 'accept-users' ?  <hr/> : null}
-          </div>
-
-          <div className="tab-container flex-column-center">
-            <Link to="/reservations" className="header-link" onClick={() => this.props.changePage('reservations')}>
-              Reservations
-            </Link>
-
-            {this.props.currentPage === 'reservations' ?  <hr/> : null}
-          </div>
-
+        
+          <div id="header-icon-container" className="flex-row-center" onMouseEnter={this.showDropDown}>
+            <img id="header-user-icon" src={personIcon} alt="person"/>        
+            
+          </div>    
         </div>
-      
-        <div className="flex-row-center">
-          <img id="header-user-icon" src={personIcon} alt="person"/>
-        </div>
-      
+        {visibleDropdown}
       </div>
     );
   }  
