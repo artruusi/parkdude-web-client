@@ -6,7 +6,6 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState: ParkingSpotState = {
 
   parkingSpotList: [],
-  selectedSpotIndex: -1,
 
 };
 
@@ -18,9 +17,14 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
 
       return {
         parkingSpotList: action.payload.data,
-        selectedSpotIndex: -1,
+        
       };
 
+    case actionTypes.DELETESPOT:
+      const newParkingSpotlist = state.parkingSpotList.filter(spot => spot.id !== action.payload);
+      return {
+        parkingSpotList: newParkingSpotlist,
+      };  
     default:
       return state;
 

@@ -4,7 +4,9 @@ import './Layout.css';
 import TableView from './../TableView/TableView';
 import Person from './../Person/Person';
 import CheckAuth from './../../helpers/CheckAuth/CheckAuth';
-
+import ParkingSpots from './../ParkingSpots/ParkingSpots';
+import Persons from './../Persons/Persons';
+ 
 interface LayoutProps {
   page?: string;
 }
@@ -23,10 +25,10 @@ class Layout extends Component<LayoutProps, {}> {
       content = <TableView type="customers"/>;
 
     } else if (this.props.page === 'employees') {
-      content = <TableView type="employees"/>;
+      content = <Persons type="employees"/>;
 
     } else if (this.props.page === 'parking-spots') {
-      content = <TableView type="parking-spots"/>;
+      content = <ParkingSpots/>;
 
     } else if (this.props.page === 'accept-users') {
       content = <TableView type="accept-users"/>;

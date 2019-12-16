@@ -52,7 +52,7 @@ export interface UserState {
 
 export interface ParkingSpotState {
   parkingSpotList: ParkingSpot [];
-  selectedSpotIndex: number;
+  
 }
 
 export interface Person {

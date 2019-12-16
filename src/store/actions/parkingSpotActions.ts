@@ -46,6 +46,10 @@ export const deleteParkingSpot = (id: string) => {
     axios.delete(url)
       .then(res => {
         console.log(res);
+        dispatch({
+          payload: id,
+          type: actionTypes.DELETESPOT,        
+        });
       })
       .catch(error => {
         console.log(error);

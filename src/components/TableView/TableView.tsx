@@ -1,4 +1,4 @@
-import React, {Component } from 'react';
+import React, {Component, ChangeEvent } from 'react';
 import './TableView.css';
 import Modal from '../Modal/Modal';
 import { Redirect } from 'react-router-dom';
@@ -9,6 +9,11 @@ import { getParkingSpots, createParkingSpot, deleteParkingSpot} from '../../stor
 import { getPersons} from '../../store/actions/personsActions';
 
 import checkIcon from './../../img/ic_check.svg';
+
+interface StringMap { [key: string]: string; }
+
+interface StringTMap<T> { [key: string]: T; }
+interface StringAnyMap extends StringTMap<any> {}
 
 interface OwnTableViewProps {
   type?: string;
@@ -23,13 +28,19 @@ interface ReduxTableViewProps {
   createParkingSpot: (data: CreateParkingSpotData) => void;
   deleteParkingSpot: (id: string) => void;
 }
+interface SelectedRows {
+  [key: string]: boolean;
+}
 
 interface TableViewState {
   showDeleteModal: boolean;
   showAddUserModal: boolean;
   showAddSpotModal: boolean;
   employeeSelected: number;
+  selectedRows: SelectedRows; 
 }
+
+// type SelectedRows = { [key: string]: number; };
 
 type TableViewProps = OwnTableViewProps & ReduxTableViewProps;
 
@@ -38,10 +49,11 @@ class TableView  extends Component<TableViewProps, TableViewState> {
   state = {
 
     employeeSelected: 0,
+    selectedRows: {} as SelectedRows,
     showAddSpotModal: false,
     showAddUserModal: false,  
     showDeleteModal: false,
-    
+     
   };
 
   openDeleteModal = () => {
@@ -79,7 +91,41 @@ class TableView  extends Component<TableViewProps, TableViewState> {
    
   }
 
-  componentWillMount() {
+  deletePersons = () => {
+    console.log('delete');
+  }
+
+  deleteSpots = () => {
+    console.log('delete');
+  }
+
+  handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
+    const value: string = event.target.value;
+    const o: boolean = value in this.state.selectedRows;
+    console.log(this.state.selectedRows);
+
+    const oldvalue = this.state.selectedRows[value];
+    console.log(oldvalue);
+    const newSelectedRows = {...this.state.selectedRows};
+    if (typeof oldvalue === "undefined") {
+      console.log('lisätääb uusi');
+      newSelectedRows[value] = true;
+      this.setState({selectedRows: newSelectedRows});
+      console.log(this.state.selectedRows);
+
+    } else {
+      console.log('muokataan vanahaa');
+      newSelectedRows[value] = !newSelectedRows[value];
+      this.setState({selectedRows: newSelectedRows});
+
+    }
+
+    console.log(this.state.selectedRows);
+    console.log('lopussa');
+  }
+
+  componentDidMount() {
     if (this.props.type === 'parking-spots') {
       this.props.getParkingSpots();
     } else if (this.props.type === 'employees' || this.props.type === 'customers') {
@@ -89,7 +135,24 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
   render() {
 
-    const deleteModal = this.state.showDeleteModal ? <Modal close={this.closeDeleteModal} type='delete'/> : null;
+    const deleteObjectNumber: number = Object.keys(this.state.selectedRows).reduce((acc, row) => {
+      if (this.state.selectedRows[row]) {
+        return acc + 1;
+      } else {
+        return acc;
+      }
+    }, 0);
+
+    const deleteModal = this.state.showDeleteModal 
+      ? (
+        <Modal 
+          close={this.closeDeleteModal} 
+          confirmDelete={this.deletePersons} 
+          type='delete' 
+          deleteObjectNumber={deleteObjectNumber}
+        /> 
+      )
+      : null;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAdduserModal} type='addUser' /> : null;
     const addSpotModal = this.state.showAddSpotModal ? <Modal close={this.closeAddSpotModal} type='addSpot' /> : null;
 
@@ -122,7 +185,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
           return (
 
             <tr key={item.id} onClick={this.setEmployeeSelected}>
-              <td><input type="checkbox"/></td>
+              <td><input type="checkbox" value={item.id}/></td>
               <td>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.admin ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
@@ -214,7 +277,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
       content = this.props.parkingSpots.map((item, key) => ( 
 
       <tr key={item.id}>
-        <td><input type="checkbox"/></td>
+        <td><input type="checkbox" value={item.name} onChange={this.handleCheckBoxClick}/></td>
         <td>{item.name}</td>
         <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
         <td>{item.owner}</td>
@@ -273,7 +336,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
         {addSpotModal}
      
       </div>
-      );
+    );
   
   }
 
