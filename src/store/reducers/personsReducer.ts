@@ -6,8 +6,6 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState: PersonsState = {
   personList: [],
 
-  selectedPersonIndex: -1,
-
 };
 
 export const personsReducer: Reducer< PersonsState, any> = (state= initialState, action) => {
@@ -16,10 +14,24 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
 
    case actionTypes.GETPERSONS:
      return {
-       ...state,
        personList: action.payload,
      };
 
+    case actionTypes.ACCEPTPERSON:
+      const index = state.personList.findIndex(person => person.id === action.payload);
+      const newPersonList = [...state.personList];
+
+      newPersonList[index].role = 'verified';
+      return {
+        personList: newPersonList,
+      };
+
+    case actionTypes.DELETEPERSON:
+      const deletePersonList = state.personList.filter(person => person.id !== action.payload );
+      return {
+        personList: deletePersonList,
+      };
+      
     default:
       return state;
  }

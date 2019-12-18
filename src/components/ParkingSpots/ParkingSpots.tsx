@@ -1,5 +1,5 @@
 import React, {Component, ChangeEvent } from 'react';
-import { AppState, Dispatch, ParkingSpot } from '../../store/types';
+import { AppState, Dispatch, ParkingSpot, Person } from '../../store/types';
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 
@@ -7,6 +7,7 @@ import checkIcon from './../../img/ic_check.svg';
 import { getParkingSpots, deleteParkingSpot } from '../../store/actions/parkingSpotActions';
 
 import './ParkingSpots.css';
+import { getPersons } from '../../store/actions/personsActions';
 
 interface SelectedRows {
   [key: string]: boolean;
@@ -18,7 +19,9 @@ interface OwnParkingSpotsProps {
 interface ReduxParkingSpotsProps {
   getParkingSpots: () => void;
   parkingSpots: ParkingSpot [];
+  persons: Person [];
   deleteParkingSpot: (id: string) => void;
+  getPersons: () => void;
 }
 
 type ParkingSpotsProps = OwnParkingSpotsProps & ReduxParkingSpotsProps;
@@ -76,13 +79,17 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     this.closeDeleteModal();
 
     Object.keys(this.state.selectedRows).forEach(row => {
-      this.props.deleteParkingSpot(row);
+      if (this.state.selectedRows[row]) {
+        this.props.deleteParkingSpot(row);
+      }
+     
     });
 
   }
 
   componentDidMount() {
     this.props.getParkingSpots();
+    this.props.getPersons();
   }
 
   render() {
@@ -95,7 +102,10 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     }, 0);
 
     const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}> Add parking spot</button>;
-    const addSpotModal = this.state.showAddSpotModal ? <Modal close={this.closeAddSpotModal} type='addSpot' /> : null;
+    const addSpotModal = this.state.showAddSpotModal 
+    ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
+    : null;
+    
     const deleteModal = this.state.showDeleteModal 
       ? (
         <Modal 
@@ -174,6 +184,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
 const mapState = (state: AppState) => {
   return {
     parkingSpots: state.parkingSpot.parkingSpotList,
+    persons: state.persons.personList,
   };
 };
 
@@ -181,7 +192,7 @@ const MapDispatch = (dispatch: Dispatch) => {
   return {
     deleteParkingSpot: (id: string) => dispatch(deleteParkingSpot(id)),
     getParkingSpots: () => dispatch(getParkingSpots()),
-    
+    getPersons: () => dispatch(getPersons()),
   };
 };
 export default connect(mapState, MapDispatch)(Parkingspots);

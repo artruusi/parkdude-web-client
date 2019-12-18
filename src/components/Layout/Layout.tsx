@@ -6,6 +6,7 @@ import Person from './../Person/Person';
 import CheckAuth from './../../helpers/CheckAuth/CheckAuth';
 import ParkingSpots from './../ParkingSpots/ParkingSpots';
 import Persons from './../Persons/Persons';
+import AcceptUsers from './../AcceptUsers/AcceptUsers';
  
 interface LayoutProps {
   page?: string;
@@ -22,7 +23,7 @@ class Layout extends Component<LayoutProps, {}> {
       content = <Person/>;
 
     } else if (this.props.page === 'customers') {
-      content = <TableView type="customers"/>;
+      content = <Persons type="customers"/>;
 
     } else if (this.props.page === 'employees') {
       content = <Persons type="employees"/>;
@@ -31,7 +32,7 @@ class Layout extends Component<LayoutProps, {}> {
       content = <ParkingSpots/>;
 
     } else if (this.props.page === 'accept-users') {
-      content = <TableView type="accept-users"/>;
+      content = <AcceptUsers/>;
 
     } else if (this.props.page === 'reservations') {
       content = <TableView type="reservations"/>;

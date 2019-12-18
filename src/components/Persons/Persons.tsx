@@ -1,10 +1,10 @@
 import React, {Component, ChangeEvent } from 'react';
-import { AppState, Dispatch, ParkingSpot, Person } from '../../store/types';
+import { AppState, Dispatch, Person } from '../../store/types';
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 import './Persons.css';
 import checkIcon from './../../img/ic_check.svg';
-import { getPersons } from '../../store/actions/personsActions';
+import { getPersons, deletePerson } from '../../store/actions/personsActions';
 
 interface SelectedRows {
   [key: string]: boolean;
@@ -21,6 +21,7 @@ interface OwnPersonsProps {
 }
 
 interface ReduxPersonsProps {
+  deletePerson: (id: string) => void;
   getPersons: () => void;
   persons: Person [];
 }
@@ -39,7 +40,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
     this.setState({showAddUserModal: true});
   }
 
-  closeAdduserModal = () => {
+  closeAddUserModal = () => {
     this.setState({showAddUserModal: false});
   }
 
@@ -71,11 +72,20 @@ class Persons extends Component<PersonsProps, PersonsState> {
   }
 
   deletePersons = () => {
-    console.log('delete');
+    this.closeDeleteModal();
+
+    Object.keys(this.state.selectedRows).forEach(row => {
+      if (this.state.selectedRows[row]) {
+        this.props.deletePerson(row);
+      }
+     
+    });
   }
 
   render() {
+
     let content;
+    const header = this.props.type === 'employees' ? 'Employees' : 'Customers';
     const deleteObjectNumber: number = Object.keys(this.state.selectedRows).reduce((acc, row) => {
       if (this.state.selectedRows[row]) {
         return acc + 1;
@@ -84,8 +94,8 @@ class Persons extends Component<PersonsProps, PersonsState> {
       }
     }, 0);
 
-    const addButton = <button id="persons-add-user" className="button" onClick={this.openAddUserModal}> Add parking spot</button>;
-    const addSpotModal = this.state.showAddUserModal ? <Modal close={this.closeAdduserModal} type='addSpot' /> : null;
+    const addButton = <button id="persons-add-user" className="button" onClick={this.openAddUserModal}> Add user </button>;
+    const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAddUserModal} type='addUser' /> : null;
     const deleteModal = this.state.showDeleteModal 
       ? (
         <Modal 
@@ -130,28 +140,48 @@ class Persons extends Component<PersonsProps, PersonsState> {
       );
     } 
     
+    content = this.props.persons.map(person => {
 
-    content = this.props.persons.map((item) => {
-      if ( !item.email.includes('@innogiant')) {
-        return (
+      if (this.props.type === 'employees') {
+        if ( person.email.includes('@innogiant') ) {
+          return (       
 
-          <tr key={item.id} >
+             <tr key={person.id} >
+             <td><input type="checkbox" value={person.id} onChange={this.handleCheckBoxClick}/></td>           
+             <td>{person.name}</td>
+             <td>{person.email}</td>
+             <td>{person.role === 'admin' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
+             <td>{person.parkingSpot}</td>
+             <td>{person.usageStatic}</td>
+           </tr>
+  
+          );
+        } else {return null; }
+
+      } else {
+        if ( !person.email.includes('@innogiant') ) {
+          return (
+  
+            <tr key={person.id} >
             <td><input type="checkbox"/></td>
             <td>{<img src={checkIcon} className="table-check" alt="check icon"/>}</td>
-            <td>{item.name}</td>
-            <td>{item.email}</td>
-            <td>{item.usageStatic}</td>
+            <td>{person.name}</td>
+            <td>{person.email}</td>
+            <td>{person.usageStatic}</td>
           </tr>
+  
+          );
+        } else {return null; }
 
-        );
-      } else {return null; }
+      }
+         
     });
 
     return (
       <div id="persons">
               
         <div id="persons-header-container" className="flex-row">
-          <h2>Parking spots </h2>
+          <h2>{header}</h2>
           {addButton}
           
         </div>
@@ -175,7 +205,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         {deleteButton}
         </div>      
         
-        {addSpotModal}
+        {addUserModal}
         {deleteModal}
       </div>
     );
@@ -190,8 +220,9 @@ const mapState = (state: AppState) => {
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
+    deletePerson: (id: string) => dispatch(deletePerson(id)),
     getPersons: () => dispatch(getPersons()),
-    
+
   };
 };
 export default connect(mapState, MapDispatch)(Persons);

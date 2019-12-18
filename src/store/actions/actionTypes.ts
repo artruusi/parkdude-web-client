@@ -7,3 +7,5 @@ export const GETPERSONS = 'GETPERSONS';
 export const CLEARPERSONS = 'CLEARPERSONS';
 export const CLEARSPOTS = 'CLEARSPOTS';
 export const DELETESPOT = 'DELETESPOT';
+export const ACCEPTPERSON = 'ACCEPTPERSON';
+export const DELETEPERSON = 'DELETEPERSON';

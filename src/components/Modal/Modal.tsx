@@ -1,9 +1,9 @@
-import React, { Component, ChangeEvent } from 'react';
-
+import React, { Component, ChangeEvent, ReactNode } from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
-import { AppState, Dispatch, CreateParkingSpotData } from './../../store/types';
+import {  Dispatch, CreateParkingSpotData, Person } from './../../store/types';
 import {createParkingSpot} from './../../store/actions/parkingSpotActions';
+import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
 
 interface OwnModalProps {
 
@@ -11,6 +11,7 @@ interface OwnModalProps {
   type: string;
   deleteObjectNumber?: number;
   confirmDelete?: () => void;
+  persons?: Person [];
 
 }
 
@@ -22,27 +23,39 @@ type ModalProps = OwnModalProps & ReduxModalprops;
 
 interface ModalState {
   spotNumberInput: string;
+  selectedSpotOwner: string;
 }
 
 class ModalDelete  extends Component<ModalProps, ModalState> {
 
   state = {
+    selectedSpotOwner: '',
     spotNumberInput: '',
   };
 
   handleSpotNumber = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({spotNumberInput: event.target.value});
   }
+
   createNewSpot = () => {
+
+    const user = this.state.selectedSpotOwner !== '' ? this.state.selectedSpotOwner : null; 
+    console.log(user);
     const data = {
       created: new Date().toString(),
       name: this.state.spotNumberInput,
       updated: new Date().toString(),
-      user: null,    
+      user,    
     };
 
     this.props.createParkingSpot(data);
     this.props.close();
+  }
+
+  handleSpotOwnerChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
+
+    const value: string = event.target.value as string;
+    this.setState({selectedSpotOwner: value});
   }
 
   render() {
@@ -100,6 +113,9 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
       );
     } else if (this.props.type === 'addSpot') {
 
+      const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.id}>{person.name}</MenuItem>);
+      console.log(persons);
+
       content = (
         
         <div id="modal" className="flex-column-center modal-add-spot">
@@ -113,7 +129,13 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
             onChange={this.handleSpotNumber} 
             value={this.state.spotNumberInput}
           />
-          <input type="text" placeholder="Select owner" className="modal-input"/>
+          
+          <FormControl >
+            <InputLabel id="demo-simple-select-label">Select Owner</InputLabel>
+            <Select className="modal-select" value={this.state.selectedSpotOwner} onChange={this.handleSpotOwnerChange}>
+              {persons}
+            </Select>
+          </FormControl>
 
            <div id="modal-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>

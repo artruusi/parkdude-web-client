@@ -102,7 +102,6 @@ class TableView  extends Component<TableViewProps, TableViewState> {
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
     const value: string = event.target.value;
-    const o: boolean = value in this.state.selectedRows;
     console.log(this.state.selectedRows);
 
     const oldvalue = this.state.selectedRows[value];

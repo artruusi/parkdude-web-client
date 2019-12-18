@@ -74,7 +74,6 @@ export interface PersonNameEmail {
 
 export interface PersonsState {
   personList: Person [];
-  selectedPersonIndex: number;
 
 }
 
@@ -102,4 +101,10 @@ export interface CreateParkingSpotData {
   user: string | null;
   created: string;
   updated: string;
+}
+
+export interface AcceptUserData {
+  email: string;
+  name: string;
+  role: string;
 }
