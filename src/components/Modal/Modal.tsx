@@ -2,7 +2,7 @@ import React, { Component, ChangeEvent, ReactNode } from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
 import {  Dispatch, CreateParkingSpotData, Person } from './../../store/types';
-import {createParkingSpot} from './../../store/actions/parkingSpotActions';
+import {createParkingSpot, changeOwner} from './../../store/actions/parkingSpotActions';
 import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
 
 interface OwnModalProps {
@@ -12,11 +12,14 @@ interface OwnModalProps {
   deleteObjectNumber?: number;
   confirmDelete?: () => void;
   persons?: Person [];
+  spotId?: string;
+  spotname?: string;
 
 }
 
 interface ReduxModalprops {
   createParkingSpot: (data: CreateParkingSpotData) => void;
+  changeOwner: (id: string, name: string, newOwner: string) => void;
 }
 
 type ModalProps = OwnModalProps & ReduxModalprops;
@@ -35,20 +38,26 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
 
   handleSpotNumber = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({spotNumberInput: event.target.value});
+    // console.log('new value: ' + event.target.value);
   }
 
   createNewSpot = () => {
 
-    const user = this.state.selectedSpotOwner !== '' ? this.state.selectedSpotOwner : null; 
-    console.log(user);
-    const data = {
-      created: new Date().toString(),
+    const ownerEmail = this.state.selectedSpotOwner !== '' ? this.state.selectedSpotOwner : null; 
+   
+    const data = {   
       name: this.state.spotNumberInput,
-      updated: new Date().toString(),
-      user,    
+      ownerEmail,    
     };
-
+    console.log(data);
     this.props.createParkingSpot(data);
+    this.props.close();
+  }
+
+  changeOwner = () => {
+    console.log('owner');
+    console.log(this.props.spotId);
+    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, this.state.selectedSpotOwner);
     this.props.close();
   }
 
@@ -56,6 +65,7 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
 
     const value: string = event.target.value as string;
     this.setState({selectedSpotOwner: value});
+    console.log(value);
   }
 
   render() {
@@ -113,7 +123,7 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
       );
     } else if (this.props.type === 'addSpot') {
 
-      const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.id}>{person.name}</MenuItem>);
+      const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.email}>{person.name}</MenuItem>);
       console.log(persons);
 
       content = (
@@ -131,17 +141,37 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
           />
           
           <FormControl >
-            <InputLabel id="demo-simple-select-label">Select Owner</InputLabel>
+            <InputLabel >Select Owner</InputLabel>
             <Select className="modal-select" value={this.state.selectedSpotOwner} onChange={this.handleSpotOwnerChange}>
               {persons}
             </Select>
           </FormControl>
 
-           <div id="modal-button-container">      
+          <div id="modal-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
             <button className="button" id="modal-add-spot-button" onClick={this.createNewSpot}>Create</button>
           </div>
 
+        </div>
+      );
+    } else if (this.props.type === 'changeOwner') {
+
+      const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.email}>{person.name}</MenuItem>);
+      content = (
+        <div id="modal" className="flex-column-center modal-change-owner">
+          <h3>Select a new owner</h3>
+
+          <FormControl >
+            <InputLabel >Select Owner</InputLabel>
+            <Select className="modal-select" value={this.state.selectedSpotOwner} onChange={this.handleSpotOwnerChange}>
+              {persons}
+            </Select>
+          </FormControl>
+
+          <div id="modal-button-container">      
+            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button modal-accept-button" onClick={this.changeOwner}>Create</button>
+          </div>
         </div>
       );
     }
@@ -156,7 +186,9 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
 }
 const MapDispatch = (dispatch: Dispatch) => {
   return {
+    changeOwner: (id: string, name: string, newOwner: string) => dispatch(changeOwner(id, name, newOwner)),
     createParkingSpot: (data: CreateParkingSpotData) => dispatch(createParkingSpot(data)),
+    
   };
 };
 

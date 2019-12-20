@@ -40,6 +40,9 @@
 #modal-add-user-button, #modal-add-spot-button  {
    background-color: #ffd800;
 }
+.modal-accept-button {
+  background-color: #ffd800;
+}
 
 #modal-add-user-button-container {
   margin-bottom: 18px;
@@ -76,3 +79,14 @@
 .modal-select {
   width: 300px;
 }
+
+#modal-change-owner-button-container {
+  margin-bottom: 18px;
+
+}
+
+.modal-change-owner {
+  width: 600px;
+  height: 260px; 
+}
+

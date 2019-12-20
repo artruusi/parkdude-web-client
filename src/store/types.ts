@@ -34,8 +34,8 @@ export type DispatchAction<T = void> = ThunkAction<
 export interface ParkingSpot {
   id: string;
   name: string;
-  owner: string | null;
-  n?: string;
+  owner: Person | null;
+ 
 }
 
 export interface AppState {
@@ -98,9 +98,7 @@ export interface PasswordLogInData {
 }
 export interface CreateParkingSpotData {
   name: string;
-  user: string | null;
-  created: string;
-  updated: string;
+  ownerEmail: string | null;
 }
 
 export interface AcceptUserData {

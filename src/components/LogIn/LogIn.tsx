@@ -42,7 +42,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
 
   googleLogIn = () => {
 
-    const googleURL = process.env.REACT_APP_GOOGLE_LOG_IN ? process.env.REACT_APP_GOOGLE_LOG_IN : '';
+    const googleURL = process.env.REACT_APP_GOOGLE_LOG_IN as string;
     console.log(googleURL);
     document.location.href = googleURL;
   }

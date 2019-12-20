@@ -146,7 +146,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         if ( person.email.includes('@innogiant') ) {
           return (       
 
-             <tr key={person.id} >
+            <tr key={person.id} >
              <td><input type="checkbox" value={person.id} onChange={this.handleCheckBoxClick}/></td>           
              <td>{person.name}</td>
              <td>{person.email}</td>
@@ -162,7 +162,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         if ( !person.email.includes('@innogiant') ) {
           return (
   
-            <tr key={person.id} >
+          <tr key={person.id} >
             <td><input type="checkbox"/></td>
             <td>{<img src={checkIcon} className="table-check" alt="check icon"/>}</td>
             <td>{person.name}</td>

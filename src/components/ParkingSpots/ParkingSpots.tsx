@@ -9,6 +9,22 @@ import { getParkingSpots, deleteParkingSpot } from '../../store/actions/parkingS
 import './ParkingSpots.css';
 import { getPersons } from '../../store/actions/personsActions';
 
+interface ListButtonProps {
+  id: string;
+  name: string;
+  openChangeOwnerModalWithParams: (id: string, name: string) => void;
+}
+// should provide faster rendering
+const ListButton = (props: ListButtonProps ) => {
+  const handleClick = () => {
+    props.openChangeOwnerModalWithParams(props.id, props.name);
+  };
+  return (
+    <button className="button table-button" onClick={handleClick}>Change owner</button>
+
+  );
+};
+
 interface SelectedRows {
   [key: string]: boolean;
 }
@@ -28,15 +44,21 @@ type ParkingSpotsProps = OwnParkingSpotsProps & ReduxParkingSpotsProps;
 
 interface ParkingspotSate {
   showAddSpotModal: boolean;
+  showChangeOwnerModal: boolean;
   showDeleteModal: boolean;
   selectedRows: SelectedRows; 
+  clickedSpotName: string;
+  clickedSpotId: string;
 }
 
 class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
 
   state = {
+    clickedSpotId: '',
+    clickedSpotName: '',
     selectedRows: {} as SelectedRows,
     showAddSpotModal: false,
+    showChangeOwnerModal: false,
     showDeleteModal: false,
 
   };
@@ -54,6 +76,21 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
   }
   closeDeleteModal = () => {
     this.setState({showDeleteModal: false});
+  }
+  openChangeOwnerModal = () => {
+    this.setState({showChangeOwnerModal: true});
+  }
+  openChangeOwnerModalWithParams = (id: string, name: string) => {
+    console.log(id + name);
+    const newState = {
+      clickedSpotId: id,
+      clickedSpotName: name,
+      showChangeOwnerModal: true,
+    };
+    this.setState(newState);
+  }
+  closechangeOwnerModal = () => {
+    this.setState({showChangeOwnerModal: false});
   }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
@@ -103,9 +140,19 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
 
     const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}> Add parking spot</button>;
     const addSpotModal = this.state.showAddSpotModal 
-    ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
-    : null;
-    
+      ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
+      : null;
+    const changeOwnerModal = this.state.showChangeOwnerModal 
+      ? (
+        <Modal 
+          close={this.closechangeOwnerModal} 
+          type='changeOwner' 
+          persons={this.props.persons} 
+          spotId={this.state.clickedSpotId} 
+          spotname={this.state.clickedSpotName} 
+        />
+        ) 
+      : null;
     const deleteModal = this.state.showDeleteModal 
       ? (
         <Modal 
@@ -114,7 +161,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
           type='delete-spots' 
           deleteObjectNumber={deleteObjectNumber}
         /> 
-      )
+        )
       : null;
     const deleteButton = (
       <button 
@@ -132,6 +179,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
         <th>Number</th>
         <th>Regular spot</th>
         <th>Owner</th>
+        <th>{}</th>
       </tr>
     );
 
@@ -142,7 +190,9 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       <td><input type="checkbox" value={item.id} onChange={this.handleCheckBoxClick}/></td>
       <td>{item.name}</td>
       <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
-      <td>{item.owner}</td>
+      <td>{item.owner ? item.owner.name : null}</td>
+      <td><ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams}/></td>
+      {/* <td><button className="button table-button" onClick={this.openChangeOwnerModal}>Change owner</button></td> */}
     </tr>
 
     ));     
@@ -176,6 +226,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       
       {addSpotModal}
       {deleteModal}
+      {changeOwnerModal}
       </div>
     );
   }
