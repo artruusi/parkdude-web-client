@@ -4,7 +4,7 @@ import Modal from '../Modal/Modal';
 import { Redirect } from 'react-router-dom';
 import { AppState, Dispatch } from '../../store/types';
 import { connect } from 'react-redux';
-import { ParkingSpot, Person, CreateParkingSpotData} from '../../store/types';
+import { ParkingSpot, IPerson, CreateParkingSpotData} from '../../store/types';
 import { getParkingSpots, createParkingSpot, deleteParkingSpot} from '../../store/actions/parkingSpotActions';
 import { getPersons} from '../../store/actions/personsActions';
 
@@ -19,10 +19,10 @@ interface OwnTableViewProps {
   type?: string;
   
 }
-// syystä X typescript menee Reduxin kanssa sekaisin, jos antaa personsWaiting: PersonNameEmail []. Ei käänny silloin ollenkaan, tutkitaan
+
 interface ReduxTableViewProps {
   parkingSpots: ParkingSpot [];
-  persons: Person [];
+  persons: IPerson [];
   getParkingSpots: () => void;
   getPersons: () => void;
   createParkingSpot: (data: CreateParkingSpotData) => void;

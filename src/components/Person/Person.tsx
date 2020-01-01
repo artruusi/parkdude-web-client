@@ -1,16 +1,61 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import './Person.css';
 
 import check from './../../img/ic_check.svg';
+import { AppState, Dispatch, IPerson } from '../../store/types';
+import { getPerson, modifyPerson, killSession } from '../../store/actions/personsActions';
 
-class Person extends Component {
+interface ReduxPersonProps {
+  selectedPerson: IPerson;
+  getData: (id: string) => void;
+  killSession: (id: string) => void;
+  modifyPerson: (person: IPerson, type: string) => void;
+}
+
+type PersonProps = {} & ReduxPersonProps;
+
+interface PersonState {
+  showModal: boolean;
+}
+class Person extends Component<PersonProps, PersonState> {
+
+  state = {
+    showModal: false,  
+  };
+
+  componentDidMount() {
+    const path = window.location.pathname;
+    const pathSplit = path.split('/');
+    const id = pathSplit[2];
+    console.log(id);
+    this.props.getData(id);
+    
+  }
+  makeAdmin = () => {
+    this.props.modifyPerson(this.props.selectedPerson, 'make-admin');
+  }
+  undoAdmin = () => {
+    this.props.modifyPerson(this.props.selectedPerson, 'undo-admin');
+  }
+
+  killSession = () => {
+    this.props.killSession(this.props.selectedPerson.id);
+  }
  
   render() {
+
+    const adminButton = this.props.selectedPerson.role === 'admin' 
+      ? <button onClick={this.undoAdmin} className="button person-button">undo Admin</button> 
+      : <button onClick={this.makeAdmin} className="button person-button">Make admin</button>;
+    
+    const sessionButton = this.props.selectedPerson.sessions.length !== 0
+      ? <button className="button person-button" onClick={this.killSession}>Kill sesssion</button>
+      : null;
     return (
       <div id="person" className="flex-column">
         <div className="flex-row" id="person-header-container">
-          <h2>Kimmo Käyttäjä</h2>
+        <h2>{this.props.selectedPerson.name}</h2>
          
         </div>
 
@@ -21,20 +66,16 @@ class Person extends Component {
         <div className="flex-row" id="person-content-wrapper">
           <div id="person-info-container">
             <div>
-              <span className="bold"> Role: </span>
-              <span>Employee</span>
-            </div>
-            <div>
               <span className="bold">Email: </span>
-              <span>kimmo.kayttaja@gmail.com</span>
+              <span>{this.props.selectedPerson.email}</span>
             </div>
             <div>
               <span className="bold">Session: </span>
-               <img src={check} alt="check" className="person-check"/>
+              {this.props.selectedPerson.sessions.length !== 0 ? <img src={check} alt="check" className="person-check"/> : null}
             </div>
             <div>
               <span className="bold">Admin: </span>
-               <img src={check} alt="check" className="person-check"/>
+              {this.props.selectedPerson.role === 'admin' ? <img src={check} alt="check" className="person-check"/> : null}
             </div>
             <div>
               <span className="bold">Regular spot</span>
@@ -109,8 +150,8 @@ class Person extends Component {
 
         </div>
         <div id="person-button-contaier" className="flex-row">
-          <button className="button person-button">Make admin</button>
-          <button className="button person-button">Kill session</button>
+          {adminButton}
+          {sessionButton}
           <button className="button person-button">Reserve regular spot</button>
           <button className="button person-button">Change password</button>
         </div>
@@ -120,5 +161,19 @@ class Person extends Component {
     );
   }
 }
+const mapState = (state: AppState) => {
+  return {
+    selectedPerson: state.persons.selectedPerson,
+  };
+};
 
-export default Person;
+const MapDispatch = (dispatch: Dispatch) => {
+  return {
+   getData: (id: string) => dispatch(getPerson(id)),
+   killSession: (id: string) => dispatch(killSession(id)),
+   modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
+  
+  };
+};
+
+export default connect(mapState, MapDispatch)(Person);

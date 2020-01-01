@@ -34,7 +34,7 @@ export type DispatchAction<T = void> = ThunkAction<
 export interface ParkingSpot {
   id: string;
   name: string;
-  owner: Person | null;
+  owner: IPerson | null;
  
 }
 
@@ -55,7 +55,7 @@ export interface ParkingSpotState {
   
 }
 
-export interface Person {
+export interface IPerson {
   id: string;
   name: string;
   email: string;
@@ -63,6 +63,7 @@ export interface Person {
   usageStatic: number;
   admin: boolean;
   role: string;
+  sessions: string [];
 
 }
 
@@ -73,7 +74,8 @@ export interface PersonNameEmail {
 }
 
 export interface PersonsState {
-  personList: Person [];
+  personList: IPerson [];
+  selectedPerson: IPerson;
 
 }
 
@@ -101,7 +103,7 @@ export interface CreateParkingSpotData {
   ownerEmail: string | null;
 }
 
-export interface AcceptUserData {
+export interface ModifyUserData {
   email: string;
   name: string;
   role: string;

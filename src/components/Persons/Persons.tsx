@@ -1,10 +1,12 @@
 import React, {Component, ChangeEvent } from 'react';
-import { AppState, Dispatch, Person } from '../../store/types';
+import { AppState, Dispatch, IPerson } from '../../store/types';
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 import './Persons.css';
 import checkIcon from './../../img/ic_check.svg';
 import { getPersons, deletePerson } from '../../store/actions/personsActions';
+import { Snackbar, SnackbarOrigin } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 interface SelectedRows {
   [key: string]: boolean;
@@ -14,6 +16,8 @@ interface PersonsState {
   showAddUserModal: boolean;  
   showDeleteModal: boolean;
   selectedRows: SelectedRows; 
+  showSnackBar: boolean;
+  selectedPerson: string | null;
 }
 
 interface OwnPersonsProps {
@@ -23,7 +27,7 @@ interface OwnPersonsProps {
 interface ReduxPersonsProps {
   deletePerson: (id: string) => void;
   getPersons: () => void;
-  persons: Person [];
+  persons: IPerson [];
 }
 
 type PersonsProps = OwnPersonsProps & ReduxPersonsProps;
@@ -31,9 +35,11 @@ type PersonsProps = OwnPersonsProps & ReduxPersonsProps;
 class Persons extends Component<PersonsProps, PersonsState> {
 
   state = {
+    selectedPerson: null,
     selectedRows: {} as SelectedRows,
     showAddUserModal: false,  
     showDeleteModal: false,
+    showSnackBar: true,
   };
 
   openAddUserModal = () => {
@@ -49,6 +55,16 @@ class Persons extends Component<PersonsProps, PersonsState> {
   }
   closeDeleteModal = () => {
     this.setState({showDeleteModal: false});
+  }
+  openSnackBar = () => {
+    this.setState({showSnackBar: true});
+  }
+  closeSnackbar = () => {
+    this.setState({showSnackBar: false});
+  }
+
+  handleTableClick(person: string) {
+    this.setState({selectedPerson: person});
   }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
@@ -82,6 +98,15 @@ class Persons extends Component<PersonsProps, PersonsState> {
     });
   }
 
+  renderRedirect = () => {
+    if (this.state.selectedPerson !== null) {     
+      const url = '/employees/' + this.state.selectedPerson;
+      console.log(url);
+      return  <Redirect to={url}/>;
+      
+    }
+  } 
+
   render() {
 
     let content;
@@ -101,7 +126,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         <Modal 
           close={this.closeDeleteModal} 
           confirmDelete={this.deletePersons} 
-          type='delete-spots' 
+          type='delete-persons' 
           deleteObjectNumber={deleteObjectNumber}
         /> 
       )
@@ -146,13 +171,15 @@ class Persons extends Component<PersonsProps, PersonsState> {
         if ( person.email.includes('@innogiant') ) {
           return (       
 
-            <tr key={person.id} >
+            <tr key={person.id}  id={person.id}>
              <td><input type="checkbox" value={person.id} onChange={this.handleCheckBoxClick}/></td>           
-             <td>{person.name}</td>
-             <td>{person.email}</td>
-             <td>{person.role === 'admin' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
-             <td>{person.parkingSpot}</td>
-             <td>{person.usageStatic}</td>
+             <td onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
+             <td onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
+             <td onClick={() => this.handleTableClick(person.id)}>
+                {person.role === 'admin' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
+              </td>
+             <td onClick={() => this.handleTableClick(person.id)}>{person.parkingSpot}</td>
+             <td onClick={() => this.handleTableClick(person.id)}>{person.usageStatic}</td>
            </tr>
   
           );
@@ -164,10 +191,12 @@ class Persons extends Component<PersonsProps, PersonsState> {
   
           <tr key={person.id} >
             <td><input type="checkbox"/></td>
-            <td>{<img src={checkIcon} className="table-check" alt="check icon"/>}</td>
-            <td>{person.name}</td>
-            <td>{person.email}</td>
-            <td>{person.usageStatic}</td>
+            <td onClick={() => this.handleTableClick(person.id)}>
+              {person.role !== 'unverified' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
+            </td>
+            <td onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
+            <td onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
+            <td onClick={() => this.handleTableClick(person.id)}>{person.usageStatic}</td>
           </tr>
   
           );
@@ -177,8 +206,14 @@ class Persons extends Component<PersonsProps, PersonsState> {
          
     });
 
+    const snackLocation: SnackbarOrigin = {
+      horizontal: 'center',
+      vertical: 'bottom',
+    };
+  
     return (
       <div id="persons">
+        {this.renderRedirect()}
               
         <div id="persons-header-container" className="flex-row">
           <h2>{header}</h2>
@@ -207,6 +242,15 @@ class Persons extends Component<PersonsProps, PersonsState> {
         
         {addUserModal}
         {deleteModal}
+        <Snackbar 
+          id='delete-snack'
+          open={this.state.showSnackBar}
+          anchorOrigin={snackLocation}
+          message={<span>Person deleted succesfully</span>}
+          onClose={this.closeSnackbar}
+          autoHideDuration={3000}
+         
+        />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component, ChangeEvent, ReactNode } from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
-import {  Dispatch, CreateParkingSpotData, Person } from './../../store/types';
+import {  Dispatch, CreateParkingSpotData, IPerson } from './../../store/types';
 import {createParkingSpot, changeOwner} from './../../store/actions/parkingSpotActions';
 import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
 
@@ -11,7 +11,7 @@ interface OwnModalProps {
   type: string;
   deleteObjectNumber?: number;
   confirmDelete?: () => void;
-  persons?: Person [];
+  persons?: IPerson [];
   spotId?: string;
   spotname?: string;
 
@@ -75,7 +75,7 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
     if (this.props.type.includes('delete') ) {
       let deleteObjec = '';
 
-      if (this.props.type === 'delete-users') {
+      if (this.props.type === 'delete-persons') {
         if (this.props.deleteObjectNumber === 1) {
           deleteObjec = 'user';
         } else {

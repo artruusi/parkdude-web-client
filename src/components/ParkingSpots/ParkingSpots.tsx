@@ -1,5 +1,5 @@
 import React, {Component, ChangeEvent } from 'react';
-import { AppState, Dispatch, ParkingSpot, Person } from '../../store/types';
+import { AppState, Dispatch, ParkingSpot, IPerson } from '../../store/types';
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 
@@ -35,7 +35,7 @@ interface OwnParkingSpotsProps {
 interface ReduxParkingSpotsProps {
   getParkingSpots: () => void;
   parkingSpots: ParkingSpot [];
-  persons: Person [];
+  persons: IPerson [];
   deleteParkingSpot: (id: string) => void;
   getPersons: () => void;
 }

@@ -1,15 +1,15 @@
 import React, {Component, ChangeEvent } from 'react';
-import { AppState, Dispatch, Person } from '../../store/types';
+import { AppState, Dispatch, IPerson } from '../../store/types';
 import { connect } from 'react-redux';
-import { acceptPerson } from '../../store/actions/personsActions';
+import { modifyPerson } from '../../store/actions/personsActions';
 
 interface SelectedRows {
   [key: string]: boolean;
 }
 
 interface ReduxAcceptUserProps {
-  persons: Person [];
-  acceptPerson: (person: Person) => void;
+  persons: IPerson [];
+  acceptPerson: (person: IPerson, type: string) => void;
 }
 
 type AcceptUserProps = {} & ReduxAcceptUserProps;
@@ -30,7 +30,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
       if (this.state.selectedRows[row]) {
 
         const index = this.props.persons.findIndex( person => person.id === row);     
-        this.props.acceptPerson(this.props.persons[index]);
+        this.props.acceptPerson(this.props.persons[index], 'accept-user');
       }
      
     });
@@ -123,7 +123,7 @@ const mapState = (state: AppState) => {
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
-    acceptPerson: (person: Person) => dispatch(acceptPerson(person)),
+    acceptPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
   };
 };
 export default connect(mapState, MapDispatch)(AcceptUsers);
