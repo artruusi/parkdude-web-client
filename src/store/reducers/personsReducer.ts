@@ -8,11 +8,12 @@ const defaultPerson = {
   email: '',
   id: '',
   name: '',
+  ownedParkingSpots: [],
   parkingSpot: null,
+  reservationCount: 0,
   role: 'verified',
   sessions: [],
-  usageStatic: 0,
-  
+ 
 };
 
 const initialState: PersonsState = {

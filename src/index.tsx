@@ -10,6 +10,7 @@ import thunkMiddleware from "redux-thunk";
 import { userReducer } from './store/reducers/userReducer';
 import { parkingSpotReducer } from './store/reducers/parkingSpotReducer';
 import { personsReducer } from './store/reducers/personsReducer';
+import {reservationsReducer} from './store/reducers/reservationsReducer';
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -19,6 +20,7 @@ const composeEnhancers =
 const rootReducer = combineReducers({
     parkingSpot: parkingSpotReducer,
     persons: personsReducer,
+    reservations: reservationsReducer,
     user: userReducer,
    
 });

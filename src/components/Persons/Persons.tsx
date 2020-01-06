@@ -1,5 +1,5 @@
 import React, {Component, ChangeEvent } from 'react';
-import { AppState, Dispatch, IPerson } from '../../store/types';
+import { AppState, Dispatch, IPerson, ParkingSpot } from '../../store/types';
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 import './Persons.css';
@@ -169,6 +169,15 @@ class Persons extends Component<PersonsProps, PersonsState> {
 
       if (this.props.type === 'employees') {
         if ( person.email.includes('@innogiant') ) {
+
+          let parkingSpotsSTR =  person.ownedParkingSpots.reduce(
+            (acc: string, spot: ParkingSpot) => acc + spot.name + ', ',
+             '',
+          );
+          // remove last ,
+          parkingSpotsSTR = parkingSpotsSTR.slice(0, -1);
+          parkingSpotsSTR = parkingSpotsSTR.slice(0, -1);
+      
           return (       
 
             <tr key={person.id}  id={person.id}>
@@ -178,8 +187,8 @@ class Persons extends Component<PersonsProps, PersonsState> {
              <td onClick={() => this.handleTableClick(person.id)}>
                 {person.role === 'admin' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
               </td>
-             <td onClick={() => this.handleTableClick(person.id)}>{person.parkingSpot}</td>
-             <td onClick={() => this.handleTableClick(person.id)}>{person.usageStatic}</td>
+             <td onClick={() => this.handleTableClick(person.id)}>{parkingSpotsSTR}</td>
+             <td onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
            </tr>
   
           );
@@ -196,7 +205,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
             </td>
             <td onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
             <td onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
-            <td onClick={() => this.handleTableClick(person.id)}>{person.usageStatic}</td>
+            <td onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
           </tr>
   
           );

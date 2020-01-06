@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Header from './../Header/Header';
 import './Layout.css';
-import TableView from './../TableView/TableView';
 import Person from './../Person/Person';
 import CheckAuth from './../../helpers/CheckAuth/CheckAuth';
 import ParkingSpots from './../ParkingSpots/ParkingSpots';
 import Persons from './../Persons/Persons';
 import AcceptUsers from './../AcceptUsers/AcceptUsers';
+import Reservations from './../Reservations/Reservations';
  
 interface LayoutProps {
   page?: string;
@@ -35,7 +35,7 @@ class Layout extends Component<LayoutProps, {}> {
       content = <AcceptUsers/>;
 
     } else if (this.props.page === 'reservations') {
-      content = <TableView type="reservations"/>;
+      content = <Reservations/>;
     }
 
     return (

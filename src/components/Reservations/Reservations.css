@@ -1,0 +1,25 @@
+#search-reservation-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  width: 85vw;
+}
+.search-reservations-input-container {
+  align-items: flex-end;
+  margin-bottom: 30px;
+}
+
+
+#date-picker-start-day, #date-picker-end-day {
+  width: 15vw;
+  margin-right: 3vw;
+}
+
+#reservations-person-drop-down {
+  width: 20vw;
+  margin-right: 2vw;
+}
+
+.reservations-select {
+  width: 20vw;
+  max-width: 300px;
+}

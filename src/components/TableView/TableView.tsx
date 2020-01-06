@@ -189,7 +189,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
               <td>{item.email}</td>
               <td>{item.admin ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
               <td>{item.parkingSpot}</td>
-              <td>{item.usageStatic}</td>
+              <td>{item.reservationCount}</td>
             </tr>
 
           );
@@ -221,7 +221,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
               <td>{<img src={checkIcon} className="table-check" alt="check icon"/>}</td>
               <td>{item.name}</td>
               <td>{item.email}</td>
-              <td>{item.usageStatic}</td>
+              <td>{item.reservationCount}</td>
             </tr>
 
           );

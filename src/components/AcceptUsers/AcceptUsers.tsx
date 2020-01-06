@@ -3,6 +3,8 @@ import { AppState, Dispatch, IPerson } from '../../store/types';
 import { connect } from 'react-redux';
 import { modifyPerson } from '../../store/actions/personsActions';
 
+import './AcceptUsers.css';
+
 interface SelectedRows {
   [key: string]: boolean;
 }

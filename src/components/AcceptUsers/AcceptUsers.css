@@ -1,0 +1,45 @@
+#table-view{
+  width: 80%;
+  margin: 3vh auto;
+  max-width: 1800px;
+}
+#table-view h2 {
+  font-size: 36px;
+  flex-grow: 1;
+}
+
+#table-view-header-container {
+  align-items: center;
+} 
+
+#table-view-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#table-view-table th {
+  background-color: #e7e7e7;
+  padding: 15px 0; 
+  text-align: left;
+  padding-left: 20px;
+  border: none;
+}
+
+#table-view-table td {
+  padding: 4px 0; 
+  text-align: left;
+}
+#table-view-table tr:hover {
+  background-color: #999966;
+  cursor: pointer;
+}
+
+#table-view-accept-button, #table-search-reservations-button {
+  background-color: #ffd800;
+}
+
+#table-view-delete-button-container{
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 4vh;
+}

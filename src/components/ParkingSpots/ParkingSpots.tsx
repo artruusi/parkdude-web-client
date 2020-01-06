@@ -192,7 +192,6 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
       <td>{item.owner ? item.owner.name : null}</td>
       <td><ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams}/></td>
-      {/* <td><button className="button table-button" onClick={this.openChangeOwnerModal}>Change owner</button></td> */}
     </tr>
 
     ));     

@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Person.css';
-
+import {spotListToString} from './../../helpers/helperFunctions';
 import check from './../../img/ic_check.svg';
-import { AppState, Dispatch, IPerson } from '../../store/types';
+import { AppState, Dispatch, IPerson, UserReservations } from '../../store/types';
 import { getPerson, modifyPerson, killSession } from '../../store/actions/personsActions';
+import { getUserReservations } from '../../store/actions/reservationsActions';
 
 interface ReduxPersonProps {
   selectedPerson: IPerson;
   getData: (id: string) => void;
+  getUserReservations: (id: string) => void;
   killSession: (id: string) => void;
   modifyPerson: (person: IPerson, type: string) => void;
+  userReservations: UserReservations [];
+}
+interface ReservationList {
+  date: string;
+  name: string;
 }
 
 type PersonProps = {} & ReduxPersonProps;
@@ -30,6 +37,7 @@ class Person extends Component<PersonProps, PersonState> {
     const id = pathSplit[2];
     console.log(id);
     this.props.getData(id);
+    this.props.getUserReservations(id);
     
   }
   makeAdmin = () => {
@@ -52,6 +60,47 @@ class Person extends Component<PersonProps, PersonState> {
     const sessionButton = this.props.selectedPerson.sessions.length !== 0
       ? <button className="button person-button" onClick={this.killSession}>Kill sesssion</button>
       : null;
+
+    const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0
+      ? <button className="button person-button" onClick={this.killSession}>Free users spots</button>
+      : <button className="button person-button" onClick={this.killSession}>Reserve Spot</button>;
+
+    const passwordButton = this.props.selectedPerson.isEmailValidated
+      ? null
+      : <button className="button person-button" onClick={this.killSession}>Change password</button>;
+
+    const futurereservations: JSX.Element [] = [];
+    const pastReservations: JSX.Element [] = [];
+
+    const currentDay = new Date();
+
+    this.props.userReservations.forEach(row => {
+      const reservationDay = new Date(row.date);
+      
+      if (reservationDay > currentDay) {
+        const element = (
+          <tr key={row.date + row.parkingSpot.name}> 
+           <td><input type="checkbox"/></td>             
+            <td>{row.date}</td>
+            <td>{row.parkingSpot.name}</td>
+          </tr>
+        );
+        
+        futurereservations.push(element);
+      } else {
+        const element = (
+          <tr key={row.date + row.parkingSpot.name}>        
+            <td>{row.date}</td>
+            <td>{row.parkingSpot.name}</td>
+          </tr>
+        );
+        pastReservations.push(element);
+      }
+    });
+
+    console.log(futurereservations);
+    console.log(pastReservations);
+  
     return (
       <div id="person" className="flex-column">
         <div className="flex-row" id="person-header-container">
@@ -78,7 +127,8 @@ class Person extends Component<PersonProps, PersonState> {
               {this.props.selectedPerson.role === 'admin' ? <img src={check} alt="check" className="person-check"/> : null}
             </div>
             <div>
-              <span className="bold">Regular spot</span>
+              <span className="bold">Regular spot: </span>
+              {spotListToString(this.props.selectedPerson.ownedParkingSpots)}
             </div>
 
           </div>
@@ -95,21 +145,7 @@ class Person extends Component<PersonProps, PersonState> {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                 
-                  <td>1.1.2222</td>
-                  <td>2</td>
-                </tr>
-                 <tr>
-                  
-                  <td>1.1.2222</td>
-                  <td>2</td>
-                </tr>
-                 <tr>
-          
-                  <td>1.1.2222</td>
-                  <td>2</td>
-                </tr>
+               {pastReservations}
 
               </tbody>
             </table>
@@ -127,21 +163,7 @@ class Person extends Component<PersonProps, PersonState> {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                 <td><input type="checkbox"/></td>
-                  <td>1.1.2222</td>
-                  <td>2</td>
-                </tr>
-                 <tr>
-                  <td><input type="checkbox"/></td>
-                  <td>1.1.2222</td>
-                  <td>2</td>
-                </tr>
-                 <tr>
-                   <td><input type="checkbox"/></td>
-                  <td>1.1.2222</td>
-                  <td>2</td>
-                </tr>
+                {futurereservations}
 
               </tbody>
             </table>
@@ -152,8 +174,8 @@ class Person extends Component<PersonProps, PersonState> {
         <div id="person-button-contaier" className="flex-row">
           {adminButton}
           {sessionButton}
-          <button className="button person-button">Reserve regular spot</button>
-          <button className="button person-button">Change password</button>
+          {parkingSpotButton}
+          {passwordButton}
         </div>
 
       </div>
@@ -164,12 +186,14 @@ class Person extends Component<PersonProps, PersonState> {
 const mapState = (state: AppState) => {
   return {
     selectedPerson: state.persons.selectedPerson,
+    userReservations: state.reservations.userReservations,
   };
 };
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
    getData: (id: string) => dispatch(getPerson(id)),
+   getUserReservations: (id: string) => dispatch(getUserReservations(id)),
    killSession: (id: string) => dispatch(killSession(id)),
    modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
   

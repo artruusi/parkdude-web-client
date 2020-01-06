@@ -68,7 +68,7 @@ export const changeOwner = (id: string, name: string, newOwner: string) => {
     console.log(data);
     axios.put(url, data)
       .then(res => {
-        console.log(res);
+        dispatch(getParkingSpots());
       })
       .catch(error => {
         console.log(error);
