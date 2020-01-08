@@ -146,7 +146,7 @@ export const changePassword = (id: string, password: string) => {
     const data = {
       password,
     };
-    axios.post(url, data)
+    axios.put(url, data)
       .then(res => {
         console.log(res);
       })
