@@ -6,6 +6,7 @@ import check from './../../img/ic_check.svg';
 import { AppState, Dispatch, IPerson, UserReservations } from '../../store/types';
 import { getPerson, modifyPerson, killSession } from '../../store/actions/personsActions';
 import { getUserReservations } from '../../store/actions/reservationsActions';
+import Modal from '../Modal/Modal';
 
 interface ReduxPersonProps {
   selectedPerson: IPerson;
@@ -50,6 +51,13 @@ class Person extends Component<PersonProps, PersonState> {
   killSession = () => {
     this.props.killSession(this.props.selectedPerson.id);
   }
+
+  showModal = () => {
+    this.setState({showModal: true});
+  }
+  closeModal = () => {
+    this.setState({showModal: false});
+  }
  
   render() {
 
@@ -67,7 +75,11 @@ class Person extends Component<PersonProps, PersonState> {
 
     const passwordButton = this.props.selectedPerson.isEmailValidated
       ? null
-      : <button className="button person-button" onClick={this.killSession}>Change password</button>;
+      : <button className="button person-button" onClick={this.showModal}>Change password</button>;
+
+    const changepasswordModal = this.state.showModal 
+      ? <Modal close={this.closeModal} type='changePassword' personId={this.props.selectedPerson.id}/> 
+      : null;
 
     const futurereservations: JSX.Element [] = [];
     const pastReservations: JSX.Element [] = [];
@@ -177,6 +189,8 @@ class Person extends Component<PersonProps, PersonState> {
           {parkingSpotButton}
           {passwordButton}
         </div>
+
+        {changepasswordModal}
 
       </div>
                 

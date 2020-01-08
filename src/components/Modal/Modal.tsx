@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {  Dispatch, CreateParkingSpotData, IPerson } from './../../store/types';
 import {createParkingSpot, changeOwner} from './../../store/actions/parkingSpotActions';
 import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
+import { createPerson, changePassword } from '../../store/actions/personsActions';
 
 interface OwnModalProps {
 
@@ -14,12 +15,15 @@ interface OwnModalProps {
   persons?: IPerson [];
   spotId?: string;
   spotname?: string;
+  personId?: string;
 
 }
 
 interface ReduxModalprops {
   createParkingSpot: (data: CreateParkingSpotData) => void;
+  createPerson: (email: string, name: string, password: string) => void;
   changeOwner: (id: string, name: string, newOwner: string) => void;
+  changePassword: (id: string, password: string) => void;
 }
 
 type ModalProps = OwnModalProps & ReduxModalprops;
@@ -27,18 +31,38 @@ type ModalProps = OwnModalProps & ReduxModalprops;
 interface ModalState {
   spotNumberInput: string;
   selectedSpotOwner: string;
+  nameInput: string;
+  emailInput: string;
+  password1Input: string;
+  password2Input: string;
 }
 
 class ModalDelete  extends Component<ModalProps, ModalState> {
 
   state = {
+    emailInput: '',
+    nameInput: '',
+    password1Input: '',
+    password2Input: '',
     selectedSpotOwner: '',
     spotNumberInput: '',
+    
   };
 
-  handleSpotNumber = (event: ChangeEvent<HTMLInputElement>) => {
+  handleSpotNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.setState({spotNumberInput: event.target.value});
-    // console.log('new value: ' + event.target.value);
+  }
+  handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({nameInput: event.target.value});
+  }
+  handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({emailInput: event.target.value});
+  }
+  handlePassword1Change = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({password1Input: event.target.value});
+  }
+  handlePassword2Change = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({password2Input: event.target.value});
   }
 
   createNewSpot = () => {
@@ -59,6 +83,32 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
     console.log(this.props.spotId);
     this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, this.state.selectedSpotOwner);
     this.props.close();
+  }
+  changePassword = () => {
+    const password1 = this.state.password1Input;
+    const password2 = this.state.password2Input;
+    const person = this.props.personId as string;
+
+    if (password2 !== password1) {
+      return;
+    }
+
+    this.props.changePassword(person, password1);
+    this.props.close();
+  }
+  createPerson = () => {
+
+    const email = this.state.emailInput;
+    const name = this.state.nameInput;
+    const password1 = this.state.password1Input;
+    const password2 = this.state.password2Input;
+
+    if (email === '' || name === '' || password1 === '' || password1 !== password2) {
+      return;
+    }
+    this.props.createPerson(email, name, password1);
+    this.props.close();
+
   }
 
   handleSpotOwnerChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
@@ -110,13 +160,38 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
         <div id="modal" className="flex-column-center modal-add-user">
           <h3 className="modal-add-user-header">Add user</h3>
 
-          <input type="text" placeholder="Email" className="modal-input"/>
-          <input type="text" placeholder="Name" className="modal-input"/>
-          <input type="text" placeholder="password" className="modal-input"/>
+          <input 
+            type="text" 
+            placeholder="Email" 
+            value={this.state.emailInput} 
+            onChange={this.handleEmailChange} 
+            className="modal-input"
+          />
+          <input 
+            type="text" 
+            placeholder="Name" 
+            value={this.state.nameInput} 
+            onChange={this.handleNameChange} 
+            className="modal-input"
+          />
+          <input 
+            type="password" 
+            placeholder="password" 
+            value={this.state.password1Input} 
+            onChange={this.handlePassword1Change} 
+            className="modal-input"
+          />
+          <input 
+            type="password" 
+            placeholder="repeat password" 
+            value={this.state.password2Input} 
+            onChange={this.handlePassword2Change} 
+            className="modal-input"
+          />
 
           <div id="modal-add-user-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-user-button">Add user</button>
+            <button className="button" id="modal-add-user-button" onClick={this.createPerson}>Add user</button>
           </div>
 
         </div>
@@ -136,7 +211,7 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
             type="text" 
             placeholder="Number" 
             className="modal-input" 
-            onChange={this.handleSpotNumber} 
+            onChange={this.handleSpotNumberChange} 
             value={this.state.spotNumberInput}
           />
           
@@ -174,6 +249,35 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
           </div>
         </div>
       );
+    } else if (this.props.type === 'changePassword') {
+
+      content = (
+
+        <div id="modal" className="flex-column-center modal-add-user">
+          <h3 className="modal-add-user-header">Change user's password</h3>
+       
+          <input 
+            type="password" 
+            placeholder="password" 
+            value={this.state.password1Input} 
+            onChange={this.handlePassword1Change} 
+            className="modal-input"
+          />
+          <input 
+            type="password" 
+            placeholder="repeat password" 
+            value={this.state.password2Input} 
+            onChange={this.handlePassword2Change} 
+            className="modal-input"
+          />
+
+          <div id="modal-add-user-button-container">      
+            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>change Password</button>
+          </div>
+
+        </div>
+      );
     }
 
     return (
@@ -187,7 +291,9 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
 const MapDispatch = (dispatch: Dispatch) => {
   return {
     changeOwner: (id: string, name: string, newOwner: string) => dispatch(changeOwner(id, name, newOwner)),
+    changePassword: (id: string, password: string) => dispatch(changePassword(id, password)),
     createParkingSpot: (data: CreateParkingSpotData) => dispatch(createParkingSpot(data)),
+    createPerson: (email: string, name: string, password: string) => dispatch(createPerson(email, name, password)),
     
   };
 };

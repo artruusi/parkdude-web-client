@@ -30,7 +30,7 @@ export const logOutFromServer = () => {
 export const passwordLogIn = (data: PasswordLogInData) => {
   return (dispatch: Dispatch) => {
 
-    const url = process.env.REACT_APP_API_URL + 'auth/'; // TODO oikea url
+    const url = process.env.REACT_APP_API_URL + 'auth/login';
     axios.post(url, data)
       .then(res => 
         dispatch(LogUserIn(res.data.name)),

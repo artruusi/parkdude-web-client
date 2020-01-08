@@ -120,3 +120,38 @@ export const killSession = (id: string) => {
 
   };
 };
+
+export const createPerson = (email: string, name: string, password: string) => {
+  return (dispatch: Dispatch) => {
+    const url = process.env.REACT_APP_API_URL + "users/";
+    const data = {
+      email,
+      name,
+      password,
+    };
+    axios.post(url, data)
+      .then(res => {
+        console.log(res);
+        dispatch(getPersons());
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const changePassword = (id: string, password: string) => {
+  return (dispatch: Dispatch) => {
+    const url = process.env.REACT_APP_API_URL + "users/" + id + "/password";
+    const data = {
+      password,
+    };
+    axios.post(url, data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};

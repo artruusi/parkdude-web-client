@@ -46,7 +46,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
     console.log(googleURL);
     document.location.href = googleURL;
   }
-  passwordLogIn = () => {
+  passwordLogIn = () => { 
     const data = {
       email: this.state.emailInput,
       password: this.state.passwordInput,
