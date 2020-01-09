@@ -132,6 +132,9 @@ export const createPerson = (email: string, name: string, password: string) => {
     axios.post(url, data)
       .then(res => {
         console.log(res);
+        dispatch({
+          type: actionTypes.PERSONCREATED,
+        });
         dispatch(getPersons());
       })
       .catch(error => {
@@ -153,5 +156,13 @@ export const changePassword = (id: string, password: string) => {
       .catch(error => {
         console.log(error);
       });
+  };
+};
+
+export const hidePersonsSnackBar = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.HIDEPERSONSSNACKBAR,
+    });
   };
 };

@@ -1,9 +1,10 @@
 import React, {Component, ChangeEvent } from 'react';
 import { AppState, Dispatch, IPerson } from '../../store/types';
 import { connect } from 'react-redux';
-import { modifyPerson } from '../../store/actions/personsActions';
+import { modifyPerson, hidePersonsSnackBar } from '../../store/actions/personsActions';
 
 import './AcceptUsers.css';
+import { SnackbarOrigin, Snackbar } from '@material-ui/core';
 
 interface SelectedRows {
   [key: string]: boolean;
@@ -12,6 +13,8 @@ interface SelectedRows {
 interface ReduxAcceptUserProps {
   persons: IPerson [];
   acceptPerson: (person: IPerson, type: string) => void;
+  closeSnackBar: () => void;
+  snackBarMessage: string;
 }
 
 type AcceptUserProps = {} & ReduxAcceptUserProps;
@@ -84,6 +87,10 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
       } else {return null; }
      
     });
+    const snackLocation: SnackbarOrigin = {
+      horizontal: 'center',
+      vertical: 'bottom',
+    };
 
     return (
       <div id="table-view">
@@ -110,7 +117,15 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
 
         <div id="table-view-delete-button-container" className="flex-row">
           {acceptButton}
-        </div>      
+        </div> 
+        <Snackbar 
+          open={this.props.snackBarMessage !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessage}</span>}
+          onClose={this.props.closeSnackBar}
+          autoHideDuration={3000}
+         
+        />     
       
       </div>
     );
@@ -120,12 +135,14 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
 const mapState = (state: AppState) => {
   return {
     persons: state.persons.personList,
+    snackBarMessage: state.persons.snackBarMessage,
   };
 };
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
     acceptPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
+    closeSnackBar: () => dispatch(hidePersonsSnackBar()),
   };
 };
 export default connect(mapState, MapDispatch)(AcceptUsers);

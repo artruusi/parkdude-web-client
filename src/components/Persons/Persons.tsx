@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 import './Persons.css';
 import checkIcon from './../../img/ic_check.svg';
-import { getPersons, deletePerson } from '../../store/actions/personsActions';
+import { getPersons, deletePerson, hidePersonsSnackBar } from '../../store/actions/personsActions';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ interface PersonsState {
   showAddUserModal: boolean;  
   showDeleteModal: boolean;
   selectedRows: SelectedRows; 
-  showSnackBar: boolean;
   selectedPerson: string | null;
 }
 
@@ -25,7 +24,9 @@ interface OwnPersonsProps {
 }
 
 interface ReduxPersonsProps {
+  closeSnackBar: () => void;
   deletePerson: (id: string) => void;
+  snackBarMessage: string;
   getPersons: () => void;
   persons: IPerson [];
 }
@@ -39,7 +40,6 @@ class Persons extends Component<PersonsProps, PersonsState> {
     selectedRows: {} as SelectedRows,
     showAddUserModal: false,  
     showDeleteModal: false,
-    showSnackBar: true,
   };
 
   openAddUserModal = () => {
@@ -55,12 +55,6 @@ class Persons extends Component<PersonsProps, PersonsState> {
   }
   closeDeleteModal = () => {
     this.setState({showDeleteModal: false});
-  }
-  openSnackBar = () => {
-    this.setState({showSnackBar: true});
-  }
-  closeSnackbar = () => {
-    this.setState({showSnackBar: false});
   }
 
   handleTableClick(person: string) {
@@ -199,7 +193,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
           return (
   
           <tr key={person.id} >
-            <td><input type="checkbox"/></td>
+            <td><input type="checkbox" value={person.id} onChange={this.handleCheckBoxClick} /></td>
             <td onClick={() => this.handleTableClick(person.id)}>
               {person.role !== 'unverified' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
             </td>
@@ -252,11 +246,10 @@ class Persons extends Component<PersonsProps, PersonsState> {
         {addUserModal}
         {deleteModal}
         <Snackbar 
-          id='delete-snack'
-          open={this.state.showSnackBar}
+          open={this.props.snackBarMessage !== ''}
           anchorOrigin={snackLocation}
-          message={<span>Person deleted succesfully</span>}
-          onClose={this.closeSnackbar}
+          message={<span>{this.props.snackBarMessage}</span>}
+          onClose={this.props.closeSnackBar}
           autoHideDuration={3000}
          
         />
@@ -268,14 +261,15 @@ class Persons extends Component<PersonsProps, PersonsState> {
 const mapState = (state: AppState) => {
   return {
     persons: state.persons.personList,
+    snackBarMessage: state.persons.snackBarMessage,
   };
 };
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
+    closeSnackBar: () => dispatch(hidePersonsSnackBar()),
     deletePerson: (id: string) => dispatch(deletePerson(id)),
     getPersons: () => dispatch(getPersons()),
-
   };
 };
 export default connect(mapState, MapDispatch)(Persons);

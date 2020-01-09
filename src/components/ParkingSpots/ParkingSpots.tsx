@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 
 import checkIcon from './../../img/ic_check.svg';
-import { getParkingSpots, deleteParkingSpot } from '../../store/actions/parkingSpotActions';
+import { getParkingSpots, deleteParkingSpot, closeSnackBar } from '../../store/actions/parkingSpotActions';
 
 import './ParkingSpots.css';
 import { getPersons } from '../../store/actions/personsActions';
+import { SnackbarOrigin, Snackbar } from '@material-ui/core';
 
 interface ListButtonProps {
   id: string;
@@ -33,11 +34,13 @@ interface OwnParkingSpotsProps {
   type?: string;
 }
 interface ReduxParkingSpotsProps {
+  closeSnackBar: () => void;
   getParkingSpots: () => void;
   parkingSpots: ParkingSpot [];
   persons: IPerson [];
   deleteParkingSpot: (id: string) => void;
   getPersons: () => void;
+  snackBarMessage: string;
 }
 
 type ParkingSpotsProps = OwnParkingSpotsProps & ReduxParkingSpotsProps;
@@ -194,7 +197,12 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       <td><ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams}/></td> 
     </tr>
 
-    ));     
+    ));  
+    
+    const snackLocation: SnackbarOrigin = {
+      horizontal: 'center',
+      vertical: 'bottom',
+    };
     return (
       <div id="parking-spots">
               
@@ -223,9 +231,20 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
          {deleteButton}
         </div>      
       
-      {addSpotModal}
-      {deleteModal}
-      {changeOwnerModal}
+        {addSpotModal}
+        {deleteModal}
+        {changeOwnerModal}
+
+        <Snackbar 
+          id='delete-snack'
+          open={this.props.snackBarMessage !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessage}</span>}
+          onClose={this.props.closeSnackBar}
+          autoHideDuration={3000}
+         
+        />
+
       </div>
     );
   }
@@ -235,14 +254,17 @@ const mapState = (state: AppState) => {
   return {
     parkingSpots: state.parkingSpot.parkingSpotList,
     persons: state.persons.personList,
+    snackBarMessage: state.parkingSpot.snackBarMessage,
   };
 };
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
+    closeSnackBar: () => dispatch(closeSnackBar()),
     deleteParkingSpot: (id: string) => dispatch(deleteParkingSpot(id)),
     getParkingSpots: () => dispatch(getParkingSpots()),
     getPersons: () => dispatch(getPersons()),
+    
   };
 };
 export default connect(mapState, MapDispatch)(Parkingspots);

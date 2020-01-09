@@ -37,7 +37,7 @@ interface ModalState {
   password2Input: string;
 }
 
-class ModalDelete  extends Component<ModalProps, ModalState> {
+class Modal extends Component<ModalProps, ModalState> {
 
   state = {
     emailInput: '',
@@ -67,7 +67,7 @@ class ModalDelete  extends Component<ModalProps, ModalState> {
 
   createNewSpot = () => {
 
-    const ownerEmail = this.state.selectedSpotOwner !== '' ? this.state.selectedSpotOwner : null; 
+    const ownerEmail = this.state.selectedSpotOwner !== '' ? this.state.selectedSpotOwner : undefined; 
    
     const data = {   
       name: this.state.spotNumberInput,
@@ -298,4 +298,4 @@ const MapDispatch = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(null, MapDispatch)(ModalDelete);
+export default connect(null, MapDispatch)(Modal);

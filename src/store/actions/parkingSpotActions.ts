@@ -32,6 +32,9 @@ export const createParkingSpot = (data: CreateParkingSpotData) => {
     axios.post(url, data)
     .then(res => {
       console.log(res);
+      dispatch({
+        type: actionTypes.PARKINGSPOTCREATED,
+      });
       return dispatch(getParkingSpots());
     })
     .catch(error => {
@@ -74,4 +77,14 @@ export const changeOwner = (id: string, name: string, newOwner: string) => {
         console.log(error);
       });
   };
+};
+
+export const closeSnackBar = () => {
+  return (dispatch: Dispatch) => {
+    console.log('close snack');
+    dispatch({
+        type: actionTypes.HIDEPARKINGSPOTSNACKBAR,
+      }); 
+  };
+  
 };

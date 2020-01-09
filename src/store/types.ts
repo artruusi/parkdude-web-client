@@ -53,6 +53,7 @@ export interface UserState {
 
 export interface ParkingSpotState {
   parkingSpotList: ParkingSpot [];
+  snackBarMessage: string;
   
 }
 
@@ -79,6 +80,7 @@ export interface PersonNameEmail {
 export interface PersonsState {
   personList: IPerson [];
   selectedPerson: IPerson;
+  snackBarMessage: string;
 
 }
 
@@ -118,7 +120,7 @@ export interface PasswordLogInData {
 }
 export interface CreateParkingSpotData {
   name: string;
-  ownerEmail: string | null;
+  ownerEmail: string | undefined;
 }
 
 export interface ModifyUserData {
