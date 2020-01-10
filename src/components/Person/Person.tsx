@@ -4,17 +4,21 @@ import './Person.css';
 import {spotListToString} from './../../helpers/helperFunctions';
 import check from './../../img/ic_check.svg';
 import { AppState, Dispatch, IPerson, UserReservations } from '../../store/types';
-import { getPerson, modifyPerson, killSession } from '../../store/actions/personsActions';
+import { getPerson, modifyPerson, killSession, hidePersonsSnackBar } from '../../store/actions/personsActions';
 import { getUserReservations } from '../../store/actions/reservationsActions';
 import Modal from '../Modal/Modal';
+import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 
 interface ReduxPersonProps {
+  closeSnackBar: () => void;
   selectedPerson: IPerson;
   getData: (id: string) => void;
   getUserReservations: (id: string) => void;
   killSession: (id: string) => void;
   modifyPerson: (person: IPerson, type: string) => void;
   userReservations: UserReservations [];
+  snackBarMessage: string;
+
 }
 interface ReservationList {
   date: string;
@@ -112,6 +116,11 @@ class Person extends Component<PersonProps, PersonState> {
 
     console.log(futurereservations);
     console.log(pastReservations);
+
+    const snackLocation: SnackbarOrigin = {
+      horizontal: 'center',
+      vertical: 'bottom',
+    };
   
     return (
       <div id="person" className="flex-column">
@@ -191,6 +200,14 @@ class Person extends Component<PersonProps, PersonState> {
         </div>
 
         {changepasswordModal}
+        <Snackbar 
+          open={this.props.snackBarMessage !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessage}</span>}
+          onClose={this.props.closeSnackBar}
+          autoHideDuration={3000}
+         
+        />
 
       </div>
                 
@@ -200,12 +217,14 @@ class Person extends Component<PersonProps, PersonState> {
 const mapState = (state: AppState) => {
   return {
     selectedPerson: state.persons.selectedPerson,
+    snackBarMessage: state.persons.snackBarMessage,
     userReservations: state.reservations.userReservations,
   };
 };
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
+   closeSnackBar: () => dispatch(hidePersonsSnackBar()),
    getData: (id: string) => dispatch(getPerson(id)),
    getUserReservations: (id: string) => dispatch(getUserReservations(id)),
    killSession: (id: string) => dispatch(killSession(id)),

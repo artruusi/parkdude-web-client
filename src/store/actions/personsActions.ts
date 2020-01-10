@@ -4,23 +4,31 @@ import { Dispatch, ModifyUserData, IPerson } from "./../types";
 
 axios.defaults.withCredentials = true;
 
-const setPersons = (data: any) => {
-  return {
-    payload: data,
-    type: actionTypes.GETPERSONS,   
-  };
-};
+// const setPersons = (data: any) => {
+//   return {
+//     payload: data,
+//     type: actionTypes.GETPERSONS,   
+//   };
+// };
 
 export const getPersons = () => {
   return (dispatch: Dispatch) => {
     
     const url =  process.env.REACT_APP_API_URL + "users";
     axios.get(url)
-    .then(res => 
-      dispatch(setPersons(res.data.data)),
-    )
+    .then(res => {
+
+      dispatch({
+        payload: res.data.data,
+        type: actionTypes.GETPERSONS,   
+      });
+
+    })
     .catch(error => {
       console.log(error);
+      dispatch({
+        type: actionTypes.GETPERSONSFAILED,
+      });
     });
   };
 };
@@ -65,9 +73,20 @@ export const modifyPerson = (person: IPerson, type: string) => {
       .then(res => {
         console.log(res);
 
-        if (type === 'make-admin' || type === 'undo-admin') {
+        if (type === 'make-admin' ) {
+        
+          dispatch({
+            type: actionTypes.MAKEADMIN,
+          });
           dispatch( getPerson(person.id));
          
+        } else if (type === 'undo-admin') {
+
+          dispatch({
+            type: actionTypes.UNDOADMIN,
+          });
+          dispatch( getPerson(person.id));
+        
         } else {
           dispatch({
             payload: person.id,
@@ -79,6 +98,24 @@ export const modifyPerson = (person: IPerson, type: string) => {
       })
       .catch(error => {
         console.log(error);
+        if (type === 'make-admin' ) {
+        
+          dispatch({
+            type: actionTypes.MAKEADMINFAILED,
+          });
+         
+        } else if (type === 'undo-admin') {
+
+         dispatch({
+           type: actionTypes.UNDOADMINFAILED,
+         });
+        
+        } else {
+          dispatch({
+            type: actionTypes.ACCETPERSONFAILED,      
+          });
+
+        }
       });
 
   };
@@ -98,6 +135,9 @@ export const deletePerson = (id: string) => {
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.DELETEPERSONFAILED,
+        });
       });
 
   };
@@ -116,6 +156,9 @@ export const killSession = (id: string) => {
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.KILLSESSIONFAILED,
+        });
       });
 
   };
@@ -139,6 +182,9 @@ export const createPerson = (email: string, name: string, password: string) => {
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.PERSONCREATIONFAILED,
+        });
       });
   };
 };
@@ -152,17 +198,21 @@ export const changePassword = (id: string, password: string) => {
     axios.put(url, data)
       .then(res => {
         console.log(res);
+        dispatch({
+          type: actionTypes.PASSWORDCHANGED,
+        });
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.PASSWORDCHANGEFAILED,
+        });
       });
   };
 };
 
 export const hidePersonsSnackBar = () => {
-  return (dispatch: Dispatch) => {
-    dispatch({
-      type: actionTypes.HIDEPERSONSSNACKBAR,
-    });
+  return {
+    type: actionTypes.HIDEPERSONSSNACKBAR,
   };
 };

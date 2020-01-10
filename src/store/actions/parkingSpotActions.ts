@@ -4,12 +4,12 @@ import { Dispatch, CreateParkingSpotData } from "./../types";
 
 axios.defaults.withCredentials = true;
 
-const setParkingSpots = (data: any) => {
-  return {
-    payload: data,
-    type: actionTypes.GETSPOTS,
-  };
-};
+// const setParkingSpots = (data: any) => {
+//   return {
+//     payload: data,
+//     type: actionTypes.GETSPOTS,
+//   };
+// };
 
 export const getParkingSpots = () => {
   return (dispatch: Dispatch) => {
@@ -18,10 +18,16 @@ export const getParkingSpots = () => {
     axios.get(url)
       .then(res => {
         console.log(res);
-        return dispatch(setParkingSpots(res.data));
+        dispatch({
+          payload: res.data,
+          type: actionTypes.GETSPOTS,
+        });
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.GETSPOTSFAILED,
+        });
       });
   };
 };
@@ -39,6 +45,9 @@ export const createParkingSpot = (data: CreateParkingSpotData) => {
     })
     .catch(error => {
       console.log(error);
+      dispatch({
+        type: actionTypes.PARKINGSPOTCREATEDFAILED,
+      });
     });
   };
 };
@@ -56,6 +65,9 @@ export const deleteParkingSpot = (id: string) => {
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.DELETESPOTFAILED,
+        });
       });
   };
 };
@@ -72,9 +84,15 @@ export const changeOwner = (id: string, name: string, newOwner: string) => {
     axios.put(url, data)
       .then(res => {
         dispatch(getParkingSpots());
+        dispatch({
+          type: actionTypes.CHANGEOWNER,
+        });
       })
       .catch(error => {
         console.log(error);
+        dispatch({
+          type: actionTypes.CHANGEOWNERFAILED,
+        });
       });
   };
 };

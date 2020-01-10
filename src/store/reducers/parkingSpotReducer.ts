@@ -41,6 +41,36 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
         parkingSpotList: state.parkingSpotList,
         snackBarMessage: 'Parking spot created succesfully',
       };
+
+    case actionTypes.GETSPOTSFAILED:
+      return {
+        parkingSpotList: state.parkingSpotList,
+        snackBarMessage: 'fetching parking spots from server failed',
+      };
+
+    case actionTypes.PARKINGSPOTCREATEDFAILED:
+      return {
+        parkingSpotList: state.parkingSpotList,
+        snackBarMessage: 'Creating parking spot failed',
+      };
+
+    case actionTypes.DELETESPOTFAILED:
+      return {
+        parkingSpotList: state.parkingSpotList,
+        snackBarMessage: 'Parking spot delete failed',
+      };
+
+    case actionTypes.CHANGEOWNER:
+      return {
+        parkingSpotList: state.parkingSpotList,
+        snackBarMessage: 'Owner changed succesfully',
+      };
+
+    case actionTypes.CHANGEOWNERFAILED:
+      return {
+        parkingSpotList: state.parkingSpotList,
+        snackBarMessage: 'Failed to change owner',
+      };
     default:
       return state;
 
