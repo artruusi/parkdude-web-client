@@ -5,7 +5,7 @@ import {spotListToString} from './../../helpers/helperFunctions';
 import check from './../../img/ic_check.svg';
 import { AppState, Dispatch, IPerson, UserReservations } from '../../store/types';
 import { getPerson, modifyPerson, killSession, hidePersonsSnackBar } from '../../store/actions/personsActions';
-import { getUserReservations, deleteReservations } from '../../store/actions/reservationsActions';
+import { getUserReservations, deleteReservations, startLoading, SetDeletereservationNumber } from '../../store/actions/reservationsActions';
 import Modal from '../Modal/Modal';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import Spinner from '../Spinner/Spinner';
@@ -17,10 +17,13 @@ interface ReduxPersonProps {
   getData: (id: string) => void;
   getUserReservations: (id: string) => void;
   killSession: (id: string) => void;
-  loading: boolean;
+  loadingPersons: boolean;
+  loadingReservations: boolean;
+  startLoadingDeletereservations: () => void;
   modifyPerson: (person: IPerson, type: string) => void;
   userReservations: UserReservations [];
   snackBarMessage: string;
+  setDeleteReservationsNumber: (reservationsnumber: number) => void;
 
 }
 
@@ -68,8 +71,31 @@ class Person extends Component<PersonProps, PersonState> {
     this.setState({showModal: false});
   }
 
+  // TODO stack the reservations of the same day
   handleDeleteReservationsClick = () => {
     console.log(this.state.selectedRows);
+
+    let deletereservationNumber = 0;
+    Object.keys(this.state.selectedRows).forEach(row => {
+
+      if (this.state.selectedRows[row]) {
+        deletereservationNumber += 1;       
+      }   
+    });
+
+    this.props.setDeleteReservationsNumber( deletereservationNumber);
+    this.props.startLoadingDeletereservations();
+
+    Object.keys(this.state.selectedRows).forEach(row => {
+      if (this.state.selectedRows[row]) {
+
+       const rowSplit = row.split('&');
+       const id = rowSplit[0];
+       const date = rowSplit[1];
+       this.props.deletereservations(id, date);
+      }
+     
+    });
 
   }
 
@@ -247,7 +273,7 @@ class Person extends Component<PersonProps, PersonState> {
     </div>   
 
     );
-    if (this.props.loading) {
+    if (this.props.loadingPersons || this.props.loadingReservations) {
       page = <Spinner/>;
     }
   
@@ -261,7 +287,8 @@ class Person extends Component<PersonProps, PersonState> {
 }
 const mapState = (state: AppState) => {
   return {
-    loading: state.persons.loading,
+    loadingPersons: state.persons.loading,
+    loadingReservations: state.reservations.loading,
     selectedPerson: state.persons.selectedPerson,
     snackBarMessage: state.persons.snackBarMessage,
     userReservations: state.reservations.userReservations,
@@ -276,6 +303,8 @@ const MapDispatch = (dispatch: Dispatch) => {
    getUserReservations: (id: string) => dispatch(getUserReservations(id)),
    killSession: (id: string) => dispatch(killSession(id)),
    modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
+   setDeleteReservationsNumber: (reservationsnumber: number) => dispatch(SetDeletereservationNumber(reservationsnumber)),
+   startLoadingDeletereservations: () => dispatch(startLoading()),
   
   };
 };

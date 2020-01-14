@@ -43,6 +43,7 @@ export const getUserReservations = (id: string) => {
         dispatch({
           payload: res.data.reservations,
           type: actionTypes.GETUSERRESERVATIONS,
+          
         });
       })
       .catch(error => {
@@ -61,6 +62,14 @@ export const deleteReservations = (id: string, dates: string) => {
     axios.delete(url)
       .then(res => {
         console.log(res);
+        dispatch({
+          payload: {
+            dates,
+            id,          
+          },
+          type: actionTypes.DELETERESERVATION,
+          
+        });
       })
       .catch(error => {
         console.log(error);
@@ -68,5 +77,19 @@ export const deleteReservations = (id: string, dates: string) => {
           type: actionTypes.DELETERESERVATIONFAILED,
         });
       });
+  };
+};
+
+export const SetDeletereservationNumber = (reservationsNumber: number) => {
+  return {
+    payload: reservationsNumber,
+    type: actionTypes.SETDELETERESERVATIONNUMBER,
+   
+  };
+};
+
+export const startLoading = () => {
+  return {
+    type: actionTypes.STARTLOADINGRESERVATIONS,
   };
 };

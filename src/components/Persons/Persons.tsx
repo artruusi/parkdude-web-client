@@ -104,6 +104,8 @@ class Persons extends Component<PersonsProps, PersonsState> {
   } 
   componentDidMount() {
     this.props.getPersons();
+    console.log('asadasdadsa');
+    
   }
 
   render() {
@@ -144,22 +146,22 @@ class Persons extends Component<PersonsProps, PersonsState> {
     if (this.props.type === 'employees') {
       tableHeader = (
         <tr>
-          <th>{}</th>
-          <th className="persons-table-2-column">Name</th>
-          <th>Email</th>
-          <th>Admin</th>
-          <th>Parking spot</th>
-          <th>Usage statistic</th>
+          <th  className="table-cell">{}</th>
+          <th className="table-cell">Name</th>
+          <th  className="table-cell">Email</th>
+          <th  className="table-cell">Admin</th>
+          <th  className="table-cell">Parking spot</th>
+          <th  className="table-cell">Usage statistic</th>
         </tr>
       );
     } else {
       tableHeader = (
         <tr>
-          <th className="persons-table-1-column">{}</th>
-          <th className="persons-table-2-column">Approved</th>
-          <th className="persons-table-1-column">Name</th>
-          <th className="persons-table-1-column">Email</th>
-          <th className="persons-table-1-column">Usage statistic</th>
+          <th className="table-cell">{}</th>
+          <th className="table-cell">Approved</th>
+          <th className="table-cell">Name</th>
+          <th className="table-cell">Email</th>
+          <th className="table-cell">Usage statistic</th>
         </tr>
       );
     } 
@@ -190,13 +192,13 @@ class Persons extends Component<PersonsProps, PersonsState> {
 
               </td>
                                 
-             <td className="persons-table-2-column" onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
-             <td onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
-             <td onClick={() => this.handleTableClick(person.id)}>
+             <td  className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
+             <td  className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
+             <td  className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>
                 {person.role === 'admin' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
               </td>
-             <td onClick={() => this.handleTableClick(person.id)}>{parkingSpotsSTR}</td>
-             <td onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
+             <td   className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{parkingSpotsSTR}</td>
+             <td   className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
            </tr>
   
           );
@@ -216,7 +218,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
               />
             </td>
             
-            <td className="persons-table-2-column" onClick={() => this.handleTableClick(person.id)}>
+            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>
               {person.role !== 'unverified' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
             </td>
             <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.name}</td>

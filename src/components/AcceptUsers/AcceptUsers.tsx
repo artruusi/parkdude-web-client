@@ -154,42 +154,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     }
 
     return (
-     
-      // <div id="table-view">
-              
-      //   <div id="table-view-header-container" className="flex-row">
-      //     <h2>{header} </h2>
-          
-      //   </div>
-
-      //   <div id="table-view-table-container">
-      //     <table id="table-view-table">
-
-      //       <thead>
-      //         {tableHeader}
-      //       </thead>
-
-      //       <tbody>
-      //         {content}
-      //       </tbody>
-                                  
-      //     </table>
-        
-      //   </div>
-
-      //   <div id="table-view-delete-button-container" className="flex-row">
-      //     {acceptButton}
-      //   </div> 
-      //   <Snackbar 
-      //     open={this.props.snackBarMessage !== ''}
-      //     anchorOrigin={snackLocation}
-      //     message={<span>{this.props.snackBarMessage}</span>}
-      //     onClose={this.props.closeSnackBar}
-      //     autoHideDuration={3000}
-          
-      //   />     
-      
-      // </div>
+  
       <>
       {page}
       </>

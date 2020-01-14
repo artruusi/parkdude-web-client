@@ -45,8 +45,16 @@
 }
 
 #persons-table thead tr {
-  display: block;
+  /* display: block; */
   width: 100%;
+}
+
+#persons-table thead {
+  display: table;
+}
+
+.table-cell {
+  width: 30vw;
 }
 
 #persons-table th {
@@ -57,10 +65,10 @@
   border: none;
 }
 .persons-table-1-column {
-  width: 15%;
+  width: 30vw;
 }
 .persons-table-2-column {
-  width: 20%;
+  width: 30vw;
 }
 
 #persons-table td {

@@ -89,6 +89,8 @@ export interface PersonsState {
 export interface ReservationsState {
   reservations: Reservation [];
   userReservations: UserReservations [];
+  deleteReservationsNumber: number;
+  loading: boolean;
 }
 export interface UserReservations {
   date: string;

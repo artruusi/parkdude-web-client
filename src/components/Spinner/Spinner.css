@@ -15,6 +15,7 @@
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
+  margin-top: 15vh;
 }
 .loader:before,
 .loader:after {
