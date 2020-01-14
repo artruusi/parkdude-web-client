@@ -13,6 +13,10 @@ axios.defaults.withCredentials = true;
 
 export const getPersons = () => {
   return (dispatch: Dispatch) => {
+
+    dispatch({
+      type: actionTypes.STARTLOADINGPERSONS,
+    });
     
     const url =  process.env.REACT_APP_API_URL + "users";
     axios.get(url)
@@ -36,6 +40,9 @@ export const getPersons = () => {
 export const getPerson = (id: string) => {
   return (dispatch: Dispatch) => {
     
+    dispatch({
+      type: actionTypes.STARTLOADINGPERSONS,
+    });
     const url =  process.env.REACT_APP_API_URL + "users/" + id;
     console.log(url);
     axios.get(url)

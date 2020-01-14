@@ -8,7 +8,8 @@ import { getParkingSpots, deleteParkingSpot, closeSnackBar } from '../../store/a
 
 import './ParkingSpots.css';
 import { getPersons } from '../../store/actions/personsActions';
-import { SnackbarOrigin, Snackbar } from '@material-ui/core';
+import { SnackbarOrigin, Snackbar, Checkbox } from '@material-ui/core';
+import Spinner from '../Spinner/Spinner';
 
 interface ListButtonProps {
   id: string;
@@ -36,6 +37,7 @@ interface OwnParkingSpotsProps {
 interface ReduxParkingSpotsProps {
   closeSnackBar: () => void;
   getParkingSpots: () => void;
+  loading: boolean;
   parkingSpots: ParkingSpot [];
   persons: IPerson [];
   deleteParkingSpot: (id: string) => void;
@@ -190,7 +192,15 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     const content = this.props.parkingSpots.map(item => ( 
 
     <tr key={item.id}>
-      <td><input type="checkbox" value={item.id} onChange={this.handleCheckBoxClick}/></td>
+      <td>
+        <Checkbox
+          onChange={this.handleCheckBoxClick}
+          value={item.id}
+          style={{ color: "#544C09"}}       
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+      </td>
+       
       <td>{item.name}</td>
       <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
       <td>{item.owner ? item.owner.name : null}</td>
@@ -203,7 +213,8 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       horizontal: 'center',
       vertical: 'bottom',
     };
-    return (
+
+    let page = (
       <div id="parking-spots">
               
         <div id="parking-spots-header-container" className="flex-row">
@@ -247,14 +258,27 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
 
       </div>
     );
+
+    if (this.props.loading) {
+        page = <Spinner/>;
+    }
+ 
+    return (
+
+      <>     
+        {page}
+      </>    
+    );
   }
 }
 
 const mapState = (state: AppState) => {
   return {
+    loading: state.parkingSpot.loading,
     parkingSpots: state.parkingSpot.parkingSpotList,
     persons: state.persons.personList,
     snackBarMessage: state.parkingSpot.snackBarMessage,
+   
   };
 };
 

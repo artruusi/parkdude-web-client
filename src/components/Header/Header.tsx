@@ -44,7 +44,7 @@ class Header extends Component < HeaderProps , HeaderState > {
     const dropdown = (
       <div id="header-dropdown-content" onMouseLeave={this.hideDropDown}>
         <span id="header-dropdown-username">{this.props.userName}</span>
-        <span onClick={logOutFromServer} id="header-log-out-span">Log out</span>
+        <span onClick={this.props.logOutFromServer} id="header-log-out-span">Log out</span>
       </div>
     );
 

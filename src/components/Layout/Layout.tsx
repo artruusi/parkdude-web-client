@@ -7,10 +7,18 @@ import ParkingSpots from './../ParkingSpots/ParkingSpots';
 import Persons from './../Persons/Persons';
 import AcceptUsers from './../AcceptUsers/AcceptUsers';
 import Reservations from './../Reservations/Reservations';
+import { connect } from 'react-redux';
+import { AppState } from '../../store/types';
  
-interface LayoutProps {
+interface OwnLayoutProps {
   page?: string;
 }
+
+interface ReduxLayoutProps {
+  parkingSpotsLoading: boolean;
+
+}
+type LayoutProps = OwnLayoutProps & ReduxLayoutProps;
 
 class Layout extends Component<LayoutProps, {}> {
 
@@ -30,7 +38,7 @@ class Layout extends Component<LayoutProps, {}> {
 
     } else if (this.props.page === 'parking-spots') {
       content = <ParkingSpots/>;
-
+      
     } else if (this.props.page === 'accept-users') {
       content = <AcceptUsers/>;
 
@@ -47,5 +55,10 @@ class Layout extends Component<LayoutProps, {}> {
   );
   }
 }
+const mapState = (state: AppState) => {
+  return {
+    parkingSpotsLoading: state.parkingSpot.loading,
+  };
+};
 
-export default Layout;
+export default connect(mapState)( Layout);

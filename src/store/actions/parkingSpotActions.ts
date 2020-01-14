@@ -13,6 +13,10 @@ axios.defaults.withCredentials = true;
 
 export const getParkingSpots = () => {
   return (dispatch: Dispatch) => {
+
+    dispatch({
+      type: actionTypes.STARTLOADINGPARKINGSPOTS,
+    });
     console.log('parking spots');
     const url =  process.env.REACT_APP_API_URL + 'parking-spots';
     axios.get(url)

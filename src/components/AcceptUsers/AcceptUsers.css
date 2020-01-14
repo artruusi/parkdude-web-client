@@ -43,3 +43,10 @@
   justify-content: flex-end;
   margin-top: 4vh;
 }
+
+.spinner {
+ margin: 0 auto;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}

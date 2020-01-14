@@ -54,6 +54,7 @@ export interface UserState {
 export interface ParkingSpotState {
   parkingSpotList: ParkingSpot [];
   snackBarMessage: string;
+  loading: boolean;
   
 }
 
@@ -81,6 +82,7 @@ export interface PersonsState {
   personList: IPerson [];
   selectedPerson: IPerson;
   snackBarMessage: string;
+  loading: boolean;
 
 }
 

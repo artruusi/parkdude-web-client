@@ -5,8 +5,9 @@ import Modal from '../Modal/Modal';
 import './Persons.css';
 import checkIcon from './../../img/ic_check.svg';
 import { getPersons, deletePerson, hidePersonsSnackBar } from '../../store/actions/personsActions';
-import { Snackbar, SnackbarOrigin } from '@material-ui/core';
+import { Snackbar, SnackbarOrigin, Checkbox } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner';
 
 interface SelectedRows {
   [key: string]: boolean;
@@ -26,6 +27,7 @@ interface OwnPersonsProps {
 interface ReduxPersonsProps {
   closeSnackBar: () => void;
   deletePerson: (id: string) => void;
+  loading: boolean;
   snackBarMessage: string;
   getPersons: () => void;
   persons: IPerson [];
@@ -100,6 +102,9 @@ class Persons extends Component<PersonsProps, PersonsState> {
       
     }
   } 
+  componentDidMount() {
+    this.props.getPersons();
+  }
 
   render() {
 
@@ -139,8 +144,8 @@ class Persons extends Component<PersonsProps, PersonsState> {
     if (this.props.type === 'employees') {
       tableHeader = (
         <tr>
-         <th>{}</th>
-          <th>Name</th>
+          <th>{}</th>
+          <th className="persons-table-2-column">Name</th>
           <th>Email</th>
           <th>Admin</th>
           <th>Parking spot</th>
@@ -150,11 +155,11 @@ class Persons extends Component<PersonsProps, PersonsState> {
     } else {
       tableHeader = (
         <tr>
-           <th>{}</th>
-          <th>Approved</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Usage statistic</th>
+          <th className="persons-table-1-column">{}</th>
+          <th className="persons-table-2-column">Approved</th>
+          <th className="persons-table-1-column">Name</th>
+          <th className="persons-table-1-column">Email</th>
+          <th className="persons-table-1-column">Usage statistic</th>
         </tr>
       );
     } 
@@ -175,8 +180,17 @@ class Persons extends Component<PersonsProps, PersonsState> {
           return (       
 
             <tr key={person.id}  id={person.id}>
-             <td><input type="checkbox" value={person.id} onChange={this.handleCheckBoxClick}/></td>           
-             <td onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
+              <td className="persons-table-1-column">
+                <Checkbox
+                  onChange={this.handleCheckBoxClick}
+                  value={person.id}
+                  style={{ color: "#544C09"}}       
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+
+              </td>
+                                
+             <td className="persons-table-2-column" onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
              <td onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
              <td onClick={() => this.handleTableClick(person.id)}>
                 {person.role === 'admin' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
@@ -193,13 +207,21 @@ class Persons extends Component<PersonsProps, PersonsState> {
           return (
   
           <tr key={person.id} >
-            <td><input type="checkbox" value={person.id} onChange={this.handleCheckBoxClick} /></td>
-            <td onClick={() => this.handleTableClick(person.id)}>
+            <td className="persons-table-1-column">
+              <Checkbox
+                onChange={this.handleCheckBoxClick}
+                value={person.id}
+                style={{ color: "#544C09"}}       
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+              />
+            </td>
+            
+            <td className="persons-table-2-column" onClick={() => this.handleTableClick(person.id)}>
               {person.role !== 'unverified' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
             </td>
-            <td onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
-            <td onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
-            <td onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
+            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
+            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
+            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
           </tr>
   
           );
@@ -213,8 +235,8 @@ class Persons extends Component<PersonsProps, PersonsState> {
       horizontal: 'center',
       vertical: 'bottom',
     };
-  
-    return (
+
+    let page = (
       <div id="persons">
         {this.renderRedirect()}
               
@@ -254,12 +276,24 @@ class Persons extends Component<PersonsProps, PersonsState> {
          
         />
       </div>
+
+    );
+
+    if ( this.props.loading) {
+      page = <Spinner/>;
+    }
+  
+    return (
+      <>
+        {page}
+      </>
     );
   }
 }
 
 const mapState = (state: AppState) => {
   return {
+    loading: state.persons.loading,
     persons: state.persons.personList,
     snackBarMessage: state.persons.snackBarMessage,
   };

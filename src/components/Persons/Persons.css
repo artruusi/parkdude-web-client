@@ -33,6 +33,20 @@
 #persons-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+#persons-table tbody {
+  display:block;
+  max-height: 50vh;
+  width: 100%;
+  overflow: auto;
+  
+}
+
+#persons-table thead tr {
+  display: block;
+  width: 100%;
 }
 
 #persons-table th {
@@ -42,9 +56,15 @@
   padding-left: 20px;
   border: none;
 }
+.persons-table-1-column {
+  width: 15%;
+}
+.persons-table-2-column {
+  width: 20%;
+}
 
 #persons-table td {
-  padding: 4px 0; 
+  padding: 2px 4vw; 
   text-align: left;
 }
 #persons-table tr:hover {

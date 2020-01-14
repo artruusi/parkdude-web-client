@@ -17,6 +17,7 @@ const defaultPerson = {
 };
 
 const initialState: PersonsState = {
+  loading: false,
   personList: [],
   selectedPerson: defaultPerson,
   snackBarMessage: '',
@@ -27,11 +28,20 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
 
  switch (action.type) {
 
+  case actionTypes.STARTLOADINGPERSONS:
+
+  return {
+    ...state,
+    loading: true,
+  };
+
    case actionTypes.GETPERSONS:
      return {
+       ...state,
+       loading: false,
        personList: action.payload,
-       selectedPerson: defaultPerson,
-       snackBarMessage: state.snackBarMessage,
+      //  selectedPerson: defaultPerson,
+  
      };
 
     case actionTypes.ACCEPTPERSON:
@@ -48,8 +58,9 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       }
 
       return {
+        ...state,
         personList: newPersonList,
-        selectedPerson: defaultPerson,
+        // selectedPerson: defaultPerson,
         snackBarMessage,
       };
 
@@ -64,16 +75,18 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       }
 
       return {
+        ...state,
         personList: deletePersonList,
-        selectedPerson: defaultPerson,
+        // selectedPerson: defaultPerson,
         snackBarMessage: snackBarMessageDelete,
       };
 
     case actionTypes.GETPERSON:
       return {
-        personList: state.personList,
+        ...state,
+        loading: false,
         selectedPerson: action.payload,
-        snackBarMessage: state.snackBarMessage,
+          
       };
 
     case actionTypes.HIDEPERSONSSNACKBAR:
@@ -109,7 +122,9 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
     case actionTypes.GETPERSONSFAILED:
       return {
         ...state,
+        loading: false,
         snackBarMessage: 'Fetching persons from server failed',
+       
       };
 
     case actionTypes.KILLSESSIONFAILED:
