@@ -1,4 +1,4 @@
-#persons{
+#persons {
   width: 80%;
   margin: 3vh auto;
   max-width: 1800px;
@@ -8,27 +8,28 @@
   flex-grow: 1;
 }
 
-#persons-add-user{
+#persons-add-user {
   margin-right: 2vw;
-  background-color: #ffd800;  
+  background-color: #ffd800;
 }
 
 #persons-delete-button {
   margin-right: 2vw;
-  background-color: #FF6C6C;
+  background-color: #ff6c6c;
 }
 
-#persons-accept-button, #table-search-reservations-button {
+#persons-accept-button,
+#table-search-reservations-button {
   background-color: #ffd800;
 }
 
-.button:hover{
+.button:hover {
   cursor: pointer;
 }
 
 #persons-header-container {
   align-items: center;
-} 
+}
 
 #persons-table {
   width: 100%;
@@ -37,11 +38,9 @@
 }
 
 #persons-table tbody {
-  display:block;
   max-height: 50vh;
   width: 100%;
   overflow: auto;
-  
 }
 
 #persons-table thead tr {
@@ -50,20 +49,17 @@
 }
 
 #persons-table thead {
-  display: table;
 }
 
 .table-cell {
-  width: 30vw;
 }
 
 .table-cell-customers {
-  width: 30vw;
 }
 
 .table-cell-employees {
-  width: 30vw;
 }
+
 td {
   max-width: 150px;
   overflow: hidden;
@@ -71,23 +67,19 @@ td {
   white-space: nowrap;
 }
 
-
 #persons-table th {
   background-color: #e7e7e7;
-  padding: 15px 0; 
+  padding: 16px 8px;
   text-align: left;
-  padding-left: 20px;
   border: none;
 }
 .persons-table-1-column {
-  width: 30vw;
 }
 .persons-table-2-column {
-  width: 30vw;
 }
 
 #persons-table td {
-  padding: 2px 4vw; 
+  padding: 8px;
   text-align: left;
 }
 #persons-table tr:hover {
@@ -95,7 +87,7 @@ td {
   cursor: pointer;
 }
 
-#persons-delete-button-container{
+#persons-delete-button-container {
   width: 100%;
   justify-content: flex-end;
   margin-top: 4vh;
@@ -120,4 +112,3 @@ td {
 #search-reservation-container h3 {
   font-size: 30px;
 }
-

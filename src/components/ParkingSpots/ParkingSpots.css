@@ -1,4 +1,4 @@
-#parking-spots{
+#parking-spots {
   width: 80%;
   margin: 3vh auto;
   max-width: 1800px;
@@ -8,27 +8,28 @@
   flex-grow: 1;
 }
 
-#parking-spots-add-user{
+#parking-spots-add-user {
   margin-right: 2vw;
-  background-color: #ffd800;  
+  background-color: #ffd800;
 }
 
 #parking-spots-delete-button {
   margin-right: 2vw;
-  background-color: #FF6C6C;
+  background-color: #ff6c6c;
 }
 
-#parking-spots-accept-button, #table-search-reservations-button {
+#parking-spots-accept-button,
+#table-search-reservations-button {
   background-color: #ffd800;
 }
 
-.button:hover{
+.button:hover {
   cursor: pointer;
 }
 
 #parking-spots-header-container {
   align-items: center;
-} 
+}
 
 #parking-spots-table {
   width: 100%;
@@ -37,14 +38,13 @@
 
 #parking-spots-table th {
   background-color: #e7e7e7;
-  padding: 15px 0; 
+  padding: 16px 8px;
   text-align: left;
-  padding-left: 20px;
   border: none;
 }
 
 #parking-spots-table td {
-  padding: 4px 0; 
+  padding: 8px;
   text-align: left;
 }
 #parking-spots-table tr:hover {
@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-#parking-spots-delete-button-container{
+#parking-spots-delete-button-container {
   width: 100%;
   justify-content: flex-end;
   margin-top: 4vh;
@@ -82,5 +82,4 @@
   font-size: 17px;
   height: 32px;
   width: 160px;
-
 }
