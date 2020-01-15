@@ -157,11 +157,11 @@ class Persons extends Component<PersonsProps, PersonsState> {
     } else {
       tableHeader = (
         <tr>
-          <th className="table-cell">{}</th>
-          <th className="table-cell">Approved</th>
-          <th className="table-cell">Name</th>
-          <th className="table-cell">Email</th>
-          <th className="table-cell">Usage statistic</th>
+          <th className="table-cell-customers ">{}</th>
+          <th className="table-cell-customers ">Approved</th>
+          <th className="table-cell-customers ">Name</th>
+          <th className="table-cell-customers ">Email</th>
+          <th className="table-cell-customers ">Usage statistic</th>
         </tr>
       );
     } 
@@ -209,7 +209,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
           return (
   
           <tr key={person.id} >
-            <td className="persons-table-1-column">
+            <td className="table-cell-customers ">
               <Checkbox
                 onChange={this.handleCheckBoxClick}
                 value={person.id}
@@ -218,12 +218,12 @@ class Persons extends Component<PersonsProps, PersonsState> {
               />
             </td>
             
-            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>
+            <td className="table-cell-customers " onClick={() => this.handleTableClick(person.id)}>
               {person.role !== 'unverified' ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}
             </td>
-            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
-            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
-            <td className="persons-table-1-column" onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
+            <td className="table-cell-customers " onClick={() => this.handleTableClick(person.id)}>{person.name}</td>
+            <td className="table-cell-customers " onClick={() => this.handleTableClick(person.id)}>{person.email}</td>
+            <td className="table-cell-customers " onClick={() => this.handleTableClick(person.id)}>{person.reservationCount}</td>
           </tr>
   
           );

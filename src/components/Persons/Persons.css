@@ -57,6 +57,21 @@
   width: 30vw;
 }
 
+.table-cell-customers {
+  width: 30vw;
+}
+
+.table-cell-employees {
+  width: 30vw;
+}
+td {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 #persons-table th {
   background-color: #e7e7e7;
   padding: 15px 0; 
