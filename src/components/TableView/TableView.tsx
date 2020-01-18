@@ -166,7 +166,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
       header = 'Employees';
       addButton = <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}> Add user</button>;
-      deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete selected</button>;
+      deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete</button>;
 
       tableHeader = (
         <tr>
@@ -200,7 +200,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
       header = 'Customers';
       addButton = <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}> Add user</button>;
-      deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete selected</button>;
+      deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete</button>;
 
       tableHeader = (
         <tr>
@@ -261,7 +261,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
       header = 'Parking spots';
       addButton = <button id="table-view-add-user" className="button" onClick={this.openAddSpotModal}> Add parking spot</button>;
-      deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete selected</button>;
+      deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete</button>;
 
       tableHeader = (
         <tr>

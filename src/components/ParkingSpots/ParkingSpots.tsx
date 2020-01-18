@@ -183,7 +183,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
         onClick={this.openDeleteModal}
         disabled={!deleteObjectNumber}
       >
-        Delete selected
+        Delete
       </button>
       );
 

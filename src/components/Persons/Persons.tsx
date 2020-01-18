@@ -145,7 +145,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         onClick={this.openDeleteModal}
         disabled={deleteObjectNumber === 0}
       >
-        Delete selected
+        Delete
       </button>
       );
 
