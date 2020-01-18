@@ -176,14 +176,14 @@ class Modal extends Component<ModalProps, ModalState> {
           />
           <input 
             type="password" 
-            placeholder="password" 
+            placeholder="Password" 
             value={this.state.password1Input} 
             onChange={this.handlePassword1Change} 
             className="modal-input"
           />
           <input 
             type="password" 
-            placeholder="repeat password" 
+            placeholder="Repeat password" 
             value={this.state.password2Input} 
             onChange={this.handlePassword2Change} 
             className="modal-input"
@@ -258,14 +258,14 @@ class Modal extends Component<ModalProps, ModalState> {
        
           <input 
             type="password" 
-            placeholder="password" 
+            placeholder="Password" 
             value={this.state.password1Input} 
             onChange={this.handlePassword1Change} 
             className="modal-input"
           />
           <input 
             type="password" 
-            placeholder="repeat password" 
+            placeholder="Repeat password" 
             value={this.state.password2Input} 
             onChange={this.handlePassword2Change} 
             className="modal-input"
@@ -273,7 +273,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
           <div id="modal-add-user-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>change Password</button>
+            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>Change password</button>
           </div>
 
         </div>
