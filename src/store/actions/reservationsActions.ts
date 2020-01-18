@@ -73,7 +73,9 @@ export const deleteReservations = (id: string, dates: string) => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         dispatch({
+          payload: response && response.data && response.data.message,
           type: actionTypes.DELETERESERVATIONFAILED,
         });
       });

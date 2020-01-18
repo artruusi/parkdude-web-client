@@ -56,19 +56,19 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
     case actionTypes.GETSPOTSFAILED:
       return {
         ...state,
-        snackBarMessage: 'fetching parking spots from server failed',
+        snackBarMessage: 'Fetching parking spots from server failed',
       };
 
     case actionTypes.PARKINGSPOTCREATEDFAILED:
       return {
         ...state,
-        snackBarMessage: 'Creating parking spot failed',
+        snackBarMessage: action.payload || 'Creating parking spot failed',
       };
 
     case actionTypes.DELETESPOTFAILED:
       return {
         ...state,
-        snackBarMessage: 'Parking spot delete failed',
+        snackBarMessage: action.payload || 'Parking spot delete failed',
       };
 
     case actionTypes.CHANGEOWNER:
@@ -80,7 +80,7 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
     case actionTypes.CHANGEOWNERFAILED:
       return {
         ...state,
-        snackBarMessage: 'Failed to change owner',
+        snackBarMessage: action.payload || 'Failed to change owner',
       };
     default:
       return state;

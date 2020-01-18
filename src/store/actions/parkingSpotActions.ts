@@ -29,7 +29,9 @@ export const getParkingSpots = () => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         dispatch({
+          payload: response && response.data && response.data.message,
           type: actionTypes.GETSPOTSFAILED,
         });
       });
@@ -49,7 +51,9 @@ export const createParkingSpot = (data: CreateParkingSpotData) => {
     })
     .catch(error => {
       console.log(error);
+      const {response} = error;
       dispatch({
+        payload: response && response.data && response.data.message,
         type: actionTypes.PARKINGSPOTCREATEDFAILED,
       });
     });
@@ -69,7 +73,9 @@ export const deleteParkingSpot = (id: string) => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         dispatch({
+          payload: response && response.data && response.data.message,
           type: actionTypes.DELETESPOTFAILED,
         });
       });
@@ -94,7 +100,9 @@ export const changeOwner = (id: string, name: string, newOwner: string) => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         dispatch({
+          payload: response && response.data && response.data.message,
           type: actionTypes.CHANGEOWNERFAILED,
         });
       });

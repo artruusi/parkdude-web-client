@@ -105,20 +105,24 @@ export const modifyPerson = (person: IPerson, type: string) => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         if (type === 'make-admin' ) {
         
           dispatch({
+            payload: response && response.data && response.data.message,
             type: actionTypes.MAKEADMINFAILED,
           });
          
         } else if (type === 'undo-admin') {
 
          dispatch({
+           payload: response && response.data && response.data.message,
            type: actionTypes.UNDOADMINFAILED,
          });
         
         } else {
           dispatch({
+            payload: response && response.data && response.data.message,
             type: actionTypes.ACCETPERSONFAILED,      
           });
 
@@ -189,7 +193,9 @@ export const createPerson = (email: string, name: string, password: string) => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         dispatch({
+          payload: response && response.data && response.data.message,
           type: actionTypes.PERSONCREATIONFAILED,
         });
       });
@@ -211,7 +217,9 @@ export const changePassword = (id: string, password: string) => {
       })
       .catch(error => {
         console.log(error);
+        const {response} = error;
         dispatch({
+          payload: response && response.data && response.data.message,
           type: actionTypes.PASSWORDCHANGEFAILED,
         });
       });
