@@ -133,7 +133,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
         
         </div>
 
-        <div id="table-view-delete-button-container" className="flex-row">
+        <div id="table-view-delete-button-container" className="flex-row align-left-button-container">
           {acceptButton}
         </div> 
         <Snackbar 

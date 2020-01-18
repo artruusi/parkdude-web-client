@@ -57,11 +57,6 @@
   cursor: pointer;
 }
 
-#persons-delete-button-container {
-  width: 100%;
-  justify-content: flex-end;
-  margin-top: 4vh;
-}
 .table-check {
   width: 20px;
 }

@@ -326,7 +326,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
        
         </div>
 
-        <div id="table-view-delete-button-container" className="flex-row">
+        <div id="table-view-delete-button-container" className="flex-row align-left-button-container">
          {deleteButton}
         </div>      
 

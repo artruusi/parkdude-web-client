@@ -263,7 +263,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       
         </div>
 
-        <div id="persons-delete-button-container" className="flex-row">
+        <div id="persons-delete-button-container" className="flex-row align-left-button-container">
         {deleteButton}
         </div>      
         

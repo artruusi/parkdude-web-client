@@ -59,3 +59,13 @@ code {
 input[type=text], input[type=password], input[type=email] {
   font-size: 16px;
 }
+
+.align-left-button-container {
+  margin: 24px 0px;
+}
+
+.align-right-button-container {
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 24px;
+}

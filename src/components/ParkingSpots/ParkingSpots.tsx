@@ -238,7 +238,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
        
         </div>
 
-        <div id="parking-spots-delete-button-container" className="flex-row">
+        <div id="parking-spots-delete-button-container" className="flex-row align-left-button-container">
          {deleteButton}
         </div>      
       
