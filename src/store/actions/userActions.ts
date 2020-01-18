@@ -33,7 +33,7 @@ export const passwordLogIn = (data: PasswordLogInData) => {
     const url = process.env.REACT_APP_API_URL + 'auth/login';
     axios.post(url, data)
       .then(res => 
-        checkLogIn()(dispatch)
+        checkLogIn()(dispatch),
       )
       .catch(error => {
         console.log(error);

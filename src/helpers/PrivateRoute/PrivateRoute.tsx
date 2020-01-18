@@ -17,7 +17,7 @@ class PrivateRoute extends Component<PrivateRouteProps, {}> {
   }
 
   renderRouteContent = () => {
-    if (!this.props.loggedIn){
+    if (!this.props.loggedIn) {
       return <Redirect to="/login" />;
     }
     if (this.props.userRole !== UserRole.ADMIN) {

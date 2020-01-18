@@ -295,7 +295,7 @@ class Person extends Component<PersonProps, PersonState> {
     );
   }
 
-  renderNoReservationsRow(colspan: number){
+  renderNoReservationsRow(colspan: number) {
     return (
       <tr>
         <td colSpan={colspan}>No reservations</td>

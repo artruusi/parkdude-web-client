@@ -18,15 +18,15 @@ type LayoutProps = ConnectedProps<typeof connector> & OwnLayoutProps;
 
 class Layout extends Component<LayoutProps, {}> {
 
-  componentDidMount(){
+  componentDidMount() {
     this.updatePage();
   }
 
-  componentDidUpdate(prevProps: LayoutProps){
+  componentDidUpdate(prevProps: LayoutProps) {
     this.updatePage();
   }
 
-  updatePage(){
+  updatePage() {
     // Updates navigation change to redux
     if (this.props.page && this.props.page !== this.props.reduxPage) {
       this.props.changePage(this.props.page);
