@@ -88,7 +88,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
         disabled={numberOfSelectedRows === 0}
         onClick={this.acceptPersons}
       >
-        Accept selected
+        Accept
       </button>
     );
 

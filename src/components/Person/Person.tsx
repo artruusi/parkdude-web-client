@@ -244,7 +244,7 @@ class Person extends Component<PersonProps, PersonState> {
             id="person-free-selected-spots-button" 
             onClick={this.handleDeleteReservationsClick}
           > 
-            Free selected spots
+            Remove reservations
           </button>
         </div>
 

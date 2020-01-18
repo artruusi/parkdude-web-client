@@ -126,7 +126,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       }
     }, 0);
 
-    const addButton = <button id="persons-add-user" className="button" onClick={this.openAddUserModal}> Add user </button>;
+    const addButton = <button id="persons-add-user" className="button" onClick={this.openAddUserModal}>Add</button>;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAddUserModal} type='addUser' /> : null;
     const deleteModal = this.state.showDeleteModal 
       ? (

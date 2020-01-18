@@ -165,7 +165,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
     if (this.props.type === 'employees') {
 
       header = 'Employees';
-      addButton = <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}> Add user</button>;
+      addButton = <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}>Add</button>;
       deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete</button>;
 
       tableHeader = (
@@ -199,7 +199,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
     } else if (this.props.type === 'customers') {
 
       header = 'Customers';
-      addButton = <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}> Add user</button>;
+      addButton = <button id="table-view-add-user" className="button" onClick={this.openAddUserModal}>Add</button>;
       deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete</button>;
 
       tableHeader = (
@@ -232,7 +232,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
 
       header = 'Accept users';
       addButton = null;
-      deleteButton = <button id="table-view-accept-button" className="button" onClick={this.openDeleteModal}>Accept selected</button>;
+      deleteButton = <button id="table-view-accept-button" className="button" onClick={this.openDeleteModal}>Accept</button>;
 
       tableHeader = (
         <tr>
@@ -260,7 +260,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
     }  else if (this.props.type === 'parking-spots') {
 
       header = 'Parking spots';
-      addButton = <button id="table-view-add-user" className="button" onClick={this.openAddSpotModal}> Add parking spot</button>;
+      addButton = <button id="table-view-add-user" className="button" onClick={this.openAddSpotModal}>Add</button>;
       deleteButton = <button id="table-view-delete-button" className="button" onClick={this.openDeleteModal}>Delete</button>;
 
       tableHeader = (

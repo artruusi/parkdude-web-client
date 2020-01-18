@@ -205,7 +205,7 @@ class Modal extends Component<ModalProps, ModalState> {
               title={this.isPersonInputvalid() ? "" : "All fields must be filled and passwords must match."}
               disabled={!this.isPersonInputvalid()}
             >
-              Add user
+              Add
             </button>
           </div>
 

@@ -151,7 +151,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       }
     }, 0);
 
-    const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}>Add parking spot</button>;
+    const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}>Add</button>;
     const addSpotModal = this.state.showAddSpotModal 
       ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
       : null;
