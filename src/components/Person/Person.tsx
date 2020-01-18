@@ -51,8 +51,18 @@ class Person extends Component<PersonProps, PersonState> {
     console.log(id);
     this.props.getUserReservations(id);
     this.props.getData(id);
-   
   }
+
+  componentDidUpdate(prevProps: PersonProps) {
+    if (prevProps.userReservations !== this.props.userReservations) {
+      const reservationKeys = new Set(...this.props.userReservations.map(reservation => {
+        return reservation.parkingSpot.id + '&' + reservation.date;
+      }));
+      const filteredSelection = Object.entries(this.state.selectedRows).filter(([key]) => reservationKeys.has(key));
+      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+    }
+  }
+
   makeAdmin = () => {
     this.props.modifyPerson(this.props.selectedPerson, 'make-admin');
   }
@@ -142,6 +152,7 @@ class Person extends Component<PersonProps, PersonState> {
 
     const futurereservations: JSX.Element [] = [];
     const pastReservations: JSX.Element [] = [];
+    const hasSelectedReservations = Object.values(this.state.selectedRows).some(value => value);
 
     const currentDay = new Date();
 
@@ -242,6 +253,7 @@ class Person extends Component<PersonProps, PersonState> {
             className="button person-button" 
             id="person-free-selected-spots-button" 
             onClick={this.handleDeleteReservationsClick}
+            disabled={!hasSelectedReservations}
           > 
             Remove reservations
           </button>
