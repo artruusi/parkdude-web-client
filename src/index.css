@@ -55,3 +55,7 @@ code {
   max-height: 50vh;
   overflow: auto;
 }
+
+input[type=text], input[type=password] {
+  font-size: 16px;
+}
