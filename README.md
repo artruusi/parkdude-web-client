@@ -1,4 +1,4 @@
-# ParkDude-web-client
+# Parkdude web client
 
 ## Folder structure
 
