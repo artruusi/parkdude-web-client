@@ -180,12 +180,8 @@ class Person extends Component<PersonProps, PersonState> {
     let page = (
       <div id="person" className="flex-column">
       <div className="flex-row" id="person-header-container">
-      <h2>{this.props.selectedPerson.name}</h2>
-       
-      </div>
-
-      <div className="flex-row align-right-button-container" id="person-delete-button-container">
-        <button className="button" id="person-delete-button">Delete user</button>
+        <h2>{this.props.selectedPerson.name}</h2>
+        <button className="button" id="person-delete-button">Delete user</button>       
       </div>
 
       <div className="flex-row" id="person-content-wrapper">

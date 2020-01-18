@@ -1,10 +1,7 @@
 #person {
   width: 80%;
   max-width: 900px;
-  margin: 24px auto;
-  padding-bottom: 4vh;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  margin: 3vh auto;
 }
 
 #person-content-wrapper {
@@ -19,13 +16,13 @@
 
 #person-delete-button {
   background-color: #FF6C6C;
-  transform: translateY(-50px);
   height: 35px;
 }
 
 #person-header-container {
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
+  align-items: center;
 }
 
 #person-button-container {
