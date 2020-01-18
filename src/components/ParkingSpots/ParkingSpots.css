@@ -79,3 +79,7 @@
   height: 32px;
   width: 160px;
 }
+
+#parking-spots-table .change-owner-column {
+  width: 160px;
+}

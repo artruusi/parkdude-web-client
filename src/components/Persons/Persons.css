@@ -41,34 +41,11 @@
   width: 100%;
 }
 
-#persons-table thead {
-}
-
-.table-cell {
-}
-
-.table-cell-customers {
-}
-
-.table-cell-employees {
-}
-
-td {
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 #persons-table th {
   background-color: #e7e7e7;
   padding: 16px 8px;
   text-align: left;
   border: none;
-}
-.persons-table-1-column {
-}
-.persons-table-2-column {
 }
 
 #persons-table td {

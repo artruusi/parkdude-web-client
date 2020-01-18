@@ -184,7 +184,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
         <th>Number</th>
         <th>Regular spot</th>
         <th>Owner</th>
-        <th>{}</th>
+        <th className="change-owner-column">{}</th>
       </tr>
     );
 
