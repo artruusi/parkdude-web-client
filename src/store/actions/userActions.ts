@@ -37,6 +37,11 @@ export const passwordLogIn = (data: PasswordLogInData) => {
       )
       .catch(error => {
         console.log(error);
+        const {response} = error;
+        dispatch({
+          payload: response && response.data && response.data.message,
+          type: actionTypes.LOGINFAILED,
+        });
       });
 
   };
@@ -63,5 +68,13 @@ export const ChangePage = (page: string) => {
   return {
     payload: page,
     type: actionTypes.CHANGEPAGE, 
+  };
+};
+
+export const closeUserSnackBar = () => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+        type: actionTypes.HIDEUSERSNACKBAR,
+      }); 
   };
 };

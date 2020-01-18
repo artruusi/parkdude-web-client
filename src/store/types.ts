@@ -49,6 +49,7 @@ export interface UserState {
   loggedIn: boolean;
   userName: string;
   currentPage: string;
+  snackBarMessage: string;
 }
 
 export interface ParkingSpotState {

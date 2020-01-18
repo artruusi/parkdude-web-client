@@ -6,12 +6,15 @@ import { checkLogIn, passwordLogIn } from './../../store/actions/userActions';
 
 import parkDudeLogo from './../../img/parkdude.svg';
 import './Login.css';
+import { closeUserSnackBar } from '../../store/actions/userActions';
+import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 
 interface LogInProps {
+  closeSnackBar: () => void;
   loggedIn: boolean;
   checkLogIn: () => void;
   passwordLogIn: (data: PasswordLogInData) => void;
-  
+  snackBarMessage: string;
 }
 
 interface LogInSate {
@@ -57,6 +60,12 @@ class LogIn extends Component<LogInProps, LogInSate> {
 
   render() {
     this.props.checkLogIn();
+    
+    const snackLocation: SnackbarOrigin = {
+      horizontal: 'center',
+      vertical: 'bottom',
+    };
+    
     return (
       <div id="log-in" className="flex-column-center">
         {this.renderRedirect()}
@@ -76,6 +85,16 @@ class LogIn extends Component<LogInProps, LogInSate> {
         </div>
 
         <button className="button" id="log-in-google-button" onClick={this.googleLogIn}>Log in with Google</button>
+
+        <Snackbar 
+          id='delete-snack'
+          open={this.props.snackBarMessage !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessage}</span>}
+          onClose={this.props.closeSnackBar}
+          autoHideDuration={3000}
+        
+        />
       </div>
     );
   }
@@ -84,12 +103,14 @@ class LogIn extends Component<LogInProps, LogInSate> {
 const mapState = (state: AppState) => {
   return {
     loggedIn: state.user.loggedIn,
+    snackBarMessage: state.user.snackBarMessage,
   };
 };
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {
     checkLogIn: () => dispatch(checkLogIn()),
+    closeSnackBar: () => dispatch(closeUserSnackBar()),
     passwordLogIn: (data: PasswordLogInData) => dispatch(passwordLogIn(data)),
   };
 };
