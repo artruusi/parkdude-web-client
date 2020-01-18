@@ -296,7 +296,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
           <div id="modal-add-user-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>Change password</button>
+            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>Change</button>
           </div>
 
         </div>
