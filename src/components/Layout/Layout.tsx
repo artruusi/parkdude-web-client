@@ -2,25 +2,36 @@ import React, { Component } from 'react';
 import Header from './../Header/Header';
 import './Layout.css';
 import Person from './../Person/Person';
-import CheckAuth from './../../helpers/CheckAuth/CheckAuth';
 import ParkingSpots from './../ParkingSpots/ParkingSpots';
 import Persons from './../Persons/Persons';
 import AcceptUsers from './../AcceptUsers/AcceptUsers';
 import Reservations from './../Reservations/Reservations';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store/types';
+import { ChangePage } from '../../store/actions/userActions';
  
 interface OwnLayoutProps {
   page?: string;
 }
 
-interface ReduxLayoutProps {
-  parkingSpotsLoading: boolean;
-
-}
-type LayoutProps = OwnLayoutProps & ReduxLayoutProps;
+type LayoutProps = ConnectedProps<typeof connector> & OwnLayoutProps;
 
 class Layout extends Component<LayoutProps, {}> {
+
+  componentDidMount(){
+    this.updatePage();
+  }
+
+  componentDidUpdate(prevProps: LayoutProps){
+    this.updatePage();
+  }
+
+  updatePage(){
+    // Updates navigation change to redux
+    if (this.props.page && this.props.page !== this.props.reduxPage) {
+      this.props.changePage(this.props.page);
+    }
+  }
 
   render() {
 
@@ -48,7 +59,6 @@ class Layout extends Component<LayoutProps, {}> {
 
     return (
       <div id="layout" className="flex-column">
-        <CheckAuth/>
         <Header/>
         {content}
       </div>
@@ -58,7 +68,14 @@ class Layout extends Component<LayoutProps, {}> {
 const mapState = (state: AppState) => {
   return {
     parkingSpotsLoading: state.parkingSpot.loading,
+    reduxPage: state.user.currentPage,
   };
 };
 
-export default connect(mapState)( Layout);
+const mapDispatch = {
+  changePage: ChangePage,
+};
+
+const connector  = connect(mapState, mapDispatch);
+
+export default connector(Layout);

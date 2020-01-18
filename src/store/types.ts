@@ -50,6 +50,7 @@ export interface UserState {
   userName: string;
   currentPage: string;
   snackBarMessage: string;
+  authChecked: boolean;
 }
 
 export interface ParkingSpotState {

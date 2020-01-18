@@ -4,20 +4,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from './../../store/types';
 
-import { ChangePage, logOutFromServer } from "./../../store/actions/userActions";
+import { logOutFromServer } from "./../../store/actions/userActions";
 
 import personIcon from './../../img/person-icon-white.png';
 
 interface OwnHeaderProps {
   userName?: string;
   currentPage?: string;
-  
 }
 
 interface ReduxHeaderprops {
   logOutFromServer: () => void;
-  changePage: (page: string) => void;
- 
 }
 
 interface HeaderState {
@@ -40,7 +37,6 @@ class Header extends Component < HeaderProps , HeaderState > {
   }
 
   render() {
-
     const dropdown = (
       <div id="header-dropdown-content" onMouseLeave={this.hideDropDown}>
         <span id="header-dropdown-username">{this.props.userName}</span>
@@ -57,7 +53,7 @@ class Header extends Component < HeaderProps , HeaderState > {
           <div id="header-tab-container" className="flex-row">
 
             <div className="tab-container flex-column-center">
-              <Link to="/employees" className="header-link" onClick={() => this.props.changePage('employees')}>
+              <Link to="/employees" className="header-link">
                 Employees
               </Link>
 
@@ -65,7 +61,7 @@ class Header extends Component < HeaderProps , HeaderState > {
             </div>
 
             <div className="tab-container flex-column-center ">
-              <Link to="/customers" className="header-link" onClick={() => this.props.changePage('customers')}>
+              <Link to="/customers" className="header-link">
                 Customers
               </Link>
 
@@ -73,7 +69,7 @@ class Header extends Component < HeaderProps , HeaderState > {
             </div>
 
             <div className="tab-container flex-column-center">
-              <Link to="/parking-spots" className="header-link" onClick={() => this.props.changePage('parking-spots')}>
+              <Link to="/parking-spots" className="header-link">
                 Parking spots
               </Link>
 
@@ -81,7 +77,7 @@ class Header extends Component < HeaderProps , HeaderState > {
             </div>
 
             <div className="tab-container flex-column-center">
-              <Link to="/accept-users" className="header-link" onClick={() => this.props.changePage('accept-users')}>
+              <Link to="/accept-users" className="header-link">
                 Accept users
               </Link>
 
@@ -89,7 +85,7 @@ class Header extends Component < HeaderProps , HeaderState > {
             </div>
 
             <div className="tab-container flex-column-center">
-              <Link to="/reservations" className="header-link" onClick={() => this.props.changePage('reservations')}>
+              <Link to="/reservations" className="header-link">
                 Reservations
               </Link>
 
@@ -114,14 +110,12 @@ const mapState = (state: AppState) => {
   return {
     currentPage: state.user.currentPage,
     userName: state.user.userName,
-    
   };
 
 };
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {
-    changePage: (page: string) => dispatch(ChangePage(page)),
     logOutFromServer: () => dispatch(logOutFromServer()),
   };
 };

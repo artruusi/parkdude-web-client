@@ -4,6 +4,7 @@ import { UserState } from "../types";
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState: UserState = {
+  authChecked: false,
   currentPage: 'customers',
   loggedIn: false,
   snackBarMessage: '',
@@ -15,12 +16,14 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
     case actionTypes.LOGOUT:
       return {
         ...state,
+        authChecked: true,
         loggedIn: false,
-        userName: '',          
+        userName: '',
       };
 
     case actionTypes.LOGIN:
       return {
+        authChecked: true,
         currentPage: state.currentPage,
         loggedIn: true,
         snackBarMessage: '',
@@ -29,6 +32,7 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
 
     case actionTypes.LOGINFAILED:
       return {
+        ...state,
         currentPage: state.currentPage,
         loggedIn: false,
         snackBarMessage: action.payload || '',
@@ -37,6 +41,7 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
 
     case actionTypes.CHANGEPAGE:
       return {
+        ...state,
         currentPage: action.payload,
         loggedIn: true,
         snackBarMessage: '',
