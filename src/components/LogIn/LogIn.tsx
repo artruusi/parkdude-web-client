@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from 'react';
+import React, { Component, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { AppState, Dispatch, PasswordLogInData } from './../../store/types';
@@ -49,7 +49,8 @@ class LogIn extends Component<LogInProps, LogInSate> {
     console.log(googleURL);
     document.location.href = googleURL;
   }
-  passwordLogIn = () => { 
+  passwordLogIn = (event: FormEvent<HTMLFormElement>) => { 
+    event.preventDefault();
     const data = {
       email: this.state.emailInput,
       password: this.state.passwordInput,
@@ -67,7 +68,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
     };
     
     return (
-      <div id="log-in" className="flex-column-center">
+      <form id="log-in" className="flex-column-center" onSubmit={this.passwordLogIn}>
         {this.renderRedirect()}
 
         <img src={parkDudeLogo} alt="Parkdude logo" id="log-in-logo"/>
@@ -76,7 +77,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
         <input type="email" placeholder="Email" id="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
         <input type="password" placeholder="Password" id="log-in-password" value={this.state.passwordInput} onChange={this.handlePWChange}/>
 
-        <button className="button" id="log-in-log-button" onClick={this.passwordLogIn}>Log in</button>
+        <button className="button" id="log-in-log-button" type="submit">Log in</button>
 
         <div className="flex-row-center" id="log-in-or-container">
           <hr/>
@@ -95,7 +96,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
           autoHideDuration={3000}
         
         />
-      </div>
+      </form>
     );
   }
 }
