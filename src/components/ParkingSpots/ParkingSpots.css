@@ -43,9 +43,8 @@
   padding: 8px;
   text-align: left;
 }
-#parking-spots-table tr:hover {
+#parking-spots-table tbody tr:hover {
   background-color: #999966;
-  cursor: pointer;
 }
 
 .table-check {

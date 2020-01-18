@@ -45,7 +45,6 @@
 }
 #table-view-table tr:hover {
   background-color: #999966;
-  cursor: pointer;
 }
 
 .table-check {

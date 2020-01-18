@@ -29,9 +29,9 @@
   padding: 4px 0;
   text-align: left;
 }
-#table-view-table tr:hover {
+
+#table-view-table tbody tr:hover {
   background-color: #999966;
-  cursor: pointer;
 }
 
 #table-view-accept-button,

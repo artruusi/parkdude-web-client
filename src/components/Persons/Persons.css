@@ -52,7 +52,7 @@
   padding: 8px;
   text-align: left;
 }
-#persons-table tr:hover {
+#persons-table tbody tr:hover {
   background-color: #999966;
   cursor: pointer;
 }
