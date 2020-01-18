@@ -56,6 +56,6 @@ code {
   overflow: auto;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   font-size: 16px;
 }

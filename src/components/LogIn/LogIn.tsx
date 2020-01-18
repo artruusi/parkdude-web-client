@@ -64,7 +64,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
         <img src={parkDudeLogo} alt="Parkdude logo" id="log-in-logo"/>
         <h3>Log in</h3>
         
-        <input type="text" placeholder="email" id="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
+        <input type="email" placeholder="Email" id="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
         <input type="password" placeholder="Password" id="log-in-password" value={this.state.passwordInput} onChange={this.handlePWChange}/>
 
         <button className="button" id="log-in-log-button" onClick={this.passwordLogIn}>Log in</button>
