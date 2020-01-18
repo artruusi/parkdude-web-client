@@ -129,8 +129,8 @@ class Person extends Component<PersonProps, PersonState> {
       : null;
 
     const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0
-      ? <button className="button person-button" onClick={this.killSession}>Free users spots</button>
-      : <button className="button person-button" onClick={this.killSession}>Get permanent Spot</button>;
+      ? <button className="button person-button" onClick={this.killSession} disabled={true}>Free user's spots</button>
+      : <button className="button person-button" onClick={this.killSession} disabled={true}>Get permanent spot</button>;
 
     const passwordButton = this.props.selectedPerson.isEmailValidated
       ? null
