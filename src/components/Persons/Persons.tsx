@@ -104,8 +104,14 @@ class Persons extends Component<PersonsProps, PersonsState> {
   } 
   componentDidMount() {
     this.props.getPersons();
-    console.log('asadasdadsa');
-    
+  }
+
+  componentDidUpdate(prevProps: PersonsProps) {
+    if (prevProps.persons !== this.props.persons) {
+      const personIds = new Set(...this.props.persons.map(person => person.id));
+      const filteredSelection = Object.entries(this.state.selectedRows).filter(([id]) => personIds.has(id));
+      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+    }
   }
 
   render() {
@@ -137,6 +143,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         id="persons-delete-button" 
         className="button" 
         onClick={this.openDeleteModal}
+        disabled={deleteObjectNumber === 0}
       >
         Delete selected
       </button>

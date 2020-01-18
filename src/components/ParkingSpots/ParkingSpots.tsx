@@ -134,6 +134,14 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     this.props.getPersons();
   }
 
+  componentDidUpdate(prevProps: ParkingSpotsProps) {
+    if (prevProps.parkingSpots !== this.props.parkingSpots) {
+      const parkingSpotIds = new Set(...this.props.parkingSpots.map(parkingSpot => parkingSpot.id));
+      const filteredSelection = Object.entries(this.state.selectedRows).filter(([id]) => parkingSpotIds.has(id));
+      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+    }
+  }
+
   render() {
     const deleteObjectNumber: number = Object.keys(this.state.selectedRows).reduce((acc, row) => {
       if (this.state.selectedRows[row]) {
@@ -143,7 +151,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       }
     }, 0);
 
-    const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}> Add parking spot</button>;
+    const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}>Add parking spot</button>;
     const addSpotModal = this.state.showAddSpotModal 
       ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
       : null;
@@ -173,6 +181,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
         id="parking-spots-delete-button" 
         className="button" 
         onClick={this.openDeleteModal}
+        disabled={!deleteObjectNumber}
       >
         Delete selected
       </button>

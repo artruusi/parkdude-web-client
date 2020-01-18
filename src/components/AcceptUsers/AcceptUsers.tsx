@@ -69,10 +69,28 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     this.props.getPersons();
   }
 
+  componentDidUpdate(prevProps: AcceptUserProps) {
+    if (prevProps.persons !== this.props.persons) {
+      const personIds = new Set(...this.props.persons.map(person => person.id));
+      const filteredSelection = Object.entries(this.state.selectedRows).filter(([id]) => personIds.has(id));
+      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+    }
+  }
+
   render() {
+    const numberOfSelectedRows = Object.keys(this.state.selectedRows).length;
 
     const header = 'Accept users';
-    const acceptButton = <button id="table-view-accept-button" className="button" onClick={this.acceptPersons}>Accept selected</button>;
+    const acceptButton = (
+      <button 
+        id="table-view-accept-button" 
+        className="button" 
+        disabled={numberOfSelectedRows === 0}
+        onClick={this.acceptPersons}
+      >
+        Accept selected
+      </button>
+    );
 
     const tableHeader = (
       <tr>

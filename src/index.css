@@ -47,6 +47,11 @@ code {
   cursor: pointer;
 }
 
+.button:disabled {
+  opacity: 50%;
+  cursor: default;
+}
+
 *:focus{
    outline: none;
 }
