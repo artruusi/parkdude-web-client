@@ -216,7 +216,7 @@ class Modal extends Component<ModalProps, ModalState> {
           />
           
           <FormControl >
-            <InputLabel >Select Owner</InputLabel>
+            <InputLabel>Select owner</InputLabel>
             <Select className="modal-select" value={this.state.selectedSpotOwner} onChange={this.handleSpotOwnerChange}>
               {persons}
             </Select>
@@ -237,7 +237,7 @@ class Modal extends Component<ModalProps, ModalState> {
           <h3>Select a new owner</h3>
 
           <FormControl >
-            <InputLabel >Select Owner</InputLabel>
+            <InputLabel>Select owner</InputLabel>
             <Select className="modal-select" value={this.state.selectedSpotOwner} onChange={this.handleSpotOwnerChange}>
               {persons}
             </Select>
