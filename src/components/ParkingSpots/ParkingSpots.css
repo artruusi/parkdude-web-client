@@ -23,12 +23,13 @@
   background-color: #ffd800;
 }
 
-.button:hover {
-  cursor: pointer;
-}
-
 #parking-spots-header-container {
   align-items: center;
+}
+
+#parking-spots-table-container {
+  max-height: 50vh;
+  overflow: auto;
 }
 
 #parking-spots-table {

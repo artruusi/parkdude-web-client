@@ -23,24 +23,22 @@
   background-color: #ffd800;
 }
 
-.button:hover {
-  cursor: pointer;
-}
-
 #persons-header-container {
   align-items: center;
+}
+
+#persons-table-container {
+  max-height: 50vh;
+  overflow: auto;
 }
 
 #persons-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
 #persons-table tbody {
-  max-height: 50vh;
   width: 100%;
-  overflow: auto;
 }
 
 #persons-table thead tr {

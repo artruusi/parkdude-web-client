@@ -22,10 +22,6 @@
   background-color: #ffd800;
 }
 
-.button:hover{
-  cursor: pointer;
-}
-
 #table-view-header-container {
   align-items: center;
 } 
