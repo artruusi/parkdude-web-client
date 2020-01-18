@@ -27,11 +27,6 @@
   align-items: center;
 }
 
-#parking-spots-table-container {
-  max-height: 50vh;
-  overflow: auto;
-}
-
 #parking-spots-table {
   width: 100%;
   border-collapse: collapse;

@@ -248,7 +248,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
           
         </div>
 
-        <div id="persons-table-container">
+        <div className="table-container">
           <table id="persons-table">
 
             <thead>

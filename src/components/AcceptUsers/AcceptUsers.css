@@ -12,11 +12,6 @@
   align-items: center;
 }
 
-#table-view-table-container {
-  max-height: 50vw;
-  overflow: auto;
-}
-
 #table-view-table {
   width: 100%;
   border-collapse: collapse;

@@ -50,3 +50,8 @@ code {
 *:focus{
    outline: none;
 }
+
+.table-container {
+  max-height: 50vh;
+  overflow: auto;
+}

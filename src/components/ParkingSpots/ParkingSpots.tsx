@@ -223,7 +223,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
           
         </div>
 
-        <div id="parking-spots-table-container">
+        <div className="table-container">
           <table id="parking-spots-table">
 
             <thead>

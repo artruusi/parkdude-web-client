@@ -311,7 +311,7 @@ class TableView  extends Component<TableViewProps, TableViewState> {
           {addButton}
         </div>
 
-        <div id="table-view-table-container">
+        <div className="table-container">
           <table id="table-view-table">
 
             <thead>

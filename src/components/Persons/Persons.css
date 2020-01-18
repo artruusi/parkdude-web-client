@@ -27,11 +27,6 @@
   align-items: center;
 }
 
-#persons-table-container {
-  max-height: 50vh;
-  overflow: auto;
-}
-
 #persons-table {
   width: 100%;
   border-collapse: collapse;

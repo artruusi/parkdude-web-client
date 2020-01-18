@@ -118,7 +118,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
           
         </div>
 
-        <div id="table-view-table-container">
+        <div className="table-container">
           <table id="table-view-table">
 
             <thead>
