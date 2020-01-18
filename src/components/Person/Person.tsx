@@ -181,7 +181,8 @@ class Person extends Component<PersonProps, PersonState> {
       <div id="person" className="flex-column">
       <div className="flex-row" id="person-header-container">
         <h2>{this.props.selectedPerson.name}</h2>
-        <button className="button" id="person-delete-button">Delete user</button>       
+        {/* TODO: Implement functionality */}
+        <button className="button person-button" id="person-delete-button" hidden={true}>Delete</button>       
       </div>
 
       <div className="flex-row" id="person-content-wrapper">
@@ -240,7 +241,7 @@ class Person extends Component<PersonProps, PersonState> {
             </tbody>
           </table>
           <button 
-            className="button person-button " 
+            className="button person-button" 
             id="person-free-selected-spots-button" 
             onClick={this.handleDeleteReservationsClick}
           > 
