@@ -97,18 +97,25 @@ class Modal extends Component<ModalProps, ModalState> {
     this.props.close();
   }
   createPerson = () => {
-
     const email = this.state.emailInput;
     const name = this.state.nameInput;
     const password1 = this.state.password1Input;
-    const password2 = this.state.password2Input;
 
-    if (email === '' || name === '' || password1 === '' || password1 !== password2) {
+    if (!this.isPersonInputvalid()) {
       return;
     }
     this.props.createPerson(email, name, password1);
     this.props.close();
 
+  }
+
+  isPersonInputvalid = () => {
+    const email = this.state.emailInput;
+    const name = this.state.nameInput;
+    const password1 = this.state.password1Input;
+    const password2 = this.state.password2Input;
+
+    return email !== '' && name !== '' && password1 !== '' && password1 === password2;
   }
 
   handleSpotOwnerChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
@@ -191,7 +198,15 @@ class Modal extends Component<ModalProps, ModalState> {
 
           <div id="modal-add-user-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-user-button" onClick={this.createPerson}>Add user</button>
+            <button 
+              className="button" 
+              id="modal-add-user-button" 
+              onClick={this.createPerson}
+              title={this.isPersonInputvalid() ? "" : "All fields must be filled and passwords must match."}
+              disabled={!this.isPersonInputvalid()}
+            >
+              Add user
+            </button>
           </div>
 
         </div>
@@ -224,7 +239,15 @@ class Modal extends Component<ModalProps, ModalState> {
 
           <div id="modal-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-spot-button" onClick={this.createNewSpot}>Create</button>
+            <button 
+              className="button" 
+              id="modal-add-spot-button" 
+              disabled={!this.state.spotNumberInput}
+              title={this.state.spotNumberInput ? "" : "Parking spot number is required"}
+              onClick={this.createNewSpot}
+            >
+              Create
+            </button>
           </div>
 
         </div>
