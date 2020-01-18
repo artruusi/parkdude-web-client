@@ -12,8 +12,6 @@ import { parkingSpotReducer } from './store/reducers/parkingSpotReducer';
 import { personsReducer } from './store/reducers/personsReducer';
 import {reservationsReducer} from './store/reducers/reservationsReducer';
 
-// REACT_APP_API_URL= https://i7w5y21f84.execute-api.eu-north-1.amazonaws.com/prod/api/
-
 const composeEnhancers =
   process.env.NODE_ENV === "development"
     ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
