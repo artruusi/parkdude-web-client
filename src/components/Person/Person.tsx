@@ -218,8 +218,7 @@ class Person extends Component<PersonProps, PersonState> {
               </tr>
             </thead>
             <tbody>
-             {pastReservations}
-
+             {pastReservations.length ? pastReservations : this.renderNoReservationsRow(2)}
             </tbody>
           </table>
           
@@ -236,8 +235,7 @@ class Person extends Component<PersonProps, PersonState> {
               </tr>
             </thead>
             <tbody>
-              {futurereservations}
-
+              {futurereservations.length ? futurereservations : this.renderNoReservationsRow(3)}
             </tbody>
           </table>
           <button 
@@ -279,6 +277,14 @@ class Person extends Component<PersonProps, PersonState> {
       {page}
       </>
                 
+    );
+  }
+
+  renderNoReservationsRow(colspan: number){
+    return (
+      <tr>
+        <td colSpan={colspan}>No reservations</td>
+      </tr>
     );
   }
 }
