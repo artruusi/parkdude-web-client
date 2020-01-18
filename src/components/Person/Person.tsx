@@ -253,7 +253,7 @@ class Person extends Component<PersonProps, PersonState> {
         </div>
 
       </div>
-      <div id="person-button-contaier" className="flex-row">
+      <div id="person-button-container" className="flex-row">
         {adminButton}
         {sessionButton}
         {parkingSpotButton}

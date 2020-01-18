@@ -1,9 +1,14 @@
 #person {
-  width: 70%;
-  margin: 8vh auto;
+  width: 80%;
+  max-width: 900px;
+  margin: 24px auto;
   padding-bottom: 4vh;
   padding-left: 2vw;
   padding-right: 2vw;
+}
+
+#person-content-wrapper {
+  justify-content: space-between;
 }
 
 .person-button {
@@ -15,7 +20,6 @@
 #person-delete-button {
   background-color: #FF6C6C;
   transform: translateY(-50px);
-  margin-right: 3vw;
   height: 35px;
 }
 
@@ -24,10 +28,12 @@
   width: 100%;
 }
 
-#person-button-contaier {
-  justify-content: space-around;
-  width: 80%;
+#person-button-container {
   margin-top: 10vh;
+}
+
+#person-button-container .button {
+  margin-right: 16px;
 }
 
 #person-history-container {
@@ -37,12 +43,10 @@
 }
 #person-history-list-container {
   width: 70%;
- 
 }
 
 #person-info-container {
   width: 23%;
-  padding-left: 3vw;
   margin-right: 10%;
   border-radius: 30px;
 }
@@ -52,6 +56,15 @@
   margin-top: 2vh;
   border-collapse: collapse;
   margin-bottom: 2vh;
+}
+
+.person-table td, .person-table th {
+  padding: 8px 16px;
+}
+
+.person-table th {
+  background-color: #ffca28;
+  text-align: left;
 }
 
 #person-future-reservation-container {
@@ -65,15 +78,6 @@
 
 .person-check {
   width: 18px;
-}
-
-.person-table th {
-  background-color: #ffca28;
-  padding: 15px 0; 
-}
-
-.person-table td {
-  padding: 4px 0; 
 }
 
 #person-free-selected-spots-button {
