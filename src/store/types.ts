@@ -91,6 +91,7 @@ export interface ReservationsState {
   userReservations: UserReservations [];
   deleteReservationsNumber: number;
   loading: boolean;
+  snackBarMessage: string;
 }
 export interface UserReservations {
   date: string;
@@ -99,8 +100,9 @@ export interface UserReservations {
 }
 export interface Reservation {
   date: string;
-  spacesReservedByUser: ParkingSpot [];
-
+  user: string;
+  parkingSpotId: string;
+  parkingSpotName: string;
 }
 
 // interfaces for api

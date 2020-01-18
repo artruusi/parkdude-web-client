@@ -12,7 +12,7 @@ import Spinner from '../Spinner/Spinner';
 
 interface ReduxPersonProps {
   closeSnackBar: () => void;
-  deletereservations: (id: string, dates: string) => void;
+  deletereservations: (id: string, dates: string, type: string) => void;
   selectedPerson: IPerson;
   getData: (id: string) => void;
   getUserReservations: (id: string) => void;
@@ -92,7 +92,7 @@ class Person extends Component<PersonProps, PersonState> {
        const rowSplit = row.split('&');
        const id = rowSplit[0];
        const date = rowSplit[1];
-       this.props.deletereservations(id, date);
+       this.props.deletereservations(id, date, 'personReservation');
       }
      
     });
@@ -298,7 +298,7 @@ const mapState = (state: AppState) => {
 const MapDispatch = (dispatch: Dispatch) => {
   return {
    closeSnackBar: () => dispatch(hidePersonsSnackBar()),
-   deletereservations: (id: string, dates: string) => dispatch(deleteReservations(id, dates)),
+   deletereservations: (id: string, dates: string, type: string) => dispatch(deleteReservations(id, dates, type)),
    getData: (id: string) => dispatch(getPerson(id)),
    getUserReservations: (id: string) => dispatch(getUserReservations(id)),
    killSession: (id: string) => dispatch(killSession(id)),
