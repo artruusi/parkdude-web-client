@@ -121,7 +121,7 @@ class Person extends Component<PersonProps, PersonState> {
   render() {
 
     const adminButton = this.props.selectedPerson.role === 'admin' 
-      ? <button onClick={this.undoAdmin} className="button person-button">Undo Admin</button> 
+      ? <button onClick={this.undoAdmin} className="button person-button">Undo admin</button> 
       : <button onClick={this.makeAdmin} className="button person-button">Make admin</button>;
     
     const sessionButton = this.props.selectedPerson.sessions.length !== 0
