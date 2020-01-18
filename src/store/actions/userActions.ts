@@ -5,9 +5,9 @@ import { LoginState, PasswordLogInData } from "../types";
 
 axios.defaults.withCredentials = true;
 
-export const LogUserIn = (name: string) => {
+export const LogUserIn = (username: string, userRole: string) => {
   return {
-    payload: name,
+    payload: {username, userRole},
     type: actionTypes.LOGIN,
   };
 };
@@ -33,7 +33,7 @@ export const passwordLogIn = (data: PasswordLogInData) => {
     const url = process.env.REACT_APP_API_URL + 'auth/login';
     axios.post(url, data)
       .then(res => 
-        dispatch(LogUserIn(res.data.name)),
+        checkLogIn()(dispatch)
       )
       .catch(error => {
         console.log(error);
@@ -55,7 +55,7 @@ export const checkLogIn = () => {
       .get<LoginState>(url, { withCredentials: true })
       .then(response =>
         response.data.isAuthenticated
-          ? dispatch(LogUserIn(response.data.name))
+          ? dispatch(LogUserIn(response.data.name, response.data.userRole!!))
           : dispatch(LogOut()),
       )
       .catch(error => {

@@ -9,6 +9,7 @@ const initialState: UserState = {
   loggedIn: false,
   snackBarMessage: '',
   userName: '',
+  userRole: undefined,
 };
 
 export const userReducer: Reducer<UserState, any> = (state = initialState, action) => {
@@ -19,6 +20,7 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
         authChecked: true,
         loggedIn: false,
         userName: '',
+        userRole: undefined,
       };
 
     case actionTypes.LOGIN:
@@ -27,7 +29,8 @@ export const userReducer: Reducer<UserState, any> = (state = initialState, actio
         currentPage: state.currentPage,
         loggedIn: true,
         snackBarMessage: '',
-        userName: action.payload,
+        userName: action.payload.username,
+        userRole: action.payload.userRole,
       };
 
     case actionTypes.LOGINFAILED:

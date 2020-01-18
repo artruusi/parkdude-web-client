@@ -47,6 +47,7 @@ export interface AppState {
 
 export interface UserState {
   loggedIn: boolean;
+  userRole?: UserRole;
   userName: string;
   currentPage: string;
   snackBarMessage: string;
