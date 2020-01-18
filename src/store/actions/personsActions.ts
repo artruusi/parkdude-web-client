@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { Dispatch, ModifyUserData, IPerson } from "./../types";
+import { checkLogIn } from './userActions';
 
 axios.defaults.withCredentials = true;
 
@@ -30,6 +31,10 @@ export const getPersons = () => {
     })
     .catch(error => {
       console.log(error);
+      const {response} = error;
+      if (response && response.status === 401) {
+        checkLogIn()(dispatch);
+      }
       dispatch({
         type: actionTypes.GETPERSONSFAILED,
       });
@@ -50,10 +55,13 @@ export const getPerson = (id: string) => {
       dispatch({
         payload: res.data.data,
         type: actionTypes.GETPERSON,
-        
       }),
     )
     .catch(error => {
+      const {response} = error;
+      if (response && response.status === 401) {
+        checkLogIn()(dispatch);
+      }
       console.log(error);
     });
   };
@@ -106,6 +114,9 @@ export const modifyPerson = (person: IPerson, type: string) => {
       .catch(error => {
         console.log(error);
         const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
         if (type === 'make-admin' ) {
         
           dispatch({

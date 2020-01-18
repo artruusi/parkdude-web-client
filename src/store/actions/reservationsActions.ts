@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { Dispatch } from "./../types";
+import { checkLogIn } from './userActions';
 
 export const getReservations = (startDate: string, endDate: string, person: string) => {
   return (dispatch: Dispatch) => {
@@ -20,6 +21,10 @@ export const getReservations = (startDate: string, endDate: string, person: stri
         });
       })
       .catch(error => {
+        const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
         console.log(error);
       });
       
@@ -47,6 +52,10 @@ export const getUserReservations = (id: string) => {
         });
       })
       .catch(error => {
+        const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
         console.log(error);
       });
   };

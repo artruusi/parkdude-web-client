@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Dispatch, CreateParkingSpotData } from "./../types";
+import { checkLogIn } from './userActions';
 
 axios.defaults.withCredentials = true;
 
@@ -27,9 +28,12 @@ export const getParkingSpots = () => {
           type: actionTypes.GETSPOTS,
         });
       })
-      .catch(error => {
+      .catch((error: AxiosError) => {
         console.log(error);
         const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
         dispatch({
           payload: response && response.data && response.data.message,
           type: actionTypes.GETSPOTSFAILED,
@@ -52,6 +56,9 @@ export const createParkingSpot = (data: CreateParkingSpotData) => {
     .catch(error => {
       console.log(error);
       const {response} = error;
+      if (response && response.status === 401) {
+        checkLogIn()(dispatch);
+      }
       dispatch({
         payload: response && response.data && response.data.message,
         type: actionTypes.PARKINGSPOTCREATEDFAILED,
@@ -74,6 +81,9 @@ export const deleteParkingSpot = (id: string) => {
       .catch(error => {
         console.log(error);
         const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
         dispatch({
           payload: response && response.data && response.data.message,
           type: actionTypes.DELETESPOTFAILED,
@@ -101,6 +111,9 @@ export const changeOwner = (id: string, name: string, newOwner: string) => {
       .catch(error => {
         console.log(error);
         const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
         dispatch({
           payload: response && response.data && response.data.message,
           type: actionTypes.CHANGEOWNERFAILED,
