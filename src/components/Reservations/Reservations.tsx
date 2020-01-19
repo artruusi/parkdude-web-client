@@ -162,7 +162,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const resultTable = this.props.reservations.length !== 0
       ? (
         <div className="table-container">
-          <table id="persons-table">
+          <table id="reservations-table">
 
             <thead>
               <tr>

@@ -28,3 +28,32 @@
   background-color: #ff6c6c;
   margin-left: auto;
 }
+
+#reservations-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#reservations-table tbody {
+  width: 100%;
+}
+
+#reservations-table thead tr {
+  width: 100%;
+}
+
+#reservations-table th {
+  background-color: #e7e7e7;
+  padding: 16px 8px;
+  text-align: left;
+  border: none;
+}
+
+#reservations-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+#reservations-table tbody tr:hover {
+  background-color: #999966;
+}
