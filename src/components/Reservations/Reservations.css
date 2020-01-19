@@ -23,3 +23,8 @@
   width: 20vw;
   max-width: 300px;
 }
+
+#reservation-delete-button {
+  background-color: #ff6c6c;
+  margin-left: auto;
+}

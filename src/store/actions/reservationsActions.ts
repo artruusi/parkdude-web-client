@@ -1,22 +1,63 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { Dispatch } from "./../types";
+import { Dispatch, IPerson, ParkingSpot } from "./../types";
+
+interface GetReservationsRes {
+  reservations: GetReservationsResReservations [];
+
+}
+
+interface GetReservationsResReservations {
+  date: string;
+  user: IPerson;
+  parkingSpot: ParkingSpot;
+}
+
+interface PayloadGetReservations {
+  date: string;
+  parkingSpotId: string;
+  parkingSpotName: string;
+  user: string;
+}
 
 export const getReservations = (startDate: string, endDate: string, person: string) => {
   return (dispatch: Dispatch) => {
-    let url =  process.env.REACT_APP_API_URL + "parking-reservations/calendar";
+    let url =  process.env.REACT_APP_API_URL + "parking-reservations";
     if (startDate !== '' && endDate !== '') {
       url += '?startDate=' + startDate + '&endDate=' + endDate;
     }
-    if (person !== '') {
-      url += '&person' + person;
-    }
-    axios.get(url)
+
+    console.log(url);
+    axios.get<GetReservationsRes>(url)
       .then(res => {
         console.log(res);
+
+        const payloadRes: PayloadGetReservations []  = [];
+
+        res.data.reservations.forEach( reservation => {
+
+          const data = {
+            date: reservation.date,
+            parkingSpotId: reservation.parkingSpot.id,
+            parkingSpotName: reservation.parkingSpot.name,
+            user: reservation.user.name,
+          };
+
+          if (person === '') {
+            
+            payloadRes.push(data);
+          } else {
+            if (person === reservation.user.id) {
+              payloadRes.push(data);
+            }
+          }
+        });
+        const noResults = payloadRes.length === 0;
         dispatch({
-          payload: res.data.calendar,
-          type: actionTypes.GETRESERVATIONS,     
+          noResults,   
+          payload: payloadRes,         
+          type: actionTypes.GETRESERVATIONS, 
+           
         });
       })
       .catch(error => {
@@ -52,7 +93,7 @@ export const getUserReservations = (id: string) => {
   };
 };
 
-export const deleteReservations = (id: string, dates: string) => {
+export const deleteReservations = (id: string, dates: string, type: string) => {
   return (dispatch: Dispatch) => {
     let url = process.env.REACT_APP_API_URL + 'parking-reservations/parking-spot/' + id;
 
@@ -65,7 +106,8 @@ export const deleteReservations = (id: string, dates: string) => {
         dispatch({
           payload: {
             dates,
-            id,          
+            id,
+            type,          
           },
           type: actionTypes.DELETERESERVATION,
           
@@ -93,5 +135,11 @@ export const SetDeletereservationNumber = (reservationsNumber: number) => {
 export const startLoading = () => {
   return {
     type: actionTypes.STARTLOADINGRESERVATIONS,
+  };
+};
+
+export const hideReservationsSnackBar = () => {
+  return {
+    type: actionTypes.HIDERESERVATIONSSNACKBAR,
   };
 };
