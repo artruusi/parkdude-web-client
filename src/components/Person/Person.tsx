@@ -219,36 +219,39 @@ class Person extends Component<PersonProps, PersonState> {
 
         <div className="flex-column" id="person-history-container">
           <span className="bold">Reservation history</span>
-         
+          <div className="table-container">
             <table className="person-table">
-            <thead>
-              <tr>
-               
-                <th>Date</th>
-                <th>Spot</th>
-              </tr>
-            </thead>
-            <tbody>
-             {pastReservations.length ? pastReservations : this.renderNoReservationsRow(2)}
-            </tbody>
-          </table>
+              <thead>
+                <tr>
+                
+                  <th>Date</th>
+                  <th>Spot</th>
+                </tr>
+              </thead>
+              <tbody>
+              {pastReservations.length ? pastReservations : this.renderNoReservationsRow(2)}
+              </tbody>
+            </table>
+          </div>
           
         </div>
 
         <div id="person-future-reservation-container" className="flex-column">
           <span className="bold">Future reservations</span>
-          <table className="person-table">
-            <thead>
-              <tr>
-                <th>{}</th>
-                <th>Date</th>
-                <th>Spot</th>
-              </tr>
-            </thead>
-            <tbody>
-              {futurereservations.length ? futurereservations : this.renderNoReservationsRow(3)}
-            </tbody>
-          </table>
+          <div className="table-container">
+            <table className="person-table">
+              <thead>
+                <tr>
+                  <th>{}</th>
+                  <th>Date</th>
+                  <th>Spot</th>
+                </tr>
+              </thead>
+              <tbody>
+                {futurereservations.length ? futurereservations : this.renderNoReservationsRow(3)}
+              </tbody>
+            </table>
+          </div>
           <button 
             className="button person-button" 
             id="person-free-selected-spots-button" 

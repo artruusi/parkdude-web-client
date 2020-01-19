@@ -27,7 +27,7 @@
 }
 
 #person-button-container {
-  margin-top: 10vh;
+  margin-top: 3vh;
 }
 
 #person-button-container .button {
@@ -35,25 +35,31 @@
 }
 
 #person-history-container {
-  width: 23%;
   border-radius: 30px;
-  margin-right: 10%;
+  margin-right: 16px;
+  flex-grow: 2;
+  max-width: 400px;
 }
-#person-history-list-container {
-  width: 70%;
+
+#person-future-reservation-container {
+  flex-grow: 2;
+  border-radius: 30px;
+  max-width: 470px;
 }
 
 #person-info-container {
-  width: 23%;
-  margin-right: 10%;
+  margin-right: 32px;
   border-radius: 30px;
 }
 
+#person .table-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 .person-table {
-  width:100% ;
-  margin-top: 2vh;
   border-collapse: collapse;
-  margin-bottom: 2vh;
+  width: 100%;
 }
 
 .person-table td, .person-table th {
@@ -63,11 +69,6 @@
 .person-table th {
   background-color: #ffca28;
   text-align: left;
-}
-
-#person-future-reservation-container {
-  width: 33%;
-  border-radius: 30px;
 }
 
 #person-info-container div {
