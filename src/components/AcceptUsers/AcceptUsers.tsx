@@ -78,7 +78,10 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
   }
 
   render() {
-    const numberOfSelectedRows = Object.keys(this.state.selectedRows).length;
+    const numberOfSelectedRows = Object
+      .values(this.state.selectedRows)
+      .filter(value => value)
+      .length;
 
     const header = 'Accept users';
     const acceptButton = (

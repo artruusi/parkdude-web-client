@@ -1,32 +1,48 @@
 import { Reducer } from "redux";
 import * as actionTypes from '../actions/actionTypes';
-import { ReservationsState } from "../types";
+import { ReservationsState, UserReservations, Reservation } from "../types";
 
 const initialState: ReservationsState = {
   deleteReservationsNumber: 0,
   loading: false,
   reservations: [],
+  snackBarMessage: '',
   userReservations: [],
-
+  
 };
 
 export const reservationsReducer: Reducer<ReservationsState, any> = (state = initialState, action) => {
 
   switch (action.type) {
 
+    case actionTypes.HIDERESERVATIONSSNACKBAR:
+      return {
+        ...state,
+        snackBarMessage: '',
+      };
+
     case actionTypes.DELETERESERVATION:
 
       const stopLoading = state.deleteReservationsNumber !== 1;
 
-      const userReservations = state.userReservations.filter(reservation =>
-        !( reservation.date === action.payload.dates && reservation.parkingSpot.id === action.payload.id) );
+      let userReservations: UserReservations [] = [];
+      let listReservations: Reservation [] = [];
+      if (action.payload.type === 'personReservation') {
+        console.log('person');
+        userReservations = state.userReservations.filter(reservation =>
+          !( reservation.date === action.payload.dates && reservation.parkingSpot.id === action.payload.id) );
+      } else {
+        listReservations = state.reservations.filter(reservation => 
+          !( reservation.date === action.payload.dates && reservation.parkingSpotId === action.payload.id));
+      }
 
       return {
         ...state,
         deleteReservationsNumber: state.deleteReservationsNumber - 1,
         loading: stopLoading,
+        reservations: listReservations,
         userReservations,
-               
+                 
       };
 
     case actionTypes.STARTLOADINGRESERVATIONS:
@@ -43,12 +59,16 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
       };
 
     case actionTypes.GETRESERVATIONS:
+
+      const reservations: [] = action.payload;
+      const snackBarMessage = reservations.length === 0 ? 'No results found' : '';
+      
       return {
-        deleteReservationsNumber: state.deleteReservationsNumber,
+        ...state,
         loading: false,
         reservations: action.payload,
-        userReservations: [],
-       
+        snackBarMessage,
+           
       };
 
     case actionTypes.CLEARRESERVATIONS:
@@ -56,14 +76,15 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
         deleteReservationsNumber: state.deleteReservationsNumber,
         loading: false,
         reservations: [],
+        snackBarMessage: '',
         userReservations: [],
+       
       };
 
     case actionTypes.GETUSERRESERVATIONS:
       return {
-        deleteReservationsNumber: state.deleteReservationsNumber,
-        loading: false,
-        reservations: state.reservations,
+        ...state,
+        loading: false,       
         userReservations: action.payload,
       };
 
