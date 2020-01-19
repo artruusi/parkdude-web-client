@@ -129,7 +129,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
 
     const content = (this.props.reservations || []).map(reservation => {
       return (
-        <tr key={reservation.date + reservation.user}>
+        <tr key={reservation.date + reservation.parkingSpotId}>
           <td>
             <Checkbox
               onChange={this.handleCheckBoxClick}
@@ -182,7 +182,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
         className="button" 
         onClick={this.handleDeleteReservationsClick}
       >
-        Delete selected
+        Delete
       </button>
       )
     : null;
