@@ -121,8 +121,21 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     this.props.getPersons();
     this.props.clearReservations();
   }
+  
+  componentDidUpdate(prevProps: ReservationsProps) {
+    if (prevProps.reservations !== this.props.reservations) {
+      // Remove deleted reservations from selection
+      const reservationKeys = new Set(...this.props.reservations.map(reservation => reservation.parkingSpotId + '&' + reservation.date));
+      const filteredSelection = Object.entries(this.state.selectedRows).filter(([key]) => reservationKeys.has(key));
+      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+    }
+  }
 
   render() {
+    const numberOfSelectedRows = Object
+      .values(this.state.selectedRows)
+      .filter(value => value)
+      .length;
     const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.id}>{person.name}</MenuItem>);
 
     persons.unshift(<MenuItem key={'1234567'} value=''>Clear selected person</MenuItem>);
@@ -181,6 +194,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
         id="reservation-delete-button" 
         className="button" 
         onClick={this.handleDeleteReservationsClick}
+        disabled={numberOfSelectedRows === 0}
       >
         Delete
       </button>
