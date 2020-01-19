@@ -161,7 +161,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     
     const resultTable = this.props.reservations.length !== 0
       ? (
-        <div id="persons-table-container">
+        <div className="table-container">
           <table id="persons-table">
 
             <thead>
@@ -247,7 +247,9 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
             <button className="button" id="table-search-reservations-button" onClick={this.handleButtonClick}>Search</button>
           </div>
           {resultTable}
-          {deleteButton}
+          <div className="align-left-button-container">
+            {deleteButton}
+          </div>
           <Snackbar 
             id='delete-snack'
             open={this.props.snackBarMessage !== ''}
