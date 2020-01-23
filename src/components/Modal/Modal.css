@@ -48,6 +48,10 @@
   margin-bottom: 18px;
   margin-top: auto;
 }
+.modal-change-password {
+  width: 600px;
+  height: 355px;
+}
 
 .modal-input {
   border: none;
@@ -79,6 +83,13 @@
 .modal-select {
   width: 300px;
 }
+
+.modal-error-message {
+  color: #FF6C6C;
+  font-size: 22px;
+}
+
+
 
 #modal-change-owner-button-container {
   margin-bottom: 18px;

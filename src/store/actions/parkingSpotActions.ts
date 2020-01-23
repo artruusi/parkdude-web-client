@@ -170,7 +170,6 @@ export const freeSpot = (spotId: string, spotName: string, personId: string) => 
       ownerEmail: undefined,
     };
 
-    console.log(data);
     axios.put(url, data)
       .then(res => {
 
@@ -196,7 +195,7 @@ export const freeSpot = (spotId: string, spotName: string, personId: string) => 
 
 export const closeSnackBar = () => {
   return (dispatch: Dispatch) => {
-    console.log('close snack');
+   
     dispatch({
         type: actionTypes.HIDEPARKINGSPOTSNACKBAR,
       }); 

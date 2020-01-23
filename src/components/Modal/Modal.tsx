@@ -38,12 +38,14 @@ interface ModalState {
   emailInput: string;
   password1Input: string;
   password2Input: string;
+  errorMessage: string;
 }
 
 class Modal extends Component<ModalProps, ModalState> {
 
   state = {
     emailInput: '',
+    errorMessage: '',
     nameInput: '',
     password1Input: '',
     password2Input: '',
@@ -82,9 +84,9 @@ class Modal extends Component<ModalProps, ModalState> {
   }
 
   changeOwner = () => {
-    console.log('owner');
-    console.log(this.props.spotId);
-    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, this.state.selectedSpotOwner, '');
+    const owner = this.state.selectedSpotOwner === 'free' ? '' : this.state.selectedSpotOwner;
+
+    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, owner, '');
     this.props.close();
   }
   changePassword = () => {
@@ -93,6 +95,7 @@ class Modal extends Component<ModalProps, ModalState> {
     const person = this.props.personId as string;
 
     if (password2 !== password1) {
+      this.setState({errorMessage: "Passwors don't match"});
       return;
     }
 
@@ -274,6 +277,7 @@ class Modal extends Component<ModalProps, ModalState> {
     } else if (this.props.type === 'changeOwner') {
 
       const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.email}>{person.name}</MenuItem>);
+      persons.unshift(<MenuItem key={12121212} value={'free'}>No owner(free spot)</MenuItem>);
       content = (
         <div id="modal" className="flex-column-center modal-change-owner">
           <h3>Select a new owner</h3>
@@ -295,7 +299,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
 
-        <div id="modal" className="flex-column-center modal-add-user">
+        <div id="modal" className="flex-column-center modal-change-password">
           <h3 className="modal-add-user-header">Change user's password</h3>
        
           <input 
@@ -312,6 +316,7 @@ class Modal extends Component<ModalProps, ModalState> {
             onChange={this.handlePassword2Change} 
             className="modal-input"
           />
+          <p className="modal-error-message bold">{this.state.errorMessage}</p>
 
           <div id="modal-add-user-button-container">      
             <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
@@ -329,6 +334,10 @@ class Modal extends Component<ModalProps, ModalState> {
           parkingSpotList.push( <MenuItem key={spot.id} value={spot.id + '&' + spot.name}>{spot.name}</MenuItem>);
         }
       });
+
+      if (parkingSpotList.length === 0) {
+        parkingSpotList.push(<MenuItem key={12121212} value={'no-spots-free'}> No free spots</MenuItem>);
+      }
 
       content = (
         <div id="modal" className="flex-column-center modal-give-spot">
