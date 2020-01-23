@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import './Person.css';
 import {spotListToString} from './../../helpers/helperFunctions';
 import check from './../../img/ic_check.svg';
-import { AppState, Dispatch, IPerson, UserReservations } from '../../store/types';
+import { AppState, Dispatch, IPerson, UserReservations, ParkingSpot } from '../../store/types';
 import { getPerson, modifyPerson, killSession, hidePersonsSnackBar } from '../../store/actions/personsActions';
 import { getUserReservations, deleteReservations, startLoading, SetDeletereservationNumber } from '../../store/actions/reservationsActions';
 import Modal from '../Modal/Modal';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import Spinner from '../Spinner/Spinner';
+import { changeOwner } from '../../store/actions/parkingSpotActions';
 
 interface ReduxPersonProps {
+  changeOwner: (id: string, name: string, newOwner: string) => void;
   closeSnackBar: () => void;
   deletereservations: (id: string, dates: string, type: string) => void;
   selectedPerson: IPerson;
@@ -108,6 +110,14 @@ class Person extends Component<PersonProps, PersonState> {
     });
 
   }
+  freeParkingSpots = () => {
+
+    const parkingSpots: ParkingSpot [] = this.props.selectedPerson.ownedParkingSpots;
+
+    parkingSpots.forEach(spot => {
+      this.props.changeOwner(spot.id, spot.name, '');
+    });
+  }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
    
@@ -139,7 +149,7 @@ class Person extends Component<PersonProps, PersonState> {
       : null;
 
     const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0
-      ? <button className="button person-button" onClick={this.killSession} disabled={true}>Free user's spots</button>
+      ? <button className="button person-button" onClick={this.freeParkingSpots} >Free user's spots</button>
       : <button className="button person-button" onClick={this.killSession} disabled={true}>Get permanent spot</button>;
 
     const passwordButton = this.props.selectedPerson.isEmailValidated
@@ -315,6 +325,7 @@ const mapState = (state: AppState) => {
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
+   changeOwner: (id: string, name: string, newOwner: string) => dispatch(changeOwner(id, name, newOwner)),
    closeSnackBar: () => dispatch(hidePersonsSnackBar()),
    deletereservations: (id: string, dates: string, type: string) => dispatch(deleteReservations(id, dates, type)),
    getData: (id: string) => dispatch(getPerson(id)),

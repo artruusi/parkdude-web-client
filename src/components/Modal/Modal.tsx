@@ -1,7 +1,7 @@
 import React, { Component, ChangeEvent, ReactNode } from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
-import {  Dispatch, CreateParkingSpotData, IPerson } from './../../store/types';
+import {  Dispatch, CreateParkingSpotData, IPerson, ParkingSpot } from './../../store/types';
 import {createParkingSpot, changeOwner} from './../../store/actions/parkingSpotActions';
 import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
 import { createPerson, changePassword } from '../../store/actions/personsActions';
@@ -12,6 +12,7 @@ interface OwnModalProps {
   type: string;
   deleteObjectNumber?: number;
   confirmDelete?: () => void;
+  parkingSpots?: ParkingSpot [];
   persons?: IPerson [];
   spotId?: string;
   spotname?: string;
@@ -301,6 +302,22 @@ class Modal extends Component<ModalProps, ModalState> {
 
         </div>
       );
+    } else if (this.props.type === 'giveSpot') {
+      const parkingSpots = (this.props.parkingSpots || []).map(spot => <MenuItem key={spot.id} value={spot.id}>{spot.name}</MenuItem>);
+
+      content = (
+        <div id="modal" className="flex-column-center">
+          <h3>Select a parking spot</h3>
+
+          <FormControl >
+            <InputLabel>Select owner</InputLabel>
+            <Select className="modal-select" value={this.state.spotNumberInput} onChange={this.handleSpotOwnerChange}>
+              {parkingSpots}
+            </Select>
+          </FormControl>
+        </div>
+      );
+  
     }
 
     return (

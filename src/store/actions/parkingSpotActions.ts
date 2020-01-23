@@ -92,18 +92,21 @@ export const deleteParkingSpot = (id: string) => {
   };
 };
 
-export const changeOwner = (id: string, name: string, newOwner: string) => {
+export const changeOwner = (id: string, name: string, newOwner: string, ownerId: string = '') => {
   return (dispatch: Dispatch) => {
     const url = process.env.REACT_APP_API_URL + 'parking-spots/' + id;
     const data = {
       name,
-      ownerEmail: newOwner,
+      ownerEmail: newOwner !== '' ? newOwner : undefined,
     };
 
     console.log(data);
     axios.put(url, data)
       .then(res => {
         dispatch(getParkingSpots());
+        if (ownerId !== '') {
+          console.log(ownerId);
+        }
         dispatch({
           type: actionTypes.CHANGEOWNER,
         });
