@@ -85,7 +85,7 @@
 
 }
 
-.modal-change-owner {
+.modal-change-owner, .modal-give-spot {
   width: 600px;
   height: 260px; 
 }

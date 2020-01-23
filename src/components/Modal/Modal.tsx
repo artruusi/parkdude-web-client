@@ -2,7 +2,7 @@ import React, { Component, ChangeEvent, ReactNode } from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
 import {  Dispatch, CreateParkingSpotData, IPerson, ParkingSpot } from './../../store/types';
-import {createParkingSpot, changeOwner} from './../../store/actions/parkingSpotActions';
+import {createParkingSpot, changeOwner, giveSpot} from './../../store/actions/parkingSpotActions';
 import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
 import { createPerson, changePassword } from '../../store/actions/personsActions';
 
@@ -17,14 +17,16 @@ interface OwnModalProps {
   spotId?: string;
   spotname?: string;
   personId?: string;
+  personEmail?: string;
 
 }
 
 interface ReduxModalprops {
   createParkingSpot: (data: CreateParkingSpotData) => void;
   createPerson: (email: string, name: string, password: string) => void;
-  changeOwner: (id: string, name: string, newOwner: string) => void;
+  changeOwner: (id: string, name: string, newOwner: string, type: string) => void;
   changePassword: (id: string, password: string) => void;
+  giveSpot: (spotId: string, spotName: string, personId: string, personemail: string) => void;
 }
 
 type ModalProps = OwnModalProps & ReduxModalprops;
@@ -82,7 +84,7 @@ class Modal extends Component<ModalProps, ModalState> {
   changeOwner = () => {
     console.log('owner');
     console.log(this.props.spotId);
-    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, this.state.selectedSpotOwner);
+    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, this.state.selectedSpotOwner, '');
     this.props.close();
   }
   changePassword = () => {
@@ -124,6 +126,22 @@ class Modal extends Component<ModalProps, ModalState> {
     const value: string = event.target.value as string;
     this.setState({selectedSpotOwner: value});
     console.log(value);
+  }
+
+  handleGiveSpot = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
+    const value = event.target.value as string;
+    this.setState({spotNumberInput: value});
+    console.log(value);
+  }
+
+  giveSpot = () => {
+
+    const spotSplit = this.state.spotNumberInput.split('&');
+    const spotId = spotSplit[0];
+    const spotName = spotSplit[1];
+
+    this.props.giveSpot(spotId, spotName, this.props.personId as string, this.props.personEmail as string);
+    this.props.close();
   }
 
   render() {
@@ -303,18 +321,30 @@ class Modal extends Component<ModalProps, ModalState> {
         </div>
       );
     } else if (this.props.type === 'giveSpot') {
-      const parkingSpots = (this.props.parkingSpots || []).map(spot => <MenuItem key={spot.id} value={spot.id}>{spot.name}</MenuItem>);
+
+      console.log(this.props.parkingSpots);
+      const parkingSpotList: JSX.Element [] = [];
+      (this.props.parkingSpots || []).forEach(spot => {
+        if (spot.owner === null) {
+          parkingSpotList.push( <MenuItem key={spot.id} value={spot.id + '&' + spot.name}>{spot.name}</MenuItem>);
+        }
+      });
 
       content = (
-        <div id="modal" className="flex-column-center">
+        <div id="modal" className="flex-column-center modal-give-spot">
           <h3>Select a parking spot</h3>
 
           <FormControl >
-            <InputLabel>Select owner</InputLabel>
-            <Select className="modal-select" value={this.state.spotNumberInput} onChange={this.handleSpotOwnerChange}>
-              {parkingSpots}
+            <InputLabel>Select parking spot</InputLabel>
+            <Select className="modal-select" value={this.state.spotNumberInput} onChange={this.handleGiveSpot}>
+              {parkingSpotList}
             </Select>
           </FormControl>
+
+           <div id="modal-button-container">      
+            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button modal-accept-button" onClick={this.giveSpot}>Ok</button>
+          </div>
         </div>
       );
   
@@ -330,10 +360,12 @@ class Modal extends Component<ModalProps, ModalState> {
 }
 const MapDispatch = (dispatch: Dispatch) => {
   return {
-    changeOwner: (id: string, name: string, newOwner: string) => dispatch(changeOwner(id, name, newOwner)),
+    changeOwner: (id: string, name: string, newOwner: string, type: string) => dispatch(changeOwner(id, name, newOwner, type)),
     changePassword: (id: string, password: string) => dispatch(changePassword(id, password)),
     createParkingSpot: (data: CreateParkingSpotData) => dispatch(createParkingSpot(data)),
     createPerson: (email: string, name: string, password: string) => dispatch(createPerson(email, name, password)),
+    giveSpot: (spotId: string, spotName: string, personId: string, personemail: string) =>
+      dispatch(giveSpot(spotId, spotName, personId, personemail)),
     
   };
 };

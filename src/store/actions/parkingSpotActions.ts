@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios, { AxiosError } from "axios";
 import { Dispatch, CreateParkingSpotData } from "./../types";
 import { checkLogIn } from './userActions';
+import { getPerson, freeParkingSpotFromPerson } from "./personsActions";
 
 axios.defaults.withCredentials = true;
 
@@ -92,7 +93,7 @@ export const deleteParkingSpot = (id: string) => {
   };
 };
 
-export const changeOwner = (id: string, name: string, newOwner: string, ownerId: string = '') => {
+export const changeOwner = (id: string, name: string, newOwner: string, type: string) => {
   return (dispatch: Dispatch) => {
     const url = process.env.REACT_APP_API_URL + 'parking-spots/' + id;
     const data = {
@@ -104,9 +105,7 @@ export const changeOwner = (id: string, name: string, newOwner: string, ownerId:
     axios.put(url, data)
       .then(res => {
         dispatch(getParkingSpots());
-        if (ownerId !== '') {
-          console.log(ownerId);
-        }
+       
         dispatch({
           type: actionTypes.CHANGEOWNER,
         });
@@ -123,6 +122,76 @@ export const changeOwner = (id: string, name: string, newOwner: string, ownerId:
         });
       });
   };
+};
+
+export const giveSpot = (spotId: string, spotName: string, personId: string, personemail: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.STARTLOADINGPARKINGSPOTS,
+    });
+    const url = process.env.REACT_APP_API_URL + 'parking-spots/' + spotId;
+    const data = {
+      name: spotName,
+      ownerEmail: personemail !== '' ? personemail : undefined,
+    };
+
+    console.log(data);
+    axios.put(url, data)
+      .then(res => {
+
+        dispatch(getPerson(personId));    
+        dispatch({
+          type: actionTypes.CHANGEOWNER,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
+        dispatch({
+          payload: response && response.data && response.data.message,
+          type: actionTypes.CHANGEOWNERFAILED,
+        });
+      });
+  };
+
+};
+
+export const freeSpot = (spotId: string, spotName: string, personId: string) => {
+   return (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.STARTLOADINGPARKINGSPOTS,
+    });
+    const url = process.env.REACT_APP_API_URL + 'parking-spots/' + spotId;
+    const data = {
+      name: spotName,
+      ownerEmail: undefined,
+    };
+
+    console.log(data);
+    axios.put(url, data)
+      .then(res => {
+
+        dispatch(freeParkingSpotFromPerson(personId, spotId));    
+        dispatch({
+          type: actionTypes.CHANGEOWNER,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        const {response} = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
+        dispatch({
+          payload: response && response.data && response.data.message,
+          type: actionTypes.CHANGEOWNERFAILED,
+        });
+      });
+  };
+
 };
 
 export const closeSnackBar = () => {

@@ -242,3 +242,15 @@ export const hidePersonsSnackBar = () => {
     type: actionTypes.HIDEPERSONSSNACKBAR,
   };
 };
+
+export const freeParkingSpotFromPerson = (id: string, spotId: string) => {
+
+  const payload = {
+    personId: id,
+    spotId,
+  };
+  return {
+    payload,
+    type: actionTypes.FREEUSERSPARKINGSPOT,
+  };
+};

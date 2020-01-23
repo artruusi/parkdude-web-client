@@ -74,6 +74,7 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
     case actionTypes.CHANGEOWNER:
       return {
         ...state,
+        loading: false,
         snackBarMessage: 'Owner changed succesfully',
       };
 
