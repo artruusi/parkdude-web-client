@@ -56,6 +56,7 @@
   height: 45px;
   margin-right: 1vw;
   z-index: 2;
+  margin-top: 20px;
 }
 
 #header-dropdown-content span {
@@ -75,10 +76,10 @@
 }
 
 
-/* #header-icon-container {
-  position: relative;
-  float: right;
-} */
+#header-icon-container {
+ flex-flow: column;
+ flex-shrink: 0;
+}
 
 #header-dropdown-content {
   position: absolute;
@@ -89,4 +90,15 @@
   padding-top: 8vh;
   z-index: 1;
  
+}
+
+.header-user-info {
+  display: flex;
+  flex-flow: column;
+  width: 200px;
+  flex-shrink: 0;
+  background-color: black;
+}
+.header-user-info span {
+  color: white;
 }

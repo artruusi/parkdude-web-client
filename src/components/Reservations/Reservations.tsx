@@ -136,8 +136,9 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
       .values(this.state.selectedRows)
       .filter(value => value)
       .length;
-    const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.id}>{person.name}</MenuItem>);
-
+    const persons = (this.props.persons || []).map(person => 
+      <MenuItem key={person.id} value={person.id}> {person.name + ' email: ' + person.email}</MenuItem>);
+       
     persons.unshift(<MenuItem key={'1234567'} value=''>Clear selected person</MenuItem>);
 
     const content = (this.props.reservations || []).map(reservation => {

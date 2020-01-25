@@ -30,9 +30,11 @@ class Header extends Component < HeaderProps , HeaderState > {
   };
 
   showDropDown = () => {
+    console.log('show');
     this.setState({showDropDown: true});
   }
   hideDropDown = () => {
+    console.log('hide');
     this.setState({showDropDown: false});
   }
 
@@ -95,7 +97,7 @@ class Header extends Component < HeaderProps , HeaderState > {
           </div>
         
           <div id="header-icon-container" className="flex-row-center" onMouseEnter={this.showDropDown}>
-            <img id="header-user-icon" src={personIcon} alt="person"/>        
+            <img id="header-user-icon" src={personIcon} alt="person"/>  
             
           </div>    
         </div>

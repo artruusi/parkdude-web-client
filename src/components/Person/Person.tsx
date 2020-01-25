@@ -5,7 +5,7 @@ import {spotListToString} from './../../helpers/helperFunctions';
 import check from './../../img/ic_check.svg';
 import { AppState, Dispatch, IPerson, UserReservations, ParkingSpot } from '../../store/types';
 import { getPerson, modifyPerson, killSession, hidePersonsSnackBar } from '../../store/actions/personsActions';
-import { getUserReservations, deleteReservations, startLoading, SetDeletereservationNumber } from '../../store/actions/reservationsActions';
+import { getUserReservations, deleteReservations, startLoading, SetDeletereservationNumber, hideReservationsSnackBar } from '../../store/actions/reservationsActions';
 import Modal from '../Modal/Modal';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import Spinner from '../Spinner/Spinner';
@@ -20,6 +20,7 @@ interface ReduxPersonProps {
   getParkingSpots: () => void;
   getUserReservations: (id: string) => void;
   freePersonSpot: (spotId: string, spotName: string, personId: string) => void;
+  hideReservationsSnackBar: () => void;
   killSession: (id: string) => void;
   loadingPersons: boolean;
   loadingReservations: boolean;
@@ -27,7 +28,8 @@ interface ReduxPersonProps {
   modifyPerson: (person: IPerson, type: string) => void;
   parkingSpots: ParkingSpot [];
   userReservations: UserReservations [];
-  snackBarMessage: string;
+  snackBarMessagePersons: string;
+  snackBarMessageReservations: string;
   setDeleteReservationsNumber: (reservationsnumber: number) => void;
   loadingParkingSpots: boolean;
 
@@ -314,10 +316,18 @@ class Person extends Component<PersonProps, PersonState> {
       {changepasswordModal}
       {giveSpotModal}
       <Snackbar 
-        open={this.props.snackBarMessage !== ''}
+        open={this.props.snackBarMessagePersons !== ''}
         anchorOrigin={snackLocation}
-        message={<span>{this.props.snackBarMessage}</span>}
+        message={<span>{this.props.snackBarMessagePersons}</span>}
         onClose={this.props.closeSnackBar}
+        autoHideDuration={3000}
+       
+      />
+      <Snackbar 
+        open={this.props.snackBarMessageReservations !== ''}
+        anchorOrigin={snackLocation}
+        message={<span>{this.props.snackBarMessageReservations}</span>}
+        onClose={this.props.hideReservationsSnackBar}
         autoHideDuration={3000}
        
       />
@@ -352,7 +362,8 @@ const mapState = (state: AppState) => {
     loadingReservations: state.reservations.loading,
     parkingSpots: state.parkingSpot.parkingSpotList,
     selectedPerson: state.persons.selectedPerson,
-    snackBarMessage: state.persons.snackBarMessage,
+    snackBarMessagePersons: state.persons.snackBarMessage,
+    snackBarMessageReservations: state.reservations.snackBarMessage,
     userReservations: state.reservations.userReservations,
   };
 };
@@ -366,6 +377,7 @@ const MapDispatch = (dispatch: Dispatch) => {
    getData: (id: string) => dispatch(getPerson(id)),
    getParkingSpots: () => dispatch(getParkingSpots()),
    getUserReservations: (id: string) => dispatch(getUserReservations(id)),
+   hideReservationsSnackBar: () => (dispatch(hideReservationsSnackBar())),
    killSession: (id: string) => dispatch(killSession(id)),
    modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
    setDeleteReservationsNumber: (reservationsnumber: number) => dispatch(SetDeletereservationNumber(reservationsnumber)),

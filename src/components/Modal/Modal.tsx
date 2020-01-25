@@ -276,7 +276,8 @@ class Modal extends Component<ModalProps, ModalState> {
       );
     } else if (this.props.type === 'changeOwner') {
 
-      const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.email}>{person.name}</MenuItem>);
+      const persons = (this.props.persons || []).map(person => 
+        <MenuItem key={person.id} value={person.email}>{person.name + ' email: ' + person.email}</MenuItem>);
       persons.unshift(<MenuItem key={12121212} value={'free'}>No owner(free spot)</MenuItem>);
       content = (
         <div id="modal" className="flex-column-center modal-change-owner">

@@ -146,9 +146,14 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       };
 
     case actionTypes.KILLSESSION:
+      const selectedPerson = state.selectedPerson;
+      selectedPerson.sessions = [];
+
       return {
         ...state,
+        selectedPerson,
         snackBarMessage: "user's session killed succesfully",
+
       };
 
     case actionTypes.ACCETPERSONFAILED:
