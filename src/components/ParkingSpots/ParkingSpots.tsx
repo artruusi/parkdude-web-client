@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 
 import checkIcon from './../../img/ic_check.svg';
-import { getParkingSpots, deleteParkingSpot, closeSnackBar } from '../../store/actions/parkingSpotActions';
+import { getParkingSpots, deleteParkingSpot, closeParkingSpotsSnackBar } from '../../store/actions/parkingSpotActions';
 
 import './ParkingSpots.css';
 import { getPersons } from '../../store/actions/personsActions';
@@ -293,7 +293,7 @@ const mapState = (state: AppState) => {
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
-    closeSnackBar: () => dispatch(closeSnackBar()),
+    closeSnackBar: () => dispatch(closeParkingSpotsSnackBar()),
     deleteParkingSpot: (id: string) => dispatch(deleteParkingSpot(id)),
     getParkingSpots: () => dispatch(getParkingSpots()),
     getPersons: () => dispatch(getPersons()),

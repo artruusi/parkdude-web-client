@@ -9,7 +9,7 @@ import { getUserReservations, deleteReservations, startLoading, SetDeletereserva
 import Modal from '../Modal/Modal';
 import { Snackbar, SnackbarOrigin } from '@material-ui/core';
 import Spinner from '../Spinner/Spinner';
-import { changeOwner, getParkingSpots, freeSpot } from '../../store/actions/parkingSpotActions';
+import { changeOwner, getParkingSpots, freeSpot, closeParkingSpotsSnackBar } from '../../store/actions/parkingSpotActions';
 
 interface ReduxPersonProps {
   changeOwner: (id: string, name: string, newOwner: string, type: string) => void;
@@ -20,6 +20,7 @@ interface ReduxPersonProps {
   getParkingSpots: () => void;
   getUserReservations: (id: string) => void;
   freePersonSpot: (spotId: string, spotName: string, personId: string) => void;
+  hideParkingSpotSnackBar: () => void;
   hideReservationsSnackBar: () => void;
   killSession: (id: string) => void;
   loadingPersons: boolean;
@@ -30,6 +31,7 @@ interface ReduxPersonProps {
   userReservations: UserReservations [];
   snackBarMessagePersons: string;
   snackBarMessageReservations: string;
+  snackBarMessageParkingSpots: string;
   setDeleteReservationsNumber: (reservationsnumber: number) => void;
   loadingParkingSpots: boolean;
 
@@ -331,6 +333,14 @@ class Person extends Component<PersonProps, PersonState> {
         autoHideDuration={3000}
        
       />
+      <Snackbar 
+        open={this.props.snackBarMessageParkingSpots !== ''}
+        anchorOrigin={snackLocation}
+        message={<span>{this.props.snackBarMessageParkingSpots}</span>}
+        onClose={this.props.hideParkingSpotSnackBar}
+        autoHideDuration={3000}
+       
+      />
 
     </div>   
 
@@ -362,6 +372,7 @@ const mapState = (state: AppState) => {
     loadingReservations: state.reservations.loading,
     parkingSpots: state.parkingSpot.parkingSpotList,
     selectedPerson: state.persons.selectedPerson,
+    snackBarMessageParkingSpots: state.parkingSpot.snackBarMessage,
     snackBarMessagePersons: state.persons.snackBarMessage,
     snackBarMessageReservations: state.reservations.snackBarMessage,
     userReservations: state.reservations.userReservations,
@@ -377,6 +388,7 @@ const MapDispatch = (dispatch: Dispatch) => {
    getData: (id: string) => dispatch(getPerson(id)),
    getParkingSpots: () => dispatch(getParkingSpots()),
    getUserReservations: (id: string) => dispatch(getUserReservations(id)),
+   hideParkingSpotSnackBar: () => dispatch(closeParkingSpotsSnackBar()),
    hideReservationsSnackBar: () => (dispatch(hideReservationsSnackBar())),
    killSession: (id: string) => dispatch(killSession(id)),
    modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),

@@ -63,6 +63,11 @@ export const getPerson = (id: string) => {
         checkLogIn()(dispatch);
       }
       console.log(error);
+      dispatch({
+        payload:  response && response.data && response.data.message,
+        type: actionTypes.GETPERSONFAILED,
+
+      });
     });
   };
 };

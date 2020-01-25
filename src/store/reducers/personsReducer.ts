@@ -139,6 +139,14 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
        
       };
 
+    case actionTypes.GETPERSONFAILED:
+      return {
+        ...state,
+        loading: false,
+        snackBarMessage: action.payload || 'fetching person data from server failed',
+
+      };
+
     case actionTypes.KILLSESSIONFAILED:
       return {
         ...state,

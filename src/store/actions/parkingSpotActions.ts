@@ -193,7 +193,7 @@ export const freeSpot = (spotId: string, spotName: string, personId: string) => 
 
 };
 
-export const closeSnackBar = () => {
+export const closeParkingSpotsSnackBar = () => {
   return (dispatch: Dispatch) => {
    
     dispatch({
