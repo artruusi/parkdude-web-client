@@ -53,7 +53,7 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
     case actionTypes.DELETERESERVATIONFAILED:
       return {
         ...state,
-        snackBarMessage: action.payload || 'Reservations deleted succesfully',
+        snackBarMessage: action.payload || 'Failed to delete a reservation',
       };
 
     case actionTypes.STARTLOADINGRESERVATIONS:
