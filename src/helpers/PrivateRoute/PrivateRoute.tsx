@@ -1,43 +1,38 @@
 import React, { FunctionComponent, Component } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { AppState } from "./../../store/types";
+import { AppState, UserRole } from "./../../store/types";
 
 interface PrivateRouteProps {
-  component: FunctionComponent<{}>;
+  component: FunctionComponent<{}> | any;
   path: string;
   loggedIn: boolean;
+  page: string;
+  userRole?: UserRole;
 }
-
-/* const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        true 
-        ? <Component />
-        : <Redirect to={{
-            pathname: '/kirjaudu',
-            state: { from: props.location }
-            }} 
-          />
-      )} 
-    />
-  ) */
 
 class PrivateRoute extends Component<PrivateRouteProps, {}> {
   render() {
-    const Content = this.props.component;
-    const routeContent = this.props.loggedIn ? (
-      <Content />
-    ) : (
-      <Redirect to={{ pathname: "/login" }} />
-    );
+    return <Route path={this.props.path} render={this.renderRouteContent} exact={true} />;
+  }
 
-    return <Route path={this.props.path} render={props => routeContent} />;
+  renderRouteContent = () => {
+    if (!this.props.loggedIn) {
+      return <Redirect to="/login" />;
+    }
+    if (this.props.userRole !== UserRole.ADMIN) {
+      return <Redirect to="/forbidden" />;
+    }
+    const Layout = this.props.component;
+    const page = this.props.page;
+    return <Layout page={page}/>;
   }
 }
 
 const mapState = (state: AppState) => {
   return {
     loggedIn: state.user.loggedIn,
+    userRole: state.user.userRole,
   };
 };
 

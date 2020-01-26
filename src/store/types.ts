@@ -31,12 +31,81 @@ export type DispatchAction<T = void> = ThunkAction<
 
 // interfaces for reducers
 
+export interface ParkingSpot {
+  id: string;
+  name: string;
+  owner?: IPerson | null;
+ 
+}
+
 export interface AppState {
   user: UserState;
+  parkingSpot: ParkingSpotState;
+  persons: PersonsState;
+  reservations: ReservationsState;
 }
 
 export interface UserState {
   loggedIn: boolean;
+  userRole?: UserRole;
+  userName: string;
+  currentPage: string;
+  snackBarMessage: string;
+  authChecked: boolean;
+}
+
+export interface ParkingSpotState {
+  parkingSpotList: ParkingSpot [];
+  snackBarMessage: string;
+  loading: boolean;
+  
+}
+
+export interface IPerson {
+  id: string;
+  name: string;
+  email: string;
+  parkingSpot: number| null;
+  admin: boolean;
+  role: string;
+  sessions: string [];
+  reservationCount: number;
+  ownedParkingSpots: ParkingSpot [];
+  isEmailValidated?: boolean;
+
+}
+
+export interface PersonNameEmail {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export interface PersonsState {
+  personList: IPerson [];
+  selectedPerson: IPerson;
+  snackBarMessage: string;
+  loading: boolean;
+
+}
+
+export interface ReservationsState {
+  reservations: Reservation [];
+  userReservations: UserReservations [];
+  deleteReservationsNumber: number;
+  loading: boolean;
+  snackBarMessage: string;
+}
+export interface UserReservations {
+  date: string;
+  parkingSpot: ParkingSpot;
+
+}
+export interface Reservation {
+  date: string;
+  user: string;
+  parkingSpotId: string;
+  parkingSpotName: string;
 }
 
 // interfaces for api
@@ -51,5 +120,20 @@ export enum UserRole {
 export interface LoginState {
   isAuthenticated: boolean;
   userRole?: UserRole;
-  name?: string;
+  name: string;
+}
+
+export interface PasswordLogInData {
+  email: string;
+  password: string;
+}
+export interface CreateParkingSpotData {
+  name: string;
+  ownerEmail: string | undefined;
+}
+
+export interface ModifyUserData {
+  email: string;
+  name: string;
+  role: string;
 }

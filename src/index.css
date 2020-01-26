@@ -11,3 +11,66 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.flex-row {
+  display: flex;
+}
+.flex-row-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.button {
+  font-size: 22px;
+  width: 170px;
+  height: 50px;
+  border: none;
+  color: black;
+  border-radius: 30px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+*:focus{
+   outline: none;
+}
+
+.table-container {
+  max-height: 50vh;
+  overflow: auto;
+}
+
+input[type=text], input[type=password], input[type=email] {
+  font-size: 16px;
+}
+
+.align-left-button-container {
+  margin: 24px 0px;
+}
+
+.align-right-button-container {
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 24px;
+}

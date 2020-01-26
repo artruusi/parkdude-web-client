@@ -1,0 +1,92 @@
+#modal-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+#modal {
+  background-color: white;
+  border-radius: 30px;   
+}
+
+#modal h3 {
+  font-size: 22px;
+}
+#modal p {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+#modal-button-container {
+  margin-bottom: 10px;
+  margin-top: auto;
+}
+
+#modal-yes-button {
+  background-color: #FF6C6C;
+}
+
+#modal-cancel-button {
+  background-color: white;
+  color: black;
+}
+
+#modal-add-user-button, #modal-add-spot-button  {
+   background-color: #ffd800;
+}
+.modal-accept-button {
+  background-color: #ffd800;
+}
+
+#modal-add-user-button-container {
+  margin-bottom: 18px;
+  margin-top: auto;
+}
+
+.modal-input {
+  border: none;
+  margin: 10px 0;
+  height: 40px;
+  width: 300px;
+  border-bottom: 1px solid black;
+}
+
+.modal-add-user {
+  width: 600px;
+  height: 380px;
+}
+
+.modal-add-spot {
+  width: 600px;
+  height: 340px; 
+}
+.modal-delete {
+ width: 600px;
+ height: 250px;
+}
+
+.modal-add-user-header {
+  margin-top: 28px;
+  margin-bottom: 14px;
+}
+
+.modal-select {
+  width: 300px;
+}
+
+#modal-change-owner-button-container {
+  margin-bottom: 18px;
+
+}
+
+.modal-change-owner {
+  width: 600px;
+  height: 260px; 
+}
+

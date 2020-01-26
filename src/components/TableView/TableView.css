@@ -1,0 +1,69 @@
+#table-view{
+  width: 80%;
+  margin: 3vh auto;
+  max-width: 1800px;
+}
+#table-view h2 {
+  font-size: 36px;
+  flex-grow: 1;
+}
+
+#table-view-add-user{
+  margin-right: 2vw;
+  background-color: #ffd800;  
+}
+
+#table-view-delete-button {
+  margin-right: 2vw;
+  background-color: #FF6C6C;
+}
+
+#table-view-accept-button, #table-search-reservations-button {
+  background-color: #ffd800;
+}
+
+#table-view-header-container {
+  align-items: center;
+} 
+
+#table-view-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#table-view-table th {
+  background-color: #e7e7e7;
+  padding: 15px 0; 
+  text-align: left;
+  padding-left: 20px;
+  border: none;
+}
+
+#table-view-table td {
+  padding: 4px 0; 
+  text-align: left;
+}
+#table-view-table tr:hover {
+  background-color: #999966;
+}
+
+.table-check {
+  width: 20px;
+}
+
+.table-input {
+  border: none;
+  margin: 10px 0;
+  height: 40px;
+  width: 200px;
+  border-bottom: 1px solid black;
+  margin-right: 30px;
+}
+
+#search-reservation-container {
+  margin-top: 20px;
+}
+
+#search-reservation-container h3 {
+  font-size: 30px;
+}

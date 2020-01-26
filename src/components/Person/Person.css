@@ -1,0 +1,87 @@
+#person {
+  width: 80%;
+  max-width: 1800px;
+  margin: 3vh auto;
+  padding: 0 16px;
+}
+
+#person-content-wrapper {
+  justify-content: space-between;
+}
+
+.person-button {
+  background-color: #ffd800;
+  font-size: 16px;
+  height: 35px;
+}
+
+#person-delete-button {
+  background-color: #FF6C6C;
+  height: 35px;
+}
+
+#person-header-container {
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+#person-button-container {
+  margin-top: 3vh;
+}
+
+#person-button-container .button {
+  margin-right: 16px;
+}
+
+#person-history-container {
+  border-radius: 30px;
+  margin-right: 16px;
+  flex-grow: 2;
+  max-width: 400px;
+}
+
+#person-future-reservation-container {
+  flex-grow: 2;
+  border-radius: 30px;
+  max-width: 470px;
+}
+
+#person-info-container {
+  margin-right: 32px;
+  border-radius: 30px;
+}
+
+#person .table-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.person-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.person-table td, .person-table th {
+  padding: 8px 16px;
+}
+
+.person-table th {
+  background-color: #ffca28;
+  text-align: left;
+}
+
+#person-info-container div {
+  margin-top: 2vh;
+}
+
+.person-check {
+  width: 18px;
+}
+
+#person-free-selected-spots-button {
+  margin-left: auto;
+}
+
+.person-table tr:nth-child(even){background-color: #e7e7e7;}
+.person-table tr:nth-child(odd){background-color: white;}

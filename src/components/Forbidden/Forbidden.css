@@ -1,0 +1,12 @@
+.forbidden-view {
+  padding-top: 10vh;
+}
+
+.forbidden-view .parkdude-logo {
+  width: 560px;
+  margin-bottom: 3vh;
+}
+
+.forbidden-view .button {
+  background: #ffd800;
+}
