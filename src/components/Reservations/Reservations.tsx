@@ -163,7 +163,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const resultTable = this.props.reservations.length !== 0
       ? (
         <div className="table-container">
-          <table id="reservations-table">
+          <table className="reservations-table">
 
             <thead>
               <tr>
@@ -192,8 +192,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const deleteButton = this.props.reservations.length !== 0
     ? (
       <button 
-        id="reservation-delete-button" 
-        className="button" 
+        className="button reservation-delete-button" 
         onClick={this.handleDeleteReservationsClick}
         disabled={numberOfSelectedRows === 0}
       >
@@ -204,10 +203,10 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
 
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <div className="flex-column" id="search-reservation-container">
+        <div className="flex-column search-reservation-container">
           <h3>Search reservations</h3>
           <div className="flex-row search-reservations-input-container">
-            <div id="date-picker-start-day">
+            <div className="date-picker-start-day">
               <KeyboardDatePicker
                   disableToolbar={true}
                   variant="inline"
@@ -221,7 +220,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
               />
             </div>
           
-            <div id="date-picker-end-day">
+            <div className="date-picker-end-day">
               <KeyboardDatePicker
                   disableToolbar={true}
                   variant="inline"

@@ -170,13 +170,13 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
 
-        <div id="modal" className="flex-column-center modal-delete">
+        <div className="flex-column-center modal-delete modal">
           <h3>Delete Users</h3>
           <p>Are you sure you want to permanently delete {this.props.deleteObjectNumber} {deleteObjec}?</p>
 
-          <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-yes-button" onClick={this.props.confirmDelete}>Yes</button>
+          <div className="modal-button-container">      
+            <button className="button modal-cancel-button"  onClick={this.props.close}>Cancel</button>
+            <button className="button delete-button" onClick={this.props.confirmDelete}>Yes</button>
           </div>
 
         </div>
@@ -186,7 +186,7 @@ class Modal extends Component<ModalProps, ModalState> {
       
       content = (
 
-        <div id="modal" className="flex-column-center modal-add-user">
+        <div className="flex-column-center modal-add-user modal">
           <h3 className="modal-add-user-header">Add user</h3>
 
           <input 
@@ -218,11 +218,10 @@ class Modal extends Component<ModalProps, ModalState> {
             className="modal-input"
           />
 
-          <div id="modal-add-user-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+          <div className="modal-add-user-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
             <button 
-              className="button" 
-              id="modal-add-user-button" 
+              className="button accept-button" 
               onClick={this.createPerson}
               title={this.isPersonInputvalid() ? "" : "All fields must be filled and passwords must match."}
               disabled={!this.isPersonInputvalid()}
@@ -240,7 +239,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
         
-        <div id="modal" className="flex-column-center modal-add-spot">
+        <div  className="flex-column-center modal-add-spot modal">
 
           <h3>Create a new parking spot</h3>
 
@@ -259,11 +258,10 @@ class Modal extends Component<ModalProps, ModalState> {
             </Select>
           </FormControl>
 
-          <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+          <div className="modal-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
             <button 
-              className="button" 
-              id="modal-add-spot-button" 
+              className="button accept-button" 
               disabled={!this.state.spotNumberInput}
               title={this.state.spotNumberInput ? "" : "Parking spot number is required"}
               onClick={this.createNewSpot}
@@ -282,7 +280,7 @@ class Modal extends Component<ModalProps, ModalState> {
       persons.unshift(<MenuItem key={12121212} value={'free'}>No owner (free spot)</MenuItem>);
 
       content = (
-        <div id="modal" className="flex-column-center modal-change-owner">
+        <div className="flex-column-center modal-change-owner modal">
           <h3>Select a new owner</h3>
 
           <FormControl >
@@ -292,9 +290,9 @@ class Modal extends Component<ModalProps, ModalState> {
             </Select>
           </FormControl>
 
-          <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button modal-accept-button" onClick={this.changeOwner}>Ok</button>
+          <div className="modal-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button accept-button" onClick={this.changeOwner}>Ok</button>
           </div>
         </div>
       );
@@ -302,7 +300,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
 
-        <div id="modal" className="flex-column-center modal-change-password">
+        <div className="flex-column-center modal-change-password modal">
           <h3 className="modal-add-user-header">Change user's password</h3>
        
           <input 
@@ -321,9 +319,9 @@ class Modal extends Component<ModalProps, ModalState> {
           />
           <p className="modal-error-message bold">{this.state.errorMessage}</p>
 
-          <div id="modal-add-user-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>Change</button>
+          <div className="modal-add-user-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button modal-add-user-button" onClick={this.changePassword}>Change</button>
           </div>
 
         </div>
@@ -343,7 +341,7 @@ class Modal extends Component<ModalProps, ModalState> {
       }
 
       content = (
-        <div id="modal" className="flex-column-center modal-give-spot">
+        <div className="flex-column-center modal-give-spot modal">
           <h3>Select a parking spot</h3>
 
           <FormControl >
@@ -353,9 +351,9 @@ class Modal extends Component<ModalProps, ModalState> {
             </Select>
           </FormControl>
 
-           <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button modal-accept-button" onClick={this.giveSpot}>Ok</button>
+           <div className="modal-button-container">      
+            <button className="button modal-cancel-button"  onClick={this.props.close}>Cancel</button>
+            <button className="button accept-button" onClick={this.giveSpot}>Ok</button>
           </div>
         </div>
       );
@@ -363,7 +361,7 @@ class Modal extends Component<ModalProps, ModalState> {
     }
 
     return (
-      <div id="modal-container">
+      <div className="modal-container">
         {content}
       </div>
     );

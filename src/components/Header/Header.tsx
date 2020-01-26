@@ -40,9 +40,9 @@ class Header extends Component < HeaderProps , HeaderState > {
 
   render() {
     const dropdown = (
-      <div id="header-dropdown-content" onMouseLeave={this.hideDropDown}>
-        <span id="header-dropdown-username">{this.props.userName}</span>
-        <span onClick={this.props.logOutFromServer} id="header-log-out-span">Log out</span>
+      <div className="header-dropdown-content" onMouseLeave={this.hideDropDown}>
+        <span className="header-dropdown-username">{this.props.userName}</span>
+        <span onClick={this.props.logOutFromServer} className="header-log-out-span">Log out</span>
       </div>
     );
 
@@ -50,9 +50,9 @@ class Header extends Component < HeaderProps , HeaderState > {
     
     return(
       <div>
-        <div id="header" className="flex-row">
+        <div className="flex-row header">
           
-          <div id="header-tab-container" className="flex-row">
+          <div id="" className="flex-row header-tab-container">
 
             <div className="tab-container flex-column-center">
               <Link to="/employees" className="header-link">
@@ -96,8 +96,8 @@ class Header extends Component < HeaderProps , HeaderState > {
 
           </div>
         
-          <div id="header-icon-container" className="flex-row-center" onMouseEnter={this.showDropDown}>
-            <img id="header-user-icon" src={personIcon} alt="person"/>  
+          <div className="flex-row-center header-icon-container" onMouseEnter={this.showDropDown}>
+            <img className="header-user-icon" src={personIcon} alt="person"/>  
             
           </div>    
         </div>

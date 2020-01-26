@@ -1,58 +1,58 @@
-#persons {
+.persons {
   width: 80%;
   margin: 3vh auto;
   max-width: 1800px;
 }
-#persons h2 {
+.persons h2 {
   font-size: 36px;
   flex-grow: 1;
 }
 
-#persons-add-user {
+.persons-add-user {
   margin-right: 2vw;
-  background-color: #ffd800;
+  background-color: var(--yellow-primary);
 }
 
-#persons-delete-button {
+.persons-delete-button {
   margin-right: 2vw;
-  background-color: #ff6c6c;
+  background-color: var(--red-primary);
 }
 
-#persons-accept-button,
-#table-search-reservations-button {
-  background-color: #ffd800;
+.persons-accept-button,
+.table-search-reservations-button {
+  background-color: var(--yellow-primary);
 }
 
-#persons-header-container {
+.persons-header-container {
   align-items: center;
 }
 
-#persons-table {
+.persons-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-#persons-table tbody {
+.persons-table tbody {
   width: 100%;
 }
 
-#persons-table thead tr {
+.persons-table thead tr {
   /* display: block; */
   width: 100%;
 }
 
-#persons-table th {
-  background-color: #e7e7e7;
+.persons-table th {
+  background-color: var(--gray-primary);
   padding: 16px 8px;
   text-align: left;
   border: none;
 }
 
-#persons-table td {
+.persons-table td {
   padding: 8px;
   text-align: left;
 }
-#persons-table tbody tr:hover {
+.persons-table tbody tr:hover {
   background-color: #999966;
   cursor: pointer;
 }
@@ -70,10 +70,10 @@
   margin-right: 30px;
 }
 
-#search-reservation-container {
+.search-reservation-container {
   margin-top: 20px;
 }
 
-#search-reservation-container h3 {
+.search-reservation-container h3 {
   font-size: 30px;
 }

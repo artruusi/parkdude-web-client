@@ -68,27 +68,33 @@ class LogIn extends Component<LogInProps, LogInSate> {
     };
     
     return (
-      <form id="log-in" className="flex-column-center" onSubmit={this.passwordLogIn}>
+      <form id="" className="flex-column-center log-in" onSubmit={this.passwordLogIn}>
         {this.renderRedirect()}
 
-        <img src={parkDudeLogo} alt="Parkdude logo" id="log-in-logo"/>
+        <img src={parkDudeLogo} alt="Parkdude logo" className="log-in-logo"/>
         <h3>Log in</h3>
         
-        <input type="email" placeholder="Email" id="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
-        <input type="password" placeholder="Password" id="log-in-password" value={this.state.passwordInput} onChange={this.handlePWChange}/>
+        <input type="email" placeholder="Email" className="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
+        <input 
+          type="password" 
+          placeholder="Password" 
+          className="log-in-password" 
+          value={this.state.passwordInput} 
+          onChange={this.handlePWChange}
+        />
 
-        <button className="button" id="log-in-log-button" type="submit">Log in</button>
+        <button className="button log-in-log-button"  type="submit">Log in</button>
 
-        <div className="flex-row-center" id="log-in-or-container">
+        <div className="flex-row-center log-in-or-container">
           <hr/>
           <span>OR</span>
           <hr/>
         </div>
 
-        <button className="button" id="log-in-google-button" onClick={this.googleLogIn}>Log in with Google</button>
+        <button className="button log-in-google-button" onClick={this.googleLogIn}>Log in with Google</button>
 
         <Snackbar 
-          id='delete-snack'
+          className='delete-snack'
           open={this.props.snackBarMessage !== ''}
           anchorOrigin={snackLocation}
           message={<span>{this.props.snackBarMessage}</span>}

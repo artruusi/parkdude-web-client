@@ -236,13 +236,13 @@ class Person extends Component<PersonProps, PersonState> {
     };
 
     let page = (
-      <div id="person" className="flex-column">
-      <div className="flex-row" id="person-header-container">
+      <div className="flex-column person">
+      <div className="flex-row person-header-container" >
         <h2>{this.props.selectedPerson.name}</h2>     
       </div>
 
-      <div className="flex-row" id="person-content-wrapper">
-        <div id="person-info-container">
+      <div className="flex-row person-content-wrapper" >
+        <div className="person-info-container">
           <div>
             <span className="bold">Email: </span>
             <span>{this.props.selectedPerson.email}</span>
@@ -262,7 +262,7 @@ class Person extends Component<PersonProps, PersonState> {
 
         </div>
 
-        <div className="flex-column" id="person-history-container">
+        <div className="flex-column person-history-container">
           <span className="bold">Reservation history</span>
           <div className="table-container">
             <table className="person-table">
@@ -281,7 +281,7 @@ class Person extends Component<PersonProps, PersonState> {
           
         </div>
 
-        <div id="person-future-reservation-container" className="flex-column">
+        <div className="flex-column person-future-reservation-container">
           <span className="bold">Future reservations</span>
           <div className="table-container">
             <table className="person-table">
@@ -298,8 +298,7 @@ class Person extends Component<PersonProps, PersonState> {
             </table>
           </div>
           <button 
-            className="button person-button" 
-            id="person-free-selected-spots-button" 
+            className="button person-button person-free-selected-spots-button" 
             onClick={this.handleDeleteReservationsClick}
             disabled={!hasSelectedReservations}
           > 
@@ -308,7 +307,7 @@ class Person extends Component<PersonProps, PersonState> {
         </div>
 
       </div>
-      <div id="person-button-container" className="flex-row">
+      <div className="flex-row person-button-container">
         {adminButton}
         {sessionButton}
         {parkingSpotButton}

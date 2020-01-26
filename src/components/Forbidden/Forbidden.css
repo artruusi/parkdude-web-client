@@ -8,5 +8,5 @@
 }
 
 .forbidden-view .button {
-  background: #ffd800;
+  background: var(--yellow-primary);
 }
