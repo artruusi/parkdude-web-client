@@ -95,7 +95,7 @@ class Modal extends Component<ModalProps, ModalState> {
     const person = this.props.personId as string;
 
     if (password2 !== password1) {
-      this.setState({errorMessage: "Passwors don't match"});
+      this.setState({errorMessage: "Passwords don't match"});
       return;
     }
 

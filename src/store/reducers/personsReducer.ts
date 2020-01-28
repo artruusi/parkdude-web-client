@@ -143,7 +143,7 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       return {
         ...state,
         loading: false,
-        snackBarMessage: action.payload || 'fetching person data from server failed',
+        snackBarMessage: action.payload || 'Fetching person data from server failed',
 
       };
 
@@ -160,7 +160,7 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       return {
         ...state,
         selectedPerson,
-        snackBarMessage: "user's session killed succesfully",
+        snackBarMessage: "User's session killed succesfully",
 
       };
 
