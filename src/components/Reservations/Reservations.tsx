@@ -166,7 +166,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const resultTable = this.props.reservations.length !== 0
       ? (
         <div className="table-container">
-          <table className="reservations-table">
+          <table className="table">
 
             <thead>
               <tr>
@@ -195,7 +195,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const deleteButton = this.props.reservations.length !== 0
     ? (
       <button 
-        className="button reservation-delete-button" 
+        className="button reservation-delete-button delete-button" 
         onClick={this.handleDeleteReservationsClick}
         disabled={numberOfSelectedRows === 0}
       >

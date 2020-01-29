@@ -157,20 +157,20 @@ class Person extends Component<PersonProps, PersonState> {
   render() {
 
     const adminButton = this.props.selectedPerson.role === 'admin' 
-      ? <button onClick={this.undoAdmin} className="button person-button">Undo admin</button> 
-      : <button onClick={this.makeAdmin} className="button person-button">Make admin</button>;
+      ? <button onClick={this.undoAdmin} className="button person-button accept-button">Undo admin</button> 
+      : <button onClick={this.makeAdmin} className="button person-button accept-button">Make admin</button>;
     
     const sessionButton = this.props.selectedPerson.sessions.length !== 0
-      ? <button className="button person-button" onClick={this.killSession}>Kill sesssion</button>
+      ? <button className="button person-button accept-button" onClick={this.killSession}>Kill sesssion</button>
       : null;
 
     const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0
-      ? <button className="button person-button" onClick={this.freeParkingSpots} >Free user's spots</button>
-      : <button className="button person-button" onClick={this.showSpotModal} >Get permanent spot</button>;
+      ? <button className="button person-button accept-button" onClick={this.freeParkingSpots} >Free user's spots</button>
+      : <button className="button person-button accept-button" onClick={this.showSpotModal} >Get permanent spot</button>;
 
     const passwordButton = this.props.selectedPerson.isEmailValidated
       ? null
-      : <button className="button person-button" onClick={this.showPasswordModal}>Change password</button>;
+      : <button className="button person-button accept-button" onClick={this.showPasswordModal}>Change password</button>;
 
     const changepasswordModal = this.state.showPasswordModal 
       ? (
@@ -292,7 +292,7 @@ class Person extends Component<PersonProps, PersonState> {
             </table>
           </div>
           <button 
-            className="button person-button person-free-selected-spots-button" 
+            className="button person-button person-free-selected-spots-button accept-button" 
             onClick={this.handleDeleteReservationsClick}
             disabled={!hasSelectedReservations}
           > 

@@ -10,51 +10,14 @@
 
 .persons-add-user {
   margin-right: 2vw;
-  background-color: var(--yellow-primary);
 }
 
 .persons-delete-button {
   margin-right: 2vw;
-  background-color: var(--red-primary);
-}
-
-.persons-accept-button,
-.table-search-reservations-button {
-  background-color: var(--yellow-primary);
 }
 
 .persons-header-container {
   align-items: center;
-}
-
-.persons-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.persons-table tbody {
-  width: 100%;
-}
-
-.persons-table thead tr {
-  /* display: block; */
-  width: 100%;
-}
-
-.persons-table th {
-  background-color: var(--gray-primary);
-  padding: 16px 8px;
-  text-align: left;
-  border: none;
-}
-
-.persons-table td {
-  padding: 8px;
-  text-align: left;
-}
-.persons-table tbody tr:hover {
-  background-color: #999966;
-  cursor: pointer;
 }
 
 .table-check {
@@ -70,10 +33,3 @@
   margin-right: 30px;
 }
 
-.search-reservation-container {
-  margin-top: 20px;
-}
-
-.search-reservation-container h3 {
-  font-size: 30px;
-}

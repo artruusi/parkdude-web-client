@@ -32,7 +32,7 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
       let userReservations: UserReservations [] = [];
       let listReservations: Reservation [] = [];
       if (action.payload.type === 'personReservation') {
-        console.log('person');
+        
         userReservations = state.userReservations.filter(reservation =>
           !( reservation.date === action.payload.dates && reservation.parkingSpot.id === action.payload.id) );
       } else {

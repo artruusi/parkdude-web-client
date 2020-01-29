@@ -1,42 +1,13 @@
-.table-view {
+.accept-users {
   width: 80%;
   margin: 3vh auto;
   max-width: 1800px;
 }
-.table-view h2 {
+.accept-users h2 {
   font-size: 36px;
   flex-grow: 1;
 }
 
-.table-view-header-container {
-  align-items: center;
-}
-
-.table-view-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-view-table th {
-  background-color: #e7e7e7;
-  padding: 15px 0;
-  text-align: left;
-  padding-left: 20px;
-  border: none;
-}
-
-.table-view-table td {
-  padding: 4px 0;
-  text-align: left;
-}
-
-.table-view-table tbody tr:hover {
-  background-color: .999966;
-}
-
-.spinner {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
+.accept-users-header-container {
   align-items: center;
 }

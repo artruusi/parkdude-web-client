@@ -131,15 +131,15 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     };
 
     let page = (
-      <div className="table-view">
+      <div className="accept-users">
               
-        <div  className="flex-row table-view-header-container">
+        <div  className="flex-row accept-users-header-container">
           <h2>{header} </h2>
           
         </div>
 
         <div className="table-container">
-          <table className="table-view-table">
+          <table className="table">
 
             <thead>
               {tableHeader}
@@ -153,7 +153,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
         
         </div>
 
-        <div className="flex-row align-left-button-container table-view-delete-button-container">
+        <div className="flex-row align-left-button-container ">
           {acceptButton}
         </div> 
         <Snackbar 

@@ -126,7 +126,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
     }, 0);
 
     const addButton = this.props.type !== 'employees'
-      ? <button  className="button persons-add-user" onClick={this.openAddUserModal}>Add</button>
+      ? <button  className="button persons-add-user accept-button" onClick={this.openAddUserModal}>Add</button>
       : null;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAddUserModal} type='addUser' /> : null;
     const deleteModal = this.state.showDeleteModal 
@@ -141,7 +141,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       : null;
     const deleteButton = (
       <button 
-        className="button persons-delete-button" 
+        className="button persons-delete-button delete-button" 
         onClick={this.openDeleteModal}
         disabled={deleteObjectNumber === 0}
       >
@@ -256,7 +256,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         </div>
 
         <div className="table-container">
-          <table className="persons-table">
+          <table className="table">
 
             <thead>
               {tableHeader}

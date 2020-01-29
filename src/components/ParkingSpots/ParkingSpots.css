@@ -21,26 +21,6 @@
   align-items: center;
 }
 
-.parking-spots-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.parking-spots-table th {
-  background-color: #e7e7e7;
-  padding: 16px 8px;
-  text-align: left;
-  border: none;
-}
-
-.parking-spots-table td {
-  padding: 8px;
-  text-align: left;
-}
-.parking-spots-table tbody tr:hover {
-  background-color: #999966;
-}
-
 .table-check {
   width: 20px;
 }
