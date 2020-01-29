@@ -141,6 +141,10 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     persons.unshift(<MenuItem key={'1234567'} value=''>Clear selected person</MenuItem>);
 
     const content = (this.props.reservations || []).map(reservation => {
+
+      const date = new Date(reservation.date);
+      const dateUI = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+
       return (
         <tr key={reservation.date + reservation.parkingSpotId}>
           <td>
@@ -152,7 +156,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
             />
             
           </td>
-          <td>{reservation.date}</td>
+          <td>{dateUI}</td>
           <td>{reservation.parkingSpotName}</td>
           <td>{reservation.user}</td>
         </tr>
@@ -243,7 +247,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
 
             </div>
             
-            <button className="button" id="table-search-reservations-button" onClick={this.handleButtonClick}>Search</button>
+            <button className="button accept-button"  onClick={this.handleButtonClick}>Search</button>
           </div>
           {resultTable}
           <div className="align-left-button-container">
