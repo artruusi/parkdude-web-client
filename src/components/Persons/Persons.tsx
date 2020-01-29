@@ -97,7 +97,6 @@ class Persons extends Component<PersonsProps, PersonsState> {
   renderRedirect = () => {
     if (this.state.selectedPerson !== null) {     
       const url = '/employees/' + this.state.selectedPerson;
-      console.log(url);
       return  <Redirect to={url}/>;
       
     }

@@ -47,11 +47,11 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
   };
 
   handleStartDayChange = (date: Date | null) => {
-    console.log(date);
+
     this.setState({startDate: date});
   }
   handleEndDayChange = (date: Date | null) => {
-    console.log(date);
+ 
     this.setState({endDate: date});
   }
   handlePersonChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
@@ -68,7 +68,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     } else if (this.state.endDate !== null && this.state.startDate !== null) {
       queryStartDay = this.state.startDate.toISOString().substring(0, 10);
       queryEndDay = this.state.endDate.toISOString().substring(0, 10);
-      console.log(queryStartDay);
+
     }
     this.props.makeSearch(queryStartDay, queryEndDay, this.state.person);
   }
@@ -92,7 +92,6 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     }
   }
   handleDeleteReservationsClick = () => {
-    console.log(this.state.selectedRows);
 
     let deletereservationNumber = 0;
     Object.keys(this.state.selectedRows).forEach(row => {

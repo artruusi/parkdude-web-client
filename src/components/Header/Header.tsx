@@ -30,11 +30,9 @@ class Header extends Component < HeaderProps , HeaderState > {
   };
 
   showDropDown = () => {
-    console.log('show');
     this.setState({showDropDown: true});
   }
   hideDropDown = () => {
-    console.log('hide');
     this.setState({showDropDown: false});
   }
 

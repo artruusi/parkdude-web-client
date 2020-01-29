@@ -46,7 +46,6 @@ class LogIn extends Component<LogInProps, LogInSate> {
   googleLogIn = () => {
 
     const googleURL = process.env.REACT_APP_GOOGLE_LOG_IN as string;
-    console.log(googleURL);
     document.location.href = googleURL;
   }
   passwordLogIn = (event: FormEvent<HTMLFormElement>) => { 
@@ -58,10 +57,12 @@ class LogIn extends Component<LogInProps, LogInSate> {
    
     this.props.passwordLogIn(data);
   }
+  componentDidMount() {
+    this.props.checkLogIn();
+  }
 
   render() {
-    this.props.checkLogIn();
-    
+   
     const snackLocation: SnackbarOrigin = {
       horizontal: 'center',
       vertical: 'bottom',

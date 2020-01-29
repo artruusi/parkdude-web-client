@@ -78,7 +78,7 @@ class Modal extends Component<ModalProps, ModalState> {
       name: this.state.spotNumberInput,
       ownerEmail,    
     };
-    console.log(data);
+    
     this.props.createParkingSpot(data);
     this.props.close();
   }
@@ -128,13 +128,13 @@ class Modal extends Component<ModalProps, ModalState> {
 
     const value: string = event.target.value as string;
     this.setState({selectedSpotOwner: value});
-    console.log(value);
+   
   }
 
   handleGiveSpot = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
     const value = event.target.value as string;
     this.setState({spotNumberInput: value});
-    console.log(value);
+
   }
 
   giveSpot = () => {
@@ -235,7 +235,6 @@ class Modal extends Component<ModalProps, ModalState> {
     } else if (this.props.type === 'addSpot') {
 
       const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.email}>{person.name}</MenuItem>);
-      console.log(persons);
 
       content = (
         
@@ -328,7 +327,6 @@ class Modal extends Component<ModalProps, ModalState> {
       );
     } else if (this.props.type === 'giveSpot') {
 
-      console.log(this.props.parkingSpots);
       const parkingSpotList: JSX.Element [] = [];
       (this.props.parkingSpots || []).forEach(spot => {
         if (spot.owner === null) {

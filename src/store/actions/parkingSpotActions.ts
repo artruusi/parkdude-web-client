@@ -6,24 +6,17 @@ import { getPerson, freeParkingSpotFromPerson } from "./personsActions";
 
 axios.defaults.withCredentials = true;
 
-// const setParkingSpots = (data: any) => {
-//   return {
-//     payload: data,
-//     type: actionTypes.GETSPOTS,
-//   };
-// };
-
 export const getParkingSpots = () => {
   return (dispatch: Dispatch) => {
 
     dispatch({
       type: actionTypes.STARTLOADINGPARKINGSPOTS,
     });
-    console.log('parking spots');
+
     const url =  process.env.REACT_APP_API_URL + 'parking-spots';
     axios.get(url)
       .then(res => {
-        console.log(res);
+
         dispatch({
           payload: res.data,
           type: actionTypes.GETSPOTS,
@@ -48,7 +41,7 @@ export const createParkingSpot = (data: CreateParkingSpotData) => {
     const url =  process.env.REACT_APP_API_URL + 'parking-spots';
     axios.post(url, data)
     .then(res => {
-      console.log(res);
+
       dispatch({
         type: actionTypes.PARKINGSPOTCREATED,
       });
@@ -73,7 +66,7 @@ export const deleteParkingSpot = (id: string) => {
     const url =  process.env.REACT_APP_API_URL + 'parking-spots/' + id;
     axios.delete(url)
       .then(res => {
-        console.log(res);
+
         dispatch({
           payload: id,
           type: actionTypes.DELETESPOT,        
@@ -101,7 +94,6 @@ export const changeOwner = (id: string, name: string, newOwner: string, type: st
       ownerEmail: newOwner !== '' ? newOwner : undefined,
     };
 
-    console.log(data);
     axios.put(url, data)
       .then(res => {
         dispatch(getParkingSpots());
@@ -135,7 +127,6 @@ export const giveSpot = (spotId: string, spotName: string, personId: string, per
       ownerEmail: personemail !== '' ? personemail : undefined,
     };
 
-    console.log(data);
     axios.put(url, data)
       .then(res => {
 

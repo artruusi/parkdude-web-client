@@ -28,10 +28,8 @@ export const getReservations = (startDate: string, endDate: string, person: stri
       url += '?startDate=' + startDate + '&endDate=' + endDate;
     }
 
-    console.log(url);
     axios.get<GetReservationsRes>(url)
       .then(res => {
-        console.log(res);
 
         const payloadRes: PayloadGetReservations []  = [];
 
@@ -85,7 +83,6 @@ export const getUserReservations = (id: string) => {
     const url =  process.env.REACT_APP_API_URL + 'users/' + id + '/reservations?startDate=' +  startDate;
     axios.get(url)
       .then(res => {
-        console.log(res);
         dispatch({
           payload: res.data.reservations,
           type: actionTypes.GETUSERRESERVATIONS,
@@ -111,7 +108,6 @@ export const deleteReservations = (id: string, dates: string, type: string) => {
     }
     axios.delete(url)
       .then(res => {
-        console.log(res);
         dispatch({
           payload: {
             dates,

@@ -60,7 +60,7 @@ class Person extends Component<PersonProps, PersonState> {
     const path = window.location.pathname;
     const pathSplit = path.split('/');
     const id = pathSplit[2];
-    console.log(id);
+
     this.props.getUserReservations(id);
     this.props.getData(id);
     this.props.getParkingSpots();
@@ -102,7 +102,6 @@ class Person extends Component<PersonProps, PersonState> {
 
   // TODO stack the reservations of the same day
   handleDeleteReservationsClick = () => {
-    console.log(this.state.selectedRows);
 
     let deletereservationNumber = 0;
     Object.keys(this.state.selectedRows).forEach(row => {
@@ -183,8 +182,6 @@ class Person extends Component<PersonProps, PersonState> {
         )
       : null;
 
-    console.log(this.props.parkingSpots);
-
     const giveSpotModal = this.state.showSpotModal 
       ? (
         <Modal 
@@ -226,9 +223,6 @@ class Person extends Component<PersonProps, PersonState> {
         pastReservations.push(element);
       }
     });
-
-    // console.log(futurereservations);
-    // console.log(pastReservations);
 
     const snackLocation: SnackbarOrigin = {
       horizontal: 'center',

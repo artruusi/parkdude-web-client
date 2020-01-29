@@ -86,7 +86,6 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     this.setState({showChangeOwnerModal: true});
   }
   openChangeOwnerModalWithParams = (id: string, name: string) => {
-    console.log(id + name);
     const newState = {
       clickedSpotId: id,
       clickedSpotName: name,
@@ -196,7 +195,6 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       </tr>
     );
 
-    console.log(this.props.parkingSpots);
     const content = this.props.parkingSpots.map(item => ( 
 
     <tr key={item.id}>
