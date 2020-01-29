@@ -42,12 +42,16 @@
   font-size: 30px;
 }
 .table-button {
-  background-color: var(--yellow-primary);
   font-size: 17px;
   height: 32px;
   width: 160px;
+  margin-right: 1vw;
 }
 
 .parking-spots-table .change-owner-column {
   width: 160px;
+}
+
+.textRight {
+  text-align: right !important;
 }

@@ -22,7 +22,7 @@ const ListButton = (props: ListButtonProps ) => {
     props.openChangeOwnerModalWithParams(props.id, props.name);
   };
   return (
-    <button className="button table-button" onClick={handleClick}>Change owner</button>
+    <button className="button table-button accept-button" onClick={handleClick}>Change owner</button>
 
   );
 };
@@ -210,7 +210,9 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       <td>{item.name}</td>
       <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
       <td>{item.owner ? item.owner.name : null}</td>
-      <td><ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams}/></td> 
+      <td className="textRight">
+        <ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams}/>
+      </td> 
     </tr>
 
     ));  
