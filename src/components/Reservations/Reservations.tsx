@@ -237,7 +237,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
               />
 
             </div>
-            <div id="reservations-person-drop-down">
+            <div className="reservations-person-drop-down">
               <FormControl >
                 <InputLabel >Person</InputLabel>
                 <Select className="reservations-select" value={this.state.person} onChange={this.handlePersonChange}>
@@ -246,8 +246,8 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
               </FormControl>
 
             </div>
-            
-            <button className="button accept-button"  onClick={this.handleButtonClick}>Search</button>
+       
+            <button className="button accept-button search-button"  onClick={this.handleButtonClick}>Search</button>
           </div>
           {resultTable}
           <div className="align-left-button-container">

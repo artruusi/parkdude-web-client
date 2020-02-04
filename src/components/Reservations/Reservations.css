@@ -15,8 +15,8 @@
 }
 
 .reservations-person-drop-down {
-  width: 20vw;
   margin-right: 2vw;
+  max-width: 300px;
 }
 
 .reservations-select {
@@ -28,3 +28,6 @@
   margin-left: auto;
 }
 
+.search-button {
+  margin-left: 20px;
+}

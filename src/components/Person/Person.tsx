@@ -161,7 +161,7 @@ class Person extends Component<PersonProps, PersonState> {
       : <button onClick={this.makeAdmin} className="button person-button accept-button">Make admin</button>;
     
     const sessionButton = this.props.selectedPerson.sessions.length !== 0
-      ? <button className="button person-button accept-button" onClick={this.killSession}>Kill sesssion</button>
+      ? <button className="button person-button accept-button" onClick={this.killSession}>Kill session</button>
       : null;
 
     const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0

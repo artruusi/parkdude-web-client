@@ -176,7 +176,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
     content = this.props.persons.map(person => {
 
       if (this.props.type === 'employees') {
-        if ( person.email.includes('@innogiant') ) {
+        if ( person.email.includes(process.env.REACT_APP_COMPANY_EMAIL as string) ) {
 
           let parkingSpotsSTR =  person.ownedParkingSpots.reduce(
             (acc: string, spot: ParkingSpot) => acc + spot.name + ', ',
@@ -212,7 +212,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         } else {return null; }
 
       } else {
-        if ( !person.email.includes('@innogiant') ) {
+        if ( !person.email.includes(process.env.REACT_APP_COMPANY_EMAIL as string) ) {
           return (
   
           <tr key={person.id} >
