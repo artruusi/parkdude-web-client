@@ -126,7 +126,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       }
     }, 0);
 
-    const addButton = <button id="persons-add-user" className="button" onClick={this.openAddUserModal}>Add</button>;
+    const addButton = <button  className="button persons-add-user" onClick={this.openAddUserModal}>Add</button>;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAddUserModal} type='addUser' /> : null;
     const deleteModal = this.state.showDeleteModal 
       ? (
@@ -140,8 +140,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       : null;
     const deleteButton = (
       <button 
-        id="persons-delete-button" 
-        className="button" 
+        className="button persons-delete-button" 
         onClick={this.openDeleteModal}
         disabled={deleteObjectNumber === 0}
       >
@@ -246,17 +245,17 @@ class Persons extends Component<PersonsProps, PersonsState> {
     };
 
     let page = (
-      <div id="persons">
+      <div className="persons">
         {this.renderRedirect()}
               
-        <div id="persons-header-container" className="flex-row">
+        <div className="flex-row persons-header-container">
           <h2>{header}</h2>
           {addButton}
           
         </div>
 
         <div className="table-container">
-          <table id="persons-table">
+          <table className="persons-table">
 
             <thead>
               {tableHeader}
@@ -270,7 +269,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       
         </div>
 
-        <div id="persons-delete-button-container" className="flex-row align-left-button-container">
+        <div className="flex-row align-left-button-container persons-delete-button-container">
         {deleteButton}
         </div>      
         

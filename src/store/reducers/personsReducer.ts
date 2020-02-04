@@ -28,6 +28,18 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
 
  switch (action.type) {
 
+   case actionTypes.FREEUSERSPARKINGSPOT:
+
+     const spotId = action.payload.spotId;
+     const filteredSpots = state.selectedPerson.ownedParkingSpots.filter(spot => spot.id !== spotId);
+     const newSelectedPerson = state.selectedPerson;
+     newSelectedPerson.ownedParkingSpots = filteredSpots;
+
+     return {
+       ...state,
+       selectedPerson: newSelectedPerson,
+     };
+
   case actionTypes.STARTLOADINGPERSONS:
 
   return {
@@ -127,10 +139,29 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
        
       };
 
+    case actionTypes.GETPERSONFAILED:
+      return {
+        ...state,
+        loading: false,
+        snackBarMessage: action.payload || 'Fetching person data from server failed',
+
+      };
+
     case actionTypes.KILLSESSIONFAILED:
       return {
         ...state,
         snackBarMessage: action.payload || "User's session killing failed",
+      };
+
+    case actionTypes.KILLSESSION:
+      const selectedPerson = state.selectedPerson;
+      selectedPerson.sessions = [];
+
+      return {
+        ...state,
+        selectedPerson,
+        snackBarMessage: "User's session killed succesfully",
+
       };
 
     case actionTypes.ACCETPERSONFAILED:

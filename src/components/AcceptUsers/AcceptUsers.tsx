@@ -86,8 +86,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     const header = 'Accept users';
     const acceptButton = (
       <button 
-        id="table-view-accept-button" 
-        className="button" 
+        className="button accept-button" 
         disabled={numberOfSelectedRows === 0}
         onClick={this.acceptPersons}
       >
@@ -132,15 +131,15 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     };
 
     let page = (
-      <div id="table-view">
+      <div className="table-view">
               
-        <div id="table-view-header-container" className="flex-row">
+        <div  className="flex-row table-view-header-container">
           <h2>{header} </h2>
           
         </div>
 
         <div className="table-container">
-          <table id="table-view-table">
+          <table className="table-view-table">
 
             <thead>
               {tableHeader}
@@ -154,7 +153,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
         
         </div>
 
-        <div id="table-view-delete-button-container" className="flex-row align-left-button-container">
+        <div className="flex-row align-left-button-container table-view-delete-button-container">
           {acceptButton}
         </div> 
         <Snackbar 

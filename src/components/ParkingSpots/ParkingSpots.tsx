@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
 
 import checkIcon from './../../img/ic_check.svg';
-import { getParkingSpots, deleteParkingSpot, closeSnackBar } from '../../store/actions/parkingSpotActions';
+import { getParkingSpots, deleteParkingSpot, closeParkingSpotsSnackBar } from '../../store/actions/parkingSpotActions';
 
 import './ParkingSpots.css';
 import { getPersons } from '../../store/actions/personsActions';
@@ -151,7 +151,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       }
     }, 0);
 
-    const addButton = <button id="parking-spots-add-user" className="button" onClick={this.openAddSpotModal}>Add</button>;
+    const addButton = <button  className="button parking-spots-add-user accept-button" onClick={this.openAddSpotModal}>Add</button>;
     const addSpotModal = this.state.showAddSpotModal 
       ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
       : null;
@@ -178,8 +178,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       : null;
     const deleteButton = (
       <button 
-        id="parking-spots-delete-button" 
-        className="button" 
+        className="button parking-spots-delete-button" 
         onClick={this.openDeleteModal}
         disabled={!deleteObjectNumber}
       >
@@ -224,16 +223,16 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     };
 
     let page = (
-      <div id="parking-spots">
+      <div className="parking-spots">
               
-        <div id="parking-spots-header-container" className="flex-row">
+        <div className="flex-row parking-spots-header-container">
           <h2>Parking spots </h2>
           {addButton}
           
         </div>
 
         <div className="table-container">
-          <table id="parking-spots-table">
+          <table className="parking-spots-table">
 
             <thead>
               {tableHeader}
@@ -247,7 +246,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
        
         </div>
 
-        <div id="parking-spots-delete-button-container" className="flex-row align-left-button-container">
+        <div  className="flex-row align-left-button-container parking-spots-delete-button-container">
          {deleteButton}
         </div>      
       
@@ -256,7 +255,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
         {changeOwnerModal}
 
         <Snackbar 
-          id='delete-snack'
+          className='delete-snack'
           open={this.props.snackBarMessage !== ''}
           anchorOrigin={snackLocation}
           message={<span>{this.props.snackBarMessage}</span>}
@@ -293,7 +292,7 @@ const mapState = (state: AppState) => {
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
-    closeSnackBar: () => dispatch(closeSnackBar()),
+    closeSnackBar: () => dispatch(closeParkingSpotsSnackBar()),
     deleteParkingSpot: (id: string) => dispatch(deleteParkingSpot(id)),
     getParkingSpots: () => dispatch(getParkingSpots()),
     getPersons: () => dispatch(getPersons()),

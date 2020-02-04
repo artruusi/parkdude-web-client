@@ -1,23 +1,23 @@
-#table-view {
+.table-view {
   width: 80%;
   margin: 3vh auto;
   max-width: 1800px;
 }
-#table-view h2 {
+.table-view h2 {
   font-size: 36px;
   flex-grow: 1;
 }
 
-#table-view-header-container {
+.table-view-header-container {
   align-items: center;
 }
 
-#table-view-table {
+.table-view-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-#table-view-table th {
+.table-view-table th {
   background-color: #e7e7e7;
   padding: 15px 0;
   text-align: left;
@@ -25,18 +25,13 @@
   border: none;
 }
 
-#table-view-table td {
+.table-view-table td {
   padding: 4px 0;
   text-align: left;
 }
 
-#table-view-table tbody tr:hover {
-  background-color: #999966;
-}
-
-#table-view-accept-button,
-#table-search-reservations-button {
-  background-color: #ffd800;
+.table-view-table tbody tr:hover {
+  background-color: .999966;
 }
 
 .spinner {

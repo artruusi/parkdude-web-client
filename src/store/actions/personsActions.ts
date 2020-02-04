@@ -63,6 +63,11 @@ export const getPerson = (id: string) => {
         checkLogIn()(dispatch);
       }
       console.log(error);
+      dispatch({
+        payload:  response && response.data && response.data.message,
+        type: actionTypes.GETPERSONFAILED,
+
+      });
     });
   };
 };
@@ -240,5 +245,17 @@ export const changePassword = (id: string, password: string) => {
 export const hidePersonsSnackBar = () => {
   return {
     type: actionTypes.HIDEPERSONSSNACKBAR,
+  };
+};
+
+export const freeParkingSpotFromPerson = (id: string, spotId: string) => {
+
+  const payload = {
+    personId: id,
+    spotId,
+  };
+  return {
+    payload,
+    type: actionTypes.FREEUSERSPARKINGSPOT,
   };
 };

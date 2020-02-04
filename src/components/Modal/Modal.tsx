@@ -1,8 +1,8 @@
 import React, { Component, ChangeEvent, ReactNode } from 'react';
 import './Modal.css';
 import { connect } from 'react-redux';
-import {  Dispatch, CreateParkingSpotData, IPerson } from './../../store/types';
-import {createParkingSpot, changeOwner} from './../../store/actions/parkingSpotActions';
+import {  Dispatch, CreateParkingSpotData, IPerson, ParkingSpot } from './../../store/types';
+import {createParkingSpot, changeOwner, giveSpot} from './../../store/actions/parkingSpotActions';
 import { FormControl, MenuItem, InputLabel, Select } from '@material-ui/core';
 import { createPerson, changePassword } from '../../store/actions/personsActions';
 
@@ -12,18 +12,21 @@ interface OwnModalProps {
   type: string;
   deleteObjectNumber?: number;
   confirmDelete?: () => void;
+  parkingSpots?: ParkingSpot [];
   persons?: IPerson [];
   spotId?: string;
   spotname?: string;
   personId?: string;
+  personEmail?: string;
 
 }
 
 interface ReduxModalprops {
   createParkingSpot: (data: CreateParkingSpotData) => void;
   createPerson: (email: string, name: string, password: string) => void;
-  changeOwner: (id: string, name: string, newOwner: string) => void;
+  changeOwner: (id: string, name: string, newOwner: string, type: string) => void;
   changePassword: (id: string, password: string) => void;
+  giveSpot: (spotId: string, spotName: string, personId: string, personemail: string) => void;
 }
 
 type ModalProps = OwnModalProps & ReduxModalprops;
@@ -35,12 +38,14 @@ interface ModalState {
   emailInput: string;
   password1Input: string;
   password2Input: string;
+  errorMessage: string;
 }
 
 class Modal extends Component<ModalProps, ModalState> {
 
   state = {
     emailInput: '',
+    errorMessage: '',
     nameInput: '',
     password1Input: '',
     password2Input: '',
@@ -79,9 +84,9 @@ class Modal extends Component<ModalProps, ModalState> {
   }
 
   changeOwner = () => {
-    console.log('owner');
-    console.log(this.props.spotId);
-    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, this.state.selectedSpotOwner);
+    const owner = this.state.selectedSpotOwner === 'free' ? '' : this.state.selectedSpotOwner;
+
+    this.props.changeOwner(this.props.spotId as string, this.props.spotname as string, owner, '');
     this.props.close();
   }
   changePassword = () => {
@@ -90,6 +95,7 @@ class Modal extends Component<ModalProps, ModalState> {
     const person = this.props.personId as string;
 
     if (password2 !== password1) {
+      this.setState({errorMessage: "Passwords don't match"});
       return;
     }
 
@@ -125,6 +131,22 @@ class Modal extends Component<ModalProps, ModalState> {
     console.log(value);
   }
 
+  handleGiveSpot = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
+    const value = event.target.value as string;
+    this.setState({spotNumberInput: value});
+    console.log(value);
+  }
+
+  giveSpot = () => {
+
+    const spotSplit = this.state.spotNumberInput.split('&');
+    const spotId = spotSplit[0];
+    const spotName = spotSplit[1];
+
+    this.props.giveSpot(spotId, spotName, this.props.personId as string, this.props.personEmail as string);
+    this.props.close();
+  }
+
   render() {
 
     let content;
@@ -148,13 +170,13 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
 
-        <div id="modal" className="flex-column-center modal-delete">
+        <div className="flex-column-center modal-delete modal">
           <h3>Delete Users</h3>
           <p>Are you sure you want to permanently delete {this.props.deleteObjectNumber} {deleteObjec}?</p>
 
-          <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-yes-button" onClick={this.props.confirmDelete}>Yes</button>
+          <div className="modal-button-container">      
+            <button className="button modal-cancel-button"  onClick={this.props.close}>Cancel</button>
+            <button className="button delete-button" onClick={this.props.confirmDelete}>Yes</button>
           </div>
 
         </div>
@@ -164,7 +186,7 @@ class Modal extends Component<ModalProps, ModalState> {
       
       content = (
 
-        <div id="modal" className="flex-column-center modal-add-user">
+        <div className="flex-column-center modal-add-user modal">
           <h3 className="modal-add-user-header">Add user</h3>
 
           <input 
@@ -196,11 +218,10 @@ class Modal extends Component<ModalProps, ModalState> {
             className="modal-input"
           />
 
-          <div id="modal-add-user-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+          <div className="modal-add-user-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
             <button 
-              className="button" 
-              id="modal-add-user-button" 
+              className="button accept-button" 
               onClick={this.createPerson}
               title={this.isPersonInputvalid() ? "" : "All fields must be filled and passwords must match."}
               disabled={!this.isPersonInputvalid()}
@@ -218,7 +239,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
         
-        <div id="modal" className="flex-column-center modal-add-spot">
+        <div  className="flex-column-center modal-add-spot modal">
 
           <h3>Create a new parking spot</h3>
 
@@ -237,11 +258,10 @@ class Modal extends Component<ModalProps, ModalState> {
             </Select>
           </FormControl>
 
-          <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
+          <div className="modal-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
             <button 
-              className="button" 
-              id="modal-add-spot-button" 
+              className="button accept-button" 
               disabled={!this.state.spotNumberInput}
               title={this.state.spotNumberInput ? "" : "Parking spot number is required"}
               onClick={this.createNewSpot}
@@ -254,9 +274,13 @@ class Modal extends Component<ModalProps, ModalState> {
       );
     } else if (this.props.type === 'changeOwner') {
 
-      const persons = (this.props.persons || []).map(person => <MenuItem key={person.id} value={person.email}>{person.name}</MenuItem>);
+      const persons = (this.props.persons || []).map(person => 
+        <MenuItem key={person.id} value={person.email}>{person.name + ' (' + person.email + ')'}</MenuItem>);
+
+      persons.unshift(<MenuItem key={12121212} value={'free'}>No owner (free spot)</MenuItem>);
+
       content = (
-        <div id="modal" className="flex-column-center modal-change-owner">
+        <div className="flex-column-center modal-change-owner modal">
           <h3>Select a new owner</h3>
 
           <FormControl >
@@ -266,9 +290,9 @@ class Modal extends Component<ModalProps, ModalState> {
             </Select>
           </FormControl>
 
-          <div id="modal-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button modal-accept-button" onClick={this.changeOwner}>Ok</button>
+          <div className="modal-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button accept-button" onClick={this.changeOwner}>Ok</button>
           </div>
         </div>
       );
@@ -276,7 +300,7 @@ class Modal extends Component<ModalProps, ModalState> {
 
       content = (
 
-        <div id="modal" className="flex-column-center modal-add-user">
+        <div className="flex-column-center modal-change-password modal">
           <h3 className="modal-add-user-header">Change user's password</h3>
        
           <input 
@@ -293,18 +317,51 @@ class Modal extends Component<ModalProps, ModalState> {
             onChange={this.handlePassword2Change} 
             className="modal-input"
           />
+          <p className="modal-error-message bold">{this.state.errorMessage}</p>
 
-          <div id="modal-add-user-button-container">      
-            <button className="button" id="modal-cancel-button" onClick={this.props.close}>Cancel</button>
-            <button className="button" id="modal-add-user-button" onClick={this.changePassword}>Change</button>
+          <div className="modal-add-user-button-container">      
+            <button className="button modal-cancel-button" onClick={this.props.close}>Cancel</button>
+            <button className="button modal-add-user-button" onClick={this.changePassword}>Change</button>
           </div>
 
         </div>
       );
+    } else if (this.props.type === 'giveSpot') {
+
+      console.log(this.props.parkingSpots);
+      const parkingSpotList: JSX.Element [] = [];
+      (this.props.parkingSpots || []).forEach(spot => {
+        if (spot.owner === null) {
+          parkingSpotList.push( <MenuItem key={spot.id} value={spot.id + '&' + spot.name}>{spot.name}</MenuItem>);
+        }
+      });
+
+      if (parkingSpotList.length === 0) {
+        parkingSpotList.push(<MenuItem key={12121212} value={'no-spots-free'}> No free spots</MenuItem>);
+      }
+
+      content = (
+        <div className="flex-column-center modal-give-spot modal">
+          <h3>Select a parking spot</h3>
+
+          <FormControl >
+            <InputLabel>Select parking spot</InputLabel>
+            <Select className="modal-select" value={this.state.spotNumberInput} onChange={this.handleGiveSpot}>
+              {parkingSpotList}
+            </Select>
+          </FormControl>
+
+           <div className="modal-button-container">      
+            <button className="button modal-cancel-button"  onClick={this.props.close}>Cancel</button>
+            <button className="button accept-button" onClick={this.giveSpot}>Ok</button>
+          </div>
+        </div>
+      );
+  
     }
 
     return (
-      <div id="modal-container">
+      <div className="modal-container">
         {content}
       </div>
     );
@@ -313,10 +370,12 @@ class Modal extends Component<ModalProps, ModalState> {
 }
 const MapDispatch = (dispatch: Dispatch) => {
   return {
-    changeOwner: (id: string, name: string, newOwner: string) => dispatch(changeOwner(id, name, newOwner)),
+    changeOwner: (id: string, name: string, newOwner: string, type: string) => dispatch(changeOwner(id, name, newOwner, type)),
     changePassword: (id: string, password: string) => dispatch(changePassword(id, password)),
     createParkingSpot: (data: CreateParkingSpotData) => dispatch(createParkingSpot(data)),
     createPerson: (email: string, name: string, password: string) => dispatch(createPerson(email, name, password)),
+    giveSpot: (spotId: string, spotName: string, personId: string, personemail: string) =>
+      dispatch(giveSpot(spotId, spotName, personId, personemail)),
     
   };
 };

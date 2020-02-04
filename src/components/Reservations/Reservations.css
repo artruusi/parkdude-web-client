@@ -1,4 +1,4 @@
-#search-reservation-container {
+.search-reservation-container {
   max-width: 1000px;
   margin: 20px auto;
   width: 85vw;
@@ -9,12 +9,12 @@
 }
 
 
-#date-picker-start-day, #date-picker-end-day {
+.date-picker-start-day, .date-picker-end-day {
   width: 15vw;
   margin-right: 3vw;
 }
 
-#reservations-person-drop-down {
+.reservations-person-drop-down {
   width: 20vw;
   margin-right: 2vw;
 }
@@ -24,36 +24,36 @@
   max-width: 300px;
 }
 
-#reservation-delete-button {
-  background-color: #ff6c6c;
+.reservation-delete-button {
+  background-color: var(--red-primary);
   margin-left: auto;
 }
 
-#reservations-table {
+.reservations-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-#reservations-table tbody {
+.reservations-table tbody {
   width: 100%;
 }
 
-#reservations-table thead tr {
+.reservations-table thead tr {
   width: 100%;
 }
 
-#reservations-table th {
+.reservations-table th {
   background-color: #e7e7e7;
   padding: 16px 8px;
   text-align: left;
   border: none;
 }
 
-#reservations-table td {
+.reservations-table td {
   padding: 8px;
   text-align: left;
 }
 
-#reservations-table tbody tr:hover {
-  background-color: #999966;
+.reservations-table tbody tr:hover {
+  background-color: var(--brown-primary);
 }

@@ -25,6 +25,10 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
 
       const stopLoading = state.deleteReservationsNumber !== 1;
 
+      const snackBarMessageDelete = !stopLoading && state.snackBarMessage === ''
+        ? 'Reservations deleted succesfully' 
+        : state.snackBarMessage;
+
       let userReservations: UserReservations [] = [];
       let listReservations: Reservation [] = [];
       if (action.payload.type === 'personReservation') {
@@ -41,8 +45,15 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
         deleteReservationsNumber: state.deleteReservationsNumber - 1,
         loading: stopLoading,
         reservations: listReservations,
+        snackBarMessage: snackBarMessageDelete,
         userReservations,
                  
+      };
+
+    case actionTypes.DELETERESERVATIONFAILED:
+      return {
+        ...state,
+        snackBarMessage: action.payload || 'Failed to delete a reservation',
       };
 
     case actionTypes.STARTLOADINGRESERVATIONS:

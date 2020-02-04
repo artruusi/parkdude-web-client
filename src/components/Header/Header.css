@@ -1,20 +1,20 @@
-#header {
+.header {
   width: 100%;
   height: 10vh;
   min-height: 80px;
   /* max-height: 100px; */
-  background-color: #000000;
+  background-color: var(--black-primary);
   z-index: 2;
 }
 
-#header-tab-container {
+.header-tab-container {
   justify-content: space-around;
   flex-grow: 1;
   padding-top: 3vh;
   max-width: 95vw;
 }
 
-#header-user-container {
+.header-user-container {
   margin-right: 3vw;
   margin-left: 2vw;
   padding-top: 2vh;
@@ -26,18 +26,18 @@
   max-width: 180px;  
 }
 
-#header-tab-container hr {
-  border: 4px solid #ffd800;
+.header-tab-container hr {
+  border: 4px solid var(--yellow-primary);
   width: 100%;
   margin: 0;
 }
 
-#header-user-container span {
-  color: white;
+.header-user-container span {
+  color: var(--white-primary);
 }
 
 .header-link {
-  color: white;
+  color: var(--white-primary);
   text-decoration: none;
   font-size: 22px;
   flex-grow: 1;
@@ -47,46 +47,58 @@
   z-index: 2;
 }
 
-#header-log-out-span:hover {
+.header-log-out-span:hover {
   cursor: pointer;
 }
 
-#header-user-icon {
+.header-user-icon {
   width: 45px;
   height: 45px;
   margin-right: 1vw;
   z-index: 2;
+  margin-top: 20px;
 }
 
-#header-dropdown-content span {
-  color: white;
+.header-dropdown-content span {
+  color: var(--white-primary);
   display: block;
 }
-#header-dropdown-content span:hover {
-  color: #ffd800;
+.header-dropdown-content span:hover {
+  color: var(--yellow-primary);
   
 }
-#header-dropdown-username:hover {
+.header-dropdown-username:hover {
   cursor: default;
 }
 
-#header-log-out-span:hover {
+.header-log-out-span:hover {
   cursor: pointer;
 }
 
 
-/* #header-icon-container {
-  position: relative;
-  float: right;
-} */
+.header-icon-container {
+ flex-flow: column;
+ flex-shrink: 0;
+}
 
-#header-dropdown-content {
+.header-dropdown-content {
   position: absolute;
   right: 0;
   top: 2vh;
-  background-color: black;
+  background-color: var(--black-primary);
   padding: 10px;
   padding-top: 8vh;
   z-index: 1;
  
+}
+
+.header-user-info {
+  display: flex;
+  flex-flow: column;
+  width: 200px;
+  flex-shrink: 0;
+  background-color:var(--black-primary);
+}
+.header-user-info span {
+  color: var(--white-primary);
 }

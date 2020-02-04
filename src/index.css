@@ -1,3 +1,17 @@
+:root {
+  --red-primary: #ff6c6c;
+  --yellow-primary: #ffd800;
+  --yellow-secondary: #ffca28;
+  --gray-primary: #e7e7e7;
+  --brown-primaary: #999966;
+  --black-primary: #000000;
+  --white-primary: white;
+}
+
+
+
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -39,8 +53,14 @@ code {
   width: 170px;
   height: 50px;
   border: none;
-  color: black;
+  color: var(--black-primary);
   border-radius: 30px;
+}
+.accept-button {
+  background-color: var(--yellow-primary);
+}
+.delete-button {
+  background-color: var(--red-primary);
 }
 
 .button:hover {
