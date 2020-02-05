@@ -1,6 +1,6 @@
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 
-import { PersonsState } from "../types";
+import { PersonsState } from '../types';
 import * as actionTypes from '../actions/actionTypes';
 
 const defaultPerson = {
@@ -13,7 +13,6 @@ const defaultPerson = {
   reservationCount: 0,
   role: 'verified',
   sessions: [],
- 
 };
 
 const initialState: PersonsState = {
@@ -21,48 +20,52 @@ const initialState: PersonsState = {
   personList: [],
   selectedPerson: defaultPerson,
   snackBarMessage: '',
-
 };
 
-export const personsReducer: Reducer< PersonsState, any> = (state= initialState, action) => {
+export const personsReducer: Reducer<PersonsState, any> = (
+  state = initialState,
+  action,
+) => {
+  switch (action.type) {
+    case actionTypes.FREEUSERSPARKINGSPOT:
+      const spotId = action.payload.spotId;
+      const filteredSpots = state.selectedPerson.ownedParkingSpots.filter(
+        spot => spot.id !== spotId,
+      );
+      const newSelectedPerson = state.selectedPerson;
+      newSelectedPerson.ownedParkingSpots = filteredSpots;
 
- switch (action.type) {
+      return {
+        ...state,
+        selectedPerson: newSelectedPerson,
+      };
 
-   case actionTypes.FREEUSERSPARKINGSPOT:
+    case actionTypes.STARTLOADINGPERSONS:
+      return {
+        ...state,
+        loading: true,
+      };
 
-     const spotId = action.payload.spotId;
-     const filteredSpots = state.selectedPerson.ownedParkingSpots.filter(spot => spot.id !== spotId);
-     const newSelectedPerson = state.selectedPerson;
-     newSelectedPerson.ownedParkingSpots = filteredSpots;
-
-     return {
-       ...state,
-       selectedPerson: newSelectedPerson,
-     };
-
-  case actionTypes.STARTLOADINGPERSONS:
-
-  return {
-    ...state,
-    loading: true,
-  };
-
-   case actionTypes.GETPERSONS:
-     return {
-       ...state,
-       loading: false,
-       personList: action.payload,
-  
-     };
+    case actionTypes.GETPERSONS:
+      return {
+        ...state,
+        loading: false,
+        personList: action.payload,
+      };
 
     case actionTypes.ACCEPTPERSON:
-      const index = state.personList.findIndex(person => person.id === action.payload);
+      const index = state.personList.findIndex(
+        person => person.id === action.payload,
+      );
       const newPersonList = [...state.personList];
 
       newPersonList[index].role = 'verified';
 
       let snackBarMessage = '';
-      if  (state.snackBarMessage === '' || state.snackBarMessage === 'User accepted succesfully') {
+      if (
+        state.snackBarMessage === '' ||
+        state.snackBarMessage === 'User accepted succesfully'
+      ) {
         snackBarMessage = 'User accepted succesfully';
       } else {
         snackBarMessage = state.snackBarMessage;
@@ -75,10 +78,15 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       };
 
     case actionTypes.DELETEPERSON:
-      const deletePersonList = state.personList.filter(person => person.id !== action.payload );
+      const deletePersonList = state.personList.filter(
+        person => person.id !== action.payload,
+      );
 
       let snackBarMessageDelete = '';
-      if  (state.snackBarMessage === '' || state.snackBarMessage === 'User deleted succesfully') {
+      if (
+        state.snackBarMessage === '' ||
+        state.snackBarMessage === 'User deleted succesfully'
+      ) {
         snackBarMessageDelete = 'User deleted succesfully';
       } else {
         snackBarMessageDelete = state.snackBarMessage;
@@ -95,7 +103,6 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
         ...state,
         loading: false,
         selectedPerson: action.payload,
-          
       };
 
     case actionTypes.HIDEPERSONSSNACKBAR:
@@ -133,15 +140,14 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
         ...state,
         loading: false,
         snackBarMessage: 'Fetching persons from server failed',
-       
       };
 
     case actionTypes.GETPERSONFAILED:
       return {
         ...state,
         loading: false,
-        snackBarMessage: action.payload || 'Fetching person data from server failed',
-
+        snackBarMessage:
+          action.payload || 'Fetching person data from server failed',
       };
 
     case actionTypes.KILLSESSIONFAILED:
@@ -158,7 +164,6 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
         ...state,
         selectedPerson,
         snackBarMessage: "User's session killed succesfully",
-
       };
 
     case actionTypes.ACCETPERSONFAILED:
@@ -166,9 +171,8 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
         ...state,
         snackBarMessage: action.payload || 'Person accept failed',
       };
-      
+
     default:
       return state;
- }
-
+  }
 };

@@ -1,6 +1,6 @@
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 
-import { UserState } from "../types";
+import { UserState } from '../types';
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState: UserState = {
@@ -12,7 +12,10 @@ const initialState: UserState = {
   userRole: undefined,
 };
 
-export const userReducer: Reducer<UserState, any> = (state = initialState, action) => {
+export const userReducer: Reducer<UserState, any> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case actionTypes.LOGOUT:
       return {

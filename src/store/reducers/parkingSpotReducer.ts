@@ -1,20 +1,19 @@
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 
-import { ParkingSpotState } from "../types";
+import { ParkingSpotState } from '../types';
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState: ParkingSpotState = {
-
   loading: false,
   parkingSpotList: [],
   snackBarMessage: '',
- 
 };
 
-export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initialState, action) => {
-
+export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
-
     case actionTypes.STARTLOADINGPARKINGSPOTS:
       return {
         ...state,
@@ -22,22 +21,25 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
       };
 
     case actionTypes.GETSPOTS:
-
       return {
         loading: false,
         parkingSpotList: action.payload.data,
         snackBarMessage: state.snackBarMessage,
-              
       };
 
     case actionTypes.DELETESPOT:
-      const newParkingSpotlist = state.parkingSpotList.filter(spot => spot.id !== action.payload);
-      const snackBarMessage = state.snackBarMessage !== 'Parking spot delete failed' ? 'Parking spot deleted succesfully' : 'Parking spot delete failed';
+      const newParkingSpotlist = state.parkingSpotList.filter(
+        spot => spot.id !== action.payload,
+      );
+      const snackBarMessage =
+        state.snackBarMessage !== 'Parking spot delete failed'
+          ? 'Parking spot deleted succesfully'
+          : 'Parking spot delete failed';
       return {
         loading: state.loading,
         parkingSpotList: newParkingSpotlist,
         snackBarMessage,
-      };  
+      };
 
     case actionTypes.HIDEPARKINGSPOTSNACKBAR:
       return {
@@ -85,7 +87,5 @@ export const parkingSpotReducer: Reducer<ParkingSpotState, any> = (state = initi
       };
     default:
       return state;
-
   }
-
 };

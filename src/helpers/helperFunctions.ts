@@ -1,9 +1,9 @@
-import {  ParkingSpot } from './../store/types';
+import { ParkingSpot } from './../store/types';
 
-export const spotListToString = (spots: ParkingSpot []): string => {
-  let parkingSpotsSTR =  spots.reduce(
+export const spotListToString = (spots: ParkingSpot[]): string => {
+  let parkingSpotsSTR = spots.reduce(
     (acc: string, spot: ParkingSpot) => acc + spot.name + ', ',
-     '',
+    '',
   );
   // remove last ,
   parkingSpotsSTR = parkingSpotsSTR.slice(0, -1);

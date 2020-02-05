@@ -1,5 +1,5 @@
-import { Action as ReduxAction, Store as ReduxStore } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { Action as ReduxAction, Store as ReduxStore } from 'redux';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 type AnyFunction = (...args: any[]) => any;
 interface StringMap<T> {
@@ -35,7 +35,6 @@ export interface ParkingSpot {
   id: string;
   name: string;
   owner?: IPerson | null;
- 
 }
 
 export interface AppState {
@@ -55,24 +54,22 @@ export interface UserState {
 }
 
 export interface ParkingSpotState {
-  parkingSpotList: ParkingSpot [];
+  parkingSpotList: ParkingSpot[];
   snackBarMessage: string;
   loading: boolean;
-  
 }
 
 export interface IPerson {
   id: string;
   name: string;
   email: string;
-  parkingSpot: number| null;
+  parkingSpot: number | null;
   admin: boolean;
   role: string;
-  sessions: string [];
+  sessions: string[];
   reservationCount: number;
-  ownedParkingSpots: ParkingSpot [];
+  ownedParkingSpots: ParkingSpot[];
   isEmailValidated?: boolean;
-
 }
 
 export interface PersonNameEmail {
@@ -82,16 +79,15 @@ export interface PersonNameEmail {
 }
 
 export interface PersonsState {
-  personList: IPerson [];
+  personList: IPerson[];
   selectedPerson: IPerson;
   snackBarMessage: string;
   loading: boolean;
-
 }
 
 export interface ReservationsState {
-  reservations: Reservation [];
-  userReservations: UserReservations [];
+  reservations: Reservation[];
+  userReservations: UserReservations[];
   deleteReservationsNumber: number;
   loading: boolean;
   snackBarMessage: string;
@@ -99,7 +95,6 @@ export interface ReservationsState {
 export interface UserReservations {
   date: string;
   parkingSpot: ParkingSpot;
-
 }
 export interface Reservation {
   date: string;
@@ -111,10 +106,10 @@ export interface Reservation {
 // interfaces for api
 
 export enum UserRole {
-  ADMIN = "admin",
-  UNVERIFIED = "unverified",
-  VERIFIED = "verified",
-  SLACK = "slack",
+  ADMIN = 'admin',
+  UNVERIFIED = 'unverified',
+  VERIFIED = 'verified',
+  SLACK = 'slack',
 }
 
 export interface LoginState {

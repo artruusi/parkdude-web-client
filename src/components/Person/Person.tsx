@@ -1,7 +1,7 @@
 import React, { Component, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import './Person.css';
-import {spotListToString} from './../../helpers/helperFunctions';
+import { spotListToString } from './../../helpers/helperFunctions';
 import check from './../../img/ic_check.svg';
 import { AppState, Dispatch, IPerson, UserReservations, ParkingSpot } from '../../store/types';
 import { getPerson, modifyPerson, killSession, hidePersonsSnackBar } from '../../store/actions/personsActions';
@@ -27,14 +27,13 @@ interface ReduxPersonProps {
   loadingReservations: boolean;
   startLoadingDeletereservations: () => void;
   modifyPerson: (person: IPerson, type: string) => void;
-  parkingSpots: ParkingSpot [];
-  userReservations: UserReservations [];
+  parkingSpots: ParkingSpot[];
+  userReservations: UserReservations[];
   snackBarMessagePersons: string;
   snackBarMessageReservations: string;
   snackBarMessageParkingSpots: string;
   setDeleteReservationsNumber: (reservationsnumber: number) => void;
   loadingParkingSpots: boolean;
-
 }
 
 interface SelectedRows {
@@ -44,7 +43,7 @@ interface SelectedRows {
 type PersonProps = {} & ReduxPersonProps;
 
 interface PersonState {
-  selectedRows: SelectedRows; 
+  selectedRows: SelectedRows;
   showPasswordModal: boolean;
   showSpotModal: boolean;
 }
@@ -53,7 +52,7 @@ class Person extends Component<PersonProps, PersonState> {
   state = {
     selectedRows: {} as SelectedRows,
     showPasswordModal: false,
-    showSpotModal: false,  
+    showSpotModal: false,
   };
 
   componentDidMount() {
@@ -72,7 +71,7 @@ class Person extends Component<PersonProps, PersonState> {
         return reservation.parkingSpot.id + '&' + reservation.date;
       }));
       const filteredSelection = Object.entries(this.state.selectedRows).filter(([key]) => reservationKeys.has(key));
-      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+      this.setState({ selectedRows: Object.fromEntries(filteredSelection) });
     }
   }
 
@@ -88,16 +87,16 @@ class Person extends Component<PersonProps, PersonState> {
   }
 
   showPasswordModal = () => {
-    this.setState({showPasswordModal: true});
+    this.setState({ showPasswordModal: true });
   }
   closePasswordModal = () => {
-    this.setState({showPasswordModal: false});
+    this.setState({ showPasswordModal: false });
   }
   showSpotModal = () => {
-    this.setState({showSpotModal: true});
+    this.setState({ showSpotModal: true });
   }
   closeSpotModal = () => {
-    this.setState({showSpotModal: false});
+    this.setState({ showSpotModal: false });
   }
 
   // TODO stack the reservations of the same day
@@ -105,30 +104,28 @@ class Person extends Component<PersonProps, PersonState> {
 
     let deletereservationNumber = 0;
     Object.keys(this.state.selectedRows).forEach(row => {
-
       if (this.state.selectedRows[row]) {
-        deletereservationNumber += 1;       
-      }   
+        deletereservationNumber += 1;
+      }
     });
 
-    this.props.setDeleteReservationsNumber( deletereservationNumber);
+    this.props.setDeleteReservationsNumber(deletereservationNumber);
     this.props.startLoadingDeletereservations();
 
     Object.keys(this.state.selectedRows).forEach(row => {
       if (this.state.selectedRows[row]) {
 
-       const rowSplit = row.split('&');
-       const id = rowSplit[0];
-       const date = rowSplit[1];
-       this.props.deletereservations(id, date, 'personReservation');
+        const rowSplit = row.split('&');
+        const id = rowSplit[0];
+        const date = rowSplit[1];
+        this.props.deletereservations(id, date, 'personReservation');
       }
-     
+
     });
 
   }
   freeParkingSpots = () => {
-
-    const parkingSpots: ParkingSpot [] = this.props.selectedPerson.ownedParkingSpots;
+    const parkingSpots: ParkingSpot[] = this.props.selectedPerson.ownedParkingSpots;
 
     parkingSpots.forEach(spot => {
       this.props.freePersonSpot(spot.id, spot.name, this.props.selectedPerson.id);
@@ -136,86 +133,81 @@ class Person extends Component<PersonProps, PersonState> {
   }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
-   
     const value: string = event.target.value;
     const oldvalue = this.state.selectedRows[value];
-    const newSelectedRows = {...this.state.selectedRows};
+    const newSelectedRows = { ...this.state.selectedRows };
 
-    if (typeof oldvalue === "undefined") {
-     
+    if (typeof oldvalue === 'undefined') {
       newSelectedRows[value] = true;
-      this.setState({selectedRows: newSelectedRows});
-      
+      this.setState({ selectedRows: newSelectedRows });
     } else {
-     
       newSelectedRows[value] = !newSelectedRows[value];
-      this.setState({selectedRows: newSelectedRows});
-
+      this.setState({ selectedRows: newSelectedRows });
     }
   }
- 
+
   render() {
 
-    const adminButton = this.props.selectedPerson.role === 'admin' 
-      ? <button onClick={this.undoAdmin} className="button person-button accept-button">Undo admin</button> 
-      : <button onClick={this.makeAdmin} className="button person-button accept-button">Make admin</button>;
-    
+    const adminButton = this.props.selectedPerson.role === 'admin'
+      ? <button onClick={this.undoAdmin} className='button person-button accept-button'>Undo admin</button>
+      : <button onClick={this.makeAdmin} className='button person-button accept-button'>Make admin</button>;
+
     const sessionButton = this.props.selectedPerson.sessions.length !== 0
-      ? <button className="button person-button accept-button" onClick={this.killSession}>Kill session</button>
+      ? <button className='button person-button accept-button' onClick={this.killSession}>Kill session</button>
       : null;
 
     const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0
-      ? <button className="button person-button accept-button" onClick={this.freeParkingSpots} >Free user's spots</button>
-      : <button className="button person-button accept-button" onClick={this.showSpotModal} >Get permanent spot</button>;
+      ? <button className='button person-button accept-button' onClick={this.freeParkingSpots} >Free user's spots</button>
+      : <button className='button person-button accept-button' onClick={this.showSpotModal} >Get permanent spot</button>;
 
     const passwordButton = this.props.selectedPerson.isEmailValidated
       ? null
-      : <button className="button person-button accept-button" onClick={this.showPasswordModal}>Change password</button>;
+      : <button className='button person-button accept-button' onClick={this.showPasswordModal}>Change password</button>;
 
-    const changepasswordModal = this.state.showPasswordModal 
+    const changepasswordModal = this.state.showPasswordModal
       ? (
-        <Modal 
-          close={this.closePasswordModal} 
-          type='changePassword' 
-          personId={this.props.selectedPerson.id}         
-        /> 
-        )
+        <Modal
+          close={this.closePasswordModal}
+          type='changePassword'
+          personId={this.props.selectedPerson.id}
+        />
+      )
       : null;
 
-    const giveSpotModal = this.state.showSpotModal 
+    const giveSpotModal = this.state.showSpotModal
       ? (
-        <Modal 
-          close={this.closeSpotModal} 
-          type='giveSpot' 
-          personEmail={this.props.selectedPerson.email}  
-          personId={this.props.selectedPerson.id}    
+        <Modal
+          close={this.closeSpotModal}
+          type='giveSpot'
+          personEmail={this.props.selectedPerson.email}
+          personId={this.props.selectedPerson.id}
           parkingSpots={this.props.parkingSpots}
         />
-        ) 
+      )
       : null;
 
-    const futurereservations: JSX.Element [] = [];
-    const pastReservations: JSX.Element [] = [];
+    const futurereservations: JSX.Element[] = [];
+    const pastReservations: JSX.Element[] = [];
     const hasSelectedReservations = Object.values(this.state.selectedRows).some(value => value);
 
     const currentDay = new Date();
 
     this.props.userReservations.forEach(row => {
       const reservationDay = new Date(row.date);
-      
+
       if (reservationDay > currentDay) {
         const element = (
-          <tr key={row.parkingSpot.name + row.date}> 
-           <td><input type="checkbox" value={row.parkingSpot.id + '&' + row.date} onChange={this.handleCheckBoxClick}/></td>             
+          <tr key={row.parkingSpot.name + row.date}>
+            <td><input type='checkbox' value={row.parkingSpot.id + '&' + row.date} onChange={this.handleCheckBoxClick} /></td>
             <td>{row.date}</td>
             <td>{row.parkingSpot.name}</td>
           </tr>
         );
-        
+
         futurereservations.push(element);
       } else {
         const element = (
-          <tr key={row.date + row.parkingSpot.name}>        
+          <tr key={row.date + row.parkingSpot.name}>
             <td>{row.date}</td>
             <td>{row.parkingSpot.name}</td>
           </tr>
@@ -230,123 +222,117 @@ class Person extends Component<PersonProps, PersonState> {
     };
 
     let page = (
-      <div className="flex-column person">
-      <div className="flex-row person-header-container" >
-        <h2>{this.props.selectedPerson.name}</h2>     
-      </div>
+      <div className='flex-column person'>
+        <div className='flex-row person-header-container' >
+          <h2>{this.props.selectedPerson.name}</h2>
+        </div>
 
-      <div className="flex-row person-content-wrapper" >
-        <div className="person-info-container">
-          <div>
-            <span className="bold">Email: </span>
-            <span>{this.props.selectedPerson.email}</span>
+        <div className='flex-row person-content-wrapper' >
+          <div className='person-info-container'>
+            <div>
+              <span className='bold'>Email: </span>
+              <span>{this.props.selectedPerson.email}</span>
+            </div>
+            <div>
+              <span className='bold'>Session: </span>
+              {this.props.selectedPerson.sessions.length !== 0 ? <img src={check} alt='check' className='person-check' /> : null}
+            </div>
+            <div>
+              <span className='bold'>Admin: </span>
+              {this.props.selectedPerson.role === 'admin' ? <img src={check} alt='check' className='person-check' /> : null}
+            </div>
+            <div>
+              <span className='bold'>Regular spot: </span>
+              {spotListToString(this.props.selectedPerson.ownedParkingSpots)}
+            </div>
+
           </div>
-          <div>
-            <span className="bold">Session: </span>
-            {this.props.selectedPerson.sessions.length !== 0 ? <img src={check} alt="check" className="person-check"/> : null}
+
+          <div className='flex-column person-history-container'>
+            <span className='bold'>Reservation history</span>
+            <div className='table-container'>
+              <table className='person-table'>
+                <thead>
+                  <tr>
+
+                    <th>Date</th>
+                    <th>Spot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pastReservations.length ? pastReservations : this.renderNoReservationsRow(2)}
+                </tbody>
+              </table>
+            </div>
+
           </div>
-          <div>
-            <span className="bold">Admin: </span>
-            {this.props.selectedPerson.role === 'admin' ? <img src={check} alt="check" className="person-check"/> : null}
-          </div>
-          <div>
-            <span className="bold">Regular spot: </span>
-            {spotListToString(this.props.selectedPerson.ownedParkingSpots)}
+
+          <div className='flex-column person-future-reservation-container'>
+            <span className='bold'>Future reservations</span>
+            <div className='table-container'>
+              <table className='person-table'>
+                <thead>
+                  <tr>
+                    <th>{}</th>
+                    <th>Date</th>
+                    <th>Spot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {futurereservations.length ? futurereservations : this.renderNoReservationsRow(3)}
+                </tbody>
+              </table>
+            </div>
+            <button
+              className='button person-button person-free-selected-spots-button accept-button'
+              onClick={this.handleDeleteReservationsClick}
+              disabled={!hasSelectedReservations}
+            >
+              Remove reservations
+            </button>
           </div>
 
         </div>
-
-        <div className="flex-column person-history-container">
-          <span className="bold">Reservation history</span>
-          <div className="table-container">
-            <table className="person-table">
-              <thead>
-                <tr>
-                
-                  <th>Date</th>
-                  <th>Spot</th>
-                </tr>
-              </thead>
-              <tbody>
-              {pastReservations.length ? pastReservations : this.renderNoReservationsRow(2)}
-              </tbody>
-            </table>
-          </div>
-          
+        <div className='flex-row person-button-container'>
+          {adminButton}
+          {sessionButton}
+          {parkingSpotButton}
+          {passwordButton}
         </div>
 
-        <div className="flex-column person-future-reservation-container">
-          <span className="bold">Future reservations</span>
-          <div className="table-container">
-            <table className="person-table">
-              <thead>
-                <tr>
-                  <th>{}</th>
-                  <th>Date</th>
-                  <th>Spot</th>
-                </tr>
-              </thead>
-              <tbody>
-                {futurereservations.length ? futurereservations : this.renderNoReservationsRow(3)}
-              </tbody>
-            </table>
-          </div>
-          <button 
-            className="button person-button person-free-selected-spots-button accept-button" 
-            onClick={this.handleDeleteReservationsClick}
-            disabled={!hasSelectedReservations}
-          > 
-            Remove reservations
-          </button>
-        </div>
-
+        {changepasswordModal}
+        {giveSpotModal}
+        <Snackbar
+          open={this.props.snackBarMessagePersons !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessagePersons}</span>}
+          onClose={this.props.closeSnackBar}
+          autoHideDuration={3000}
+        />
+        <Snackbar
+          open={this.props.snackBarMessageReservations !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessageReservations}</span>}
+          onClose={this.props.hideReservationsSnackBar}
+          autoHideDuration={3000}
+        />
+        <Snackbar
+          open={this.props.snackBarMessageParkingSpots !== ''}
+          anchorOrigin={snackLocation}
+          message={<span>{this.props.snackBarMessageParkingSpots}</span>}
+          onClose={this.props.hideParkingSpotSnackBar}
+          autoHideDuration={3000}
+        />
       </div>
-      <div className="flex-row person-button-container">
-        {adminButton}
-        {sessionButton}
-        {parkingSpotButton}
-        {passwordButton}
-      </div>
-
-      {changepasswordModal}
-      {giveSpotModal}
-      <Snackbar 
-        open={this.props.snackBarMessagePersons !== ''}
-        anchorOrigin={snackLocation}
-        message={<span>{this.props.snackBarMessagePersons}</span>}
-        onClose={this.props.closeSnackBar}
-        autoHideDuration={3000}
-       
-      />
-      <Snackbar 
-        open={this.props.snackBarMessageReservations !== ''}
-        anchorOrigin={snackLocation}
-        message={<span>{this.props.snackBarMessageReservations}</span>}
-        onClose={this.props.hideReservationsSnackBar}
-        autoHideDuration={3000}
-       
-      />
-      <Snackbar 
-        open={this.props.snackBarMessageParkingSpots !== ''}
-        anchorOrigin={snackLocation}
-        message={<span>{this.props.snackBarMessageParkingSpots}</span>}
-        onClose={this.props.hideParkingSpotSnackBar}
-        autoHideDuration={3000}
-       
-      />
-
-    </div>   
-
     );
     if (this.props.loadingPersons || this.props.loadingReservations || this.props.loadingParkingSpots) {
-      page = <Spinner/>;
+      page = <Spinner />;
     }
-  
+
     return (
       <>
-      {page}
+        {page}
       </>
-                
     );
   }
 
@@ -358,6 +344,7 @@ class Person extends Component<PersonProps, PersonState> {
     );
   }
 }
+
 const mapState = (state: AppState) => {
   return {
     loadingParkingSpots: state.parkingSpot.loading,
@@ -374,20 +361,19 @@ const mapState = (state: AppState) => {
 
 const MapDispatch = (dispatch: Dispatch) => {
   return {
-   changeOwner: (id: string, name: string, newOwner: string, type: string) => dispatch(changeOwner(id, name, newOwner, type)),
-   closeSnackBar: () => dispatch(hidePersonsSnackBar()),
-   deletereservations: (id: string, dates: string, type: string) => dispatch(deleteReservations(id, dates, type)),
-   freePersonSpot: (spotId: string, spotName: string, personId: string) => dispatch(freeSpot(spotId, spotName, personId)),
-   getData: (id: string) => dispatch(getPerson(id)),
-   getParkingSpots: () => dispatch(getParkingSpots()),
-   getUserReservations: (id: string) => dispatch(getUserReservations(id)),
-   hideParkingSpotSnackBar: () => dispatch(closeParkingSpotsSnackBar()),
-   hideReservationsSnackBar: () => (dispatch(hideReservationsSnackBar())),
-   killSession: (id: string) => dispatch(killSession(id)),
-   modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
-   setDeleteReservationsNumber: (reservationsnumber: number) => dispatch(SetDeletereservationNumber(reservationsnumber)),
-   startLoadingDeletereservations: () => dispatch(startLoading()),
-  
+    changeOwner: (id: string, name: string, newOwner: string, type: string) => dispatch(changeOwner(id, name, newOwner, type)),
+    closeSnackBar: () => dispatch(hidePersonsSnackBar()),
+    deletereservations: (id: string, dates: string, type: string) => dispatch(deleteReservations(id, dates, type)),
+    freePersonSpot: (spotId: string, spotName: string, personId: string) => dispatch(freeSpot(spotId, spotName, personId)),
+    getData: (id: string) => dispatch(getPerson(id)),
+    getParkingSpots: () => dispatch(getParkingSpots()),
+    getUserReservations: (id: string) => dispatch(getUserReservations(id)),
+    hideParkingSpotSnackBar: () => dispatch(closeParkingSpotsSnackBar()),
+    hideReservationsSnackBar: () => (dispatch(hideReservationsSnackBar())),
+    killSession: (id: string) => dispatch(killSession(id)),
+    modifyPerson: (person: IPerson, type: string) => dispatch(modifyPerson(person, type)),
+    setDeleteReservationsNumber: (reservationsnumber: number) => dispatch(SetDeletereservationNumber(reservationsnumber)),
+    startLoadingDeletereservations: () => dispatch(startLoading()),
   };
 };
 

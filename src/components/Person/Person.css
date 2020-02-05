@@ -61,7 +61,8 @@
   width: 100%;
 }
 
-.person-table td, .person-table th {
+.person-table td,
+.person-table th {
   padding: 8px 16px;
 }
 
@@ -82,5 +83,9 @@
   margin-left: auto;
 }
 
-.person-table tr:nth-child(even){background-color: var(--gray-primary);}
-.person-table tr:nth-child(odd){background-color: var(--white-primary);}
+.person-table tr:nth-child(even) {
+  background-color: var(--gray-primary);
+}
+.person-table tr:nth-child(odd) {
+  background-color: var(--white-primary);
+}

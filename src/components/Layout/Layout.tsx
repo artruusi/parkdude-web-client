@@ -9,7 +9,7 @@ import Reservations from './../Reservations/Reservations';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../../store/types';
 import { ChangePage } from '../../store/actions/userActions';
- 
+
 interface OwnLayoutProps {
   page?: string;
 }
@@ -39,30 +39,30 @@ class Layout extends Component<LayoutProps, {}> {
     let content;
 
     if (this.props.page === 'employee') {
-      content = <Person/>;
+      content = <Person />;
 
     } else if (this.props.page === 'customers') {
-      content = <Persons type="customers"/>;
+      content = <Persons type='customers' />;
 
     } else if (this.props.page === 'employees') {
-      content = <Persons type="employees"/>;
+      content = <Persons type='employees' />;
 
     } else if (this.props.page === 'parking-spots') {
-      content = <ParkingSpots/>;
-      
+      content = <ParkingSpots />;
+
     } else if (this.props.page === 'accept-users') {
-      content = <AcceptUsers/>;
+      content = <AcceptUsers />;
 
     } else if (this.props.page === 'reservations') {
-      content = <Reservations/>;
+      content = <Reservations />;
     }
 
     return (
-      <div id="layout" className="flex-column">
-        <Header/>
+      <div id='layout' className='flex-column'>
+        <Header />
         {content}
       </div>
-  );
+    );
   }
 }
 const mapState = (state: AppState) => {
@@ -76,6 +76,6 @@ const mapDispatch = {
   changePage: ChangePage,
 };
 
-const connector  = connect(mapState, mapDispatch);
+const connector = connect(mapState, mapDispatch);
 
 export default connector(Layout);

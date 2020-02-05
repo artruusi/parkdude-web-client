@@ -31,16 +31,16 @@ class LogIn extends Component<LogInProps, LogInSate> {
 
   renderRedirect = () => {
     if (this.props.loggedIn) {
-      return <Redirect to='/customers'/>;
+      return <Redirect to='/customers' />;
     }
   }
 
   handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({emailInput: event.target.value});
+    this.setState({ emailInput: event.target.value });
   }
 
   handlePWChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({passwordInput: event.target.value});
+    this.setState({ passwordInput: event.target.value });
   }
 
   googleLogIn = () => {
@@ -48,13 +48,13 @@ class LogIn extends Component<LogInProps, LogInSate> {
     const googleURL = process.env.REACT_APP_GOOGLE_LOG_IN as string;
     document.location.href = googleURL;
   }
-  passwordLogIn = (event: FormEvent<HTMLFormElement>) => { 
+  passwordLogIn = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = {
       email: this.state.emailInput,
       password: this.state.passwordInput,
     };
-   
+
     this.props.passwordLogIn(data);
   }
   componentDidMount() {
@@ -62,46 +62,44 @@ class LogIn extends Component<LogInProps, LogInSate> {
   }
 
   render() {
-   
     const snackLocation: SnackbarOrigin = {
       horizontal: 'center',
       vertical: 'bottom',
     };
-    
+
     return (
-      <form id="" className="flex-column-center log-in" onSubmit={this.passwordLogIn}>
+      <form id='' className='flex-column-center log-in' onSubmit={this.passwordLogIn}>
         {this.renderRedirect()}
 
-        <img src={parkDudeLogo} alt="Parkdude logo" className="log-in-logo"/>
+        <img src={parkDudeLogo} alt='Parkdude logo' className='log-in-logo' />
         <h3>Log in</h3>
-        
-        <input type="email" placeholder="Email" className="log-in-email" value={this.state.emailInput} onChange={this.handleEmailChange}/>
-        <input 
-          type="password" 
-          placeholder="Password" 
-          className="log-in-password" 
-          value={this.state.passwordInput} 
+
+        <input type='email' placeholder='Email' className='log-in-email' value={this.state.emailInput} onChange={this.handleEmailChange} />
+        <input
+          type='password'
+          placeholder='Password'
+          className='log-in-password'
+          value={this.state.passwordInput}
           onChange={this.handlePWChange}
         />
 
-        <button className="button log-in-log-button"  type="submit">Log in</button>
+        <button className='button log-in-log-button' type='submit'>Log in</button>
 
-        <div className="flex-row-center log-in-or-container">
-          <hr/>
+        <div className='flex-row-center log-in-or-container'>
+          <hr />
           <span>OR</span>
-          <hr/>
+          <hr />
         </div>
 
-        <button className="button log-in-google-button" onClick={this.googleLogIn}>Log in with Google</button>
+        <button className='button log-in-google-button' onClick={this.googleLogIn}>Log in with Google</button>
 
-        <Snackbar 
+        <Snackbar
           className='delete-snack'
           open={this.props.snackBarMessage !== ''}
           anchorOrigin={snackLocation}
           message={<span>{this.props.snackBarMessage}</span>}
           onClose={this.props.closeSnackBar}
           autoHideDuration={3000}
-        
         />
       </form>
     );
