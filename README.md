@@ -46,7 +46,7 @@ Data is fetched from the server every time when a user navigates to different pa
 Following environment variables needs to excist in some .env file. The project includes .env-example which has dummy versions of environment variables and it can be renamed for axample .env before starting the app.
 - ```REACT_APP_API_URL``` back-end server API root route 
 - ```REACT_APP_GOOGLE_LOG_IN``` back-end server's route which starts google Oauth log in
-- ```REACT_APP_COMPANY_EMAIL``` email which is used in front end to separate customers and employys
+- ```REACT_APP_COMPANY_EMAIL``` email which is used in front end to separate customers and employees
 
 ## Known bugs
 
