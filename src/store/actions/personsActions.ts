@@ -5,13 +5,6 @@ import { checkLogIn } from './userActions';
 
 axios.defaults.withCredentials = true;
 
-// const setPersons = (data: any) => {
-//   return {
-//     payload: data,
-//     type: actionTypes.GETPERSONS,   
-//   };
-// };
-
 export const getPersons = () => {
   return (dispatch: Dispatch) => {
 
@@ -49,7 +42,6 @@ export const getPerson = (id: string) => {
       type: actionTypes.STARTLOADINGPERSONS,
     });
     const url =  process.env.REACT_APP_API_URL + "users/" + id;
-    console.log(url);
     axios.get(url)
     .then(res => 
       dispatch({
@@ -91,7 +83,6 @@ export const modifyPerson = (person: IPerson, type: string) => {
     };
     axios.put(url, data)
       .then(res => {
-        console.log(res);
 
         if (type === 'make-admin' ) {
         
@@ -153,7 +144,6 @@ export const deletePerson = (id: string) => {
     const url = process.env.REACT_APP_API_URL + "users/" + id;
     axios.delete(url)
       .then(res => {
-        console.log(res);
 
         dispatch({
           payload: id,
@@ -175,7 +165,6 @@ export const killSession = (id: string) => {
     const url = process.env.REACT_APP_API_URL + "users/" + id + '/clearSessions';
     axios.post(url, {})
       .then(res => {
-        console.log(res);
 
         dispatch({
           type: actionTypes.KILLSESSION,
@@ -201,7 +190,7 @@ export const createPerson = (email: string, name: string, password: string) => {
     };
     axios.post(url, data)
       .then(res => {
-        console.log(res);
+
         dispatch({
           type: actionTypes.PERSONCREATED,
         });

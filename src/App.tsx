@@ -8,6 +8,7 @@ import { AppState } from "./store/types";
 import { checkLogIn } from './store/actions/userActions';
 import { connect, ConnectedProps } from 'react-redux';
 import Forbidden from "./components/Forbidden/Forbidden";
+import Spinner from './components/Spinner/Spinner';
 import LoginError from './components/LoginError/LoginError';
 type Props = ConnectedProps<typeof connector>;
 
@@ -24,7 +25,7 @@ export class App extends React.Component<Props> {
       // so there is no good loading container that would allow smooth transition to both kinds
       // of pages
       return (
-        <div/>
+        <Spinner/>
       );
     }
     return (

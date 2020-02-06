@@ -52,7 +52,6 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
        ...state,
        loading: false,
        personList: action.payload,
-      //  selectedPerson: defaultPerson,
   
      };
 
@@ -72,7 +71,6 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       return {
         ...state,
         personList: newPersonList,
-        // selectedPerson: defaultPerson,
         snackBarMessage,
       };
 
@@ -89,7 +87,6 @@ export const personsReducer: Reducer< PersonsState, any> = (state= initialState,
       return {
         ...state,
         personList: deletePersonList,
-        // selectedPerson: defaultPerson,
         snackBarMessage: snackBarMessageDelete,
       };
 

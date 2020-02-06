@@ -52,7 +52,7 @@
 
 .modal-add-user {
   width: 600px;
-  height: 380px;
+  height: 420px;
 }
 
 .modal-add-spot {
@@ -78,11 +78,8 @@
   font-size: 22px;
 }
 
-
-
 .modal-change-owner-button-container {
   margin-bottom: 18px;
-
 }
 
 .modal-change-owner, .modal-give-spot {

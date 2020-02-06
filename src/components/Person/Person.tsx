@@ -60,7 +60,7 @@ class Person extends Component<PersonProps, PersonState> {
     const path = window.location.pathname;
     const pathSplit = path.split('/');
     const id = pathSplit[2];
-    console.log(id);
+
     this.props.getUserReservations(id);
     this.props.getData(id);
     this.props.getParkingSpots();
@@ -102,7 +102,6 @@ class Person extends Component<PersonProps, PersonState> {
 
   // TODO stack the reservations of the same day
   handleDeleteReservationsClick = () => {
-    console.log(this.state.selectedRows);
 
     let deletereservationNumber = 0;
     Object.keys(this.state.selectedRows).forEach(row => {
@@ -158,20 +157,20 @@ class Person extends Component<PersonProps, PersonState> {
   render() {
 
     const adminButton = this.props.selectedPerson.role === 'admin' 
-      ? <button onClick={this.undoAdmin} className="button person-button">Undo admin</button> 
-      : <button onClick={this.makeAdmin} className="button person-button">Make admin</button>;
+      ? <button onClick={this.undoAdmin} className="button person-button accept-button">Undo admin</button> 
+      : <button onClick={this.makeAdmin} className="button person-button accept-button">Make admin</button>;
     
     const sessionButton = this.props.selectedPerson.sessions.length !== 0
-      ? <button className="button person-button" onClick={this.killSession}>Kill sesssion</button>
+      ? <button className="button person-button accept-button" onClick={this.killSession}>Kill session</button>
       : null;
 
     const parkingSpotButton = this.props.selectedPerson.ownedParkingSpots.length !== 0
-      ? <button className="button person-button" onClick={this.freeParkingSpots} >Free user's spots</button>
-      : <button className="button person-button" onClick={this.showSpotModal} >Get permanent spot</button>;
+      ? <button className="button person-button accept-button" onClick={this.freeParkingSpots} >Free user's spots</button>
+      : <button className="button person-button accept-button" onClick={this.showSpotModal} >Get permanent spot</button>;
 
     const passwordButton = this.props.selectedPerson.isEmailValidated
       ? null
-      : <button className="button person-button" onClick={this.showPasswordModal}>Change password</button>;
+      : <button className="button person-button accept-button" onClick={this.showPasswordModal}>Change password</button>;
 
     const changepasswordModal = this.state.showPasswordModal 
       ? (
@@ -182,8 +181,6 @@ class Person extends Component<PersonProps, PersonState> {
         /> 
         )
       : null;
-
-    console.log(this.props.parkingSpots);
 
     const giveSpotModal = this.state.showSpotModal 
       ? (
@@ -226,9 +223,6 @@ class Person extends Component<PersonProps, PersonState> {
         pastReservations.push(element);
       }
     });
-
-    // console.log(futurereservations);
-    // console.log(pastReservations);
 
     const snackLocation: SnackbarOrigin = {
       horizontal: 'center',
@@ -298,7 +292,7 @@ class Person extends Component<PersonProps, PersonState> {
             </table>
           </div>
           <button 
-            className="button person-button person-free-selected-spots-button" 
+            className="button person-button person-free-selected-spots-button accept-button" 
             onClick={this.handleDeleteReservationsClick}
             disabled={!hasSelectedReservations}
           > 

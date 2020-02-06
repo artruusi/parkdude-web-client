@@ -97,7 +97,6 @@ class Persons extends Component<PersonsProps, PersonsState> {
   renderRedirect = () => {
     if (this.state.selectedPerson !== null) {     
       const url = '/employees/' + this.state.selectedPerson;
-      console.log(url);
       return  <Redirect to={url}/>;
       
     }
@@ -126,7 +125,9 @@ class Persons extends Component<PersonsProps, PersonsState> {
       }
     }, 0);
 
-    const addButton = <button  className="button persons-add-user" onClick={this.openAddUserModal}>Add</button>;
+    const addButton = this.props.type !== 'employees'
+      ? <button  className="button persons-add-user accept-button" onClick={this.openAddUserModal}>Add</button>
+      : null;
     const addUserModal = this.state.showAddUserModal ? <Modal close={this.closeAddUserModal} type='addUser' /> : null;
     const deleteModal = this.state.showDeleteModal 
       ? (
@@ -140,7 +141,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
       : null;
     const deleteButton = (
       <button 
-        className="button persons-delete-button" 
+        className="button persons-delete-button delete-button" 
         onClick={this.openDeleteModal}
         disabled={deleteObjectNumber === 0}
       >
@@ -175,7 +176,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
     content = this.props.persons.map(person => {
 
       if (this.props.type === 'employees') {
-        if ( person.email.includes('@innogiant') ) {
+        if ( person.email.includes(process.env.REACT_APP_COMPANY_EMAIL as string) ) {
 
           let parkingSpotsSTR =  person.ownedParkingSpots.reduce(
             (acc: string, spot: ParkingSpot) => acc + spot.name + ', ',
@@ -211,7 +212,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         } else {return null; }
 
       } else {
-        if ( !person.email.includes('@innogiant') ) {
+        if ( !person.email.includes(process.env.REACT_APP_COMPANY_EMAIL as string) ) {
           return (
   
           <tr key={person.id} >
@@ -255,7 +256,7 @@ class Persons extends Component<PersonsProps, PersonsState> {
         </div>
 
         <div className="table-container">
-          <table className="persons-table">
+          <table className="table">
 
             <thead>
               {tableHeader}

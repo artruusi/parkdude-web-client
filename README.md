@@ -19,9 +19,9 @@
 
 ### Build & run:
   - clone this repository
-  - ```cd parkdude-web-client```
   - install depencies ```npm install```
-  - run program  ```npm start```
+  - run program in develoment mode  ```npm start```
+  - create a production build  ```npm run build```
   
   ### Tests:
 - Jest is used for testing the application
@@ -30,3 +30,24 @@
 ### Linter:
 - run linter: ```npm run lint```
 - fix linting errors: ```npm run fix```
+
+## Documentation
+
+### Components
+
+Each page has it's own component, expect employees and customers. They share Persons component and use the same data from the store. The only difference  is that the data is filtered differently. For example, if someone wants to modify tables' content it is easily  done by changing filtering.
+
+Routing uses PrivateRoute from helpers folder to prevent unauthorized users to see the page. After PrivateRoute routing uses Layout component which adds Header component add page component to screen. 
+
+Data is fetched from the server every time when a user navigates to different page. After creating  a new parking spot or user data is refreshed from the server by getting all parking spots/users. Only time when data is not refreshed after an action is delete selected items from the tables, then deleted items are removed from the store but not getting new values from the server. Delete multiple  items is also only non-atomic operation in database.
+
+### Environment variables
+
+Following environment variables needs to exist in some .env file. The project includes .env-example which has dummy versions of environment variables and it can be renamed for example .env before starting the app.
+- ```REACT_APP_API_URL``` back-end server API root route 
+- ```REACT_APP_GOOGLE_LOG_IN``` back-end server's route which starts google Oauth log in
+- ```REACT_APP_COMPANY_EMAIL``` email which is used in front end to separate customers and employees
+
+## Known bugs
+
+User dropdown in header doesn't close when the mouse is moved out from the dropdown from above.

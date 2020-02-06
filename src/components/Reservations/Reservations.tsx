@@ -47,11 +47,11 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
   };
 
   handleStartDayChange = (date: Date | null) => {
-    console.log(date);
+
     this.setState({startDate: date});
   }
   handleEndDayChange = (date: Date | null) => {
-    console.log(date);
+ 
     this.setState({endDate: date});
   }
   handlePersonChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
@@ -68,7 +68,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     } else if (this.state.endDate !== null && this.state.startDate !== null) {
       queryStartDay = this.state.startDate.toISOString().substring(0, 10);
       queryEndDay = this.state.endDate.toISOString().substring(0, 10);
-      console.log(queryStartDay);
+
     }
     this.props.makeSearch(queryStartDay, queryEndDay, this.state.person);
   }
@@ -92,7 +92,6 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     }
   }
   handleDeleteReservationsClick = () => {
-    console.log(this.state.selectedRows);
 
     let deletereservationNumber = 0;
     Object.keys(this.state.selectedRows).forEach(row => {
@@ -142,6 +141,10 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     persons.unshift(<MenuItem key={'1234567'} value=''>Clear selected person</MenuItem>);
 
     const content = (this.props.reservations || []).map(reservation => {
+
+      const date = new Date(reservation.date);
+      const dateUI = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
+
       return (
         <tr key={reservation.date + reservation.parkingSpotId}>
           <td>
@@ -153,7 +156,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
             />
             
           </td>
-          <td>{reservation.date}</td>
+          <td>{dateUI}</td>
           <td>{reservation.parkingSpotName}</td>
           <td>{reservation.user}</td>
         </tr>
@@ -163,7 +166,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const resultTable = this.props.reservations.length !== 0
       ? (
         <div className="table-container">
-          <table className="reservations-table">
+          <table className="table">
 
             <thead>
               <tr>
@@ -192,7 +195,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     const deleteButton = this.props.reservations.length !== 0
     ? (
       <button 
-        className="button reservation-delete-button" 
+        className="button reservation-delete-button delete-button" 
         onClick={this.handleDeleteReservationsClick}
         disabled={numberOfSelectedRows === 0}
       >
@@ -234,7 +237,7 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
               />
 
             </div>
-            <div id="reservations-person-drop-down">
+            <div className="reservations-person-drop-down">
               <FormControl >
                 <InputLabel >Person</InputLabel>
                 <Select className="reservations-select" value={this.state.person} onChange={this.handlePersonChange}>
@@ -243,8 +246,8 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
               </FormControl>
 
             </div>
-            
-            <button className="button" id="table-search-reservations-button" onClick={this.handleButtonClick}>Search</button>
+       
+            <button className="button accept-button search-button"  onClick={this.handleButtonClick}>Search</button>
           </div>
           {resultTable}
           <div className="align-left-button-container">

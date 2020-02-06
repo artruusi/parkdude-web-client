@@ -85,6 +85,34 @@ a.button {
 *:focus{
    outline: none;
 }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tbody {
+  width: 100%;
+}
+
+.table thead tr {
+  /* display: block; */
+  width: 100%;
+}
+
+.table th {
+  background-color: var(--gray-primary);
+  padding: 16px 8px;
+  text-align: left;
+  border: none;
+}
+
+.table td {
+  padding: 8px;
+  text-align: left;
+}
+.table tbody tr:hover {
+  background-color: #999966;
+  cursor: pointer;
+}
 
 .table-container {
   max-height: 50vh;
