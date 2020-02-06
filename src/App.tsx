@@ -9,6 +9,7 @@ import { checkLogIn } from './store/actions/userActions';
 import { connect, ConnectedProps } from 'react-redux';
 import Forbidden from './components/Forbidden/Forbidden';
 import Spinner from './components/Spinner/Spinner';
+import LoginError from './components/LoginError/LoginError';
 type Props = ConnectedProps<typeof connector>;
 
 export class App extends React.Component<Props> {
@@ -30,7 +31,6 @@ export class App extends React.Component<Props> {
     return (
       <div>
         <BrowserRouter>
-
           <Route exact={true} path='/' component={LogIn} />
           <Route path='/login' component={LogIn} />
           <Route path='/forbidden' component={Forbidden} />
@@ -40,7 +40,6 @@ export class App extends React.Component<Props> {
           <PrivateRoute path='/parking-spots' component={Layout} page='parking-spots' />
           <PrivateRoute path='/accept-users' component={Layout} page='accept-users' />
           <PrivateRoute path='/reservations' component={Layout} page='reservations' />
-
         </BrowserRouter>
       </div>
     );

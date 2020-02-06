@@ -68,7 +68,7 @@ class LogIn extends Component<LogInProps, LogInSate> {
     };
 
     return (
-      <form id='' className='flex-column-center log-in' onSubmit={this.passwordLogIn}>
+      <form className='flex-column-center log-in' onSubmit={this.passwordLogIn}>
         {this.renderRedirect()}
 
         <img src={parkDudeLogo} alt='Parkdude logo' className='log-in-logo' />
@@ -91,7 +91,9 @@ class LogIn extends Component<LogInProps, LogInSate> {
           <hr />
         </div>
 
-        <button className='button log-in-google-button' onClick={this.googleLogIn}>Log in with Google</button>
+        <button type='button' className='button log-in-google-button' onClick={this.googleLogIn}>
+          Log in with Google
+        </button>
 
         <Snackbar
           className='delete-snack'
