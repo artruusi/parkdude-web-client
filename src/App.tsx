@@ -34,6 +34,7 @@ export class App extends React.Component<Props> {
           <Route exact={true} path='/' component={LogIn} />
           <Route path='/login' component={LogIn} />
           <Route path='/forbidden' component={Forbidden} />
+          <Route path='/login-error' component={LoginError} />
           <PrivateRoute path='/customers' component={Layout} page='customers' />
           <PrivateRoute path='/employees' component={Layout} page='employees' />
           <PrivateRoute path='/employees/:id' component={Layout} page='employee' />
