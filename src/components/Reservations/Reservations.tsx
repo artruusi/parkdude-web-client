@@ -1,4 +1,4 @@
-import React, {Component, ChangeEvent, ReactNode } from 'react';
+import React, { Component, ChangeEvent, ReactNode } from 'react';
 import { AppState, Dispatch, IPerson, Reservation } from '../../store/types';
 import { connect } from 'react-redux';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -13,8 +13,7 @@ interface ReservationsState {
   startDate: Date | null;
   endDate: Date | null;
   person: string;
-  selectedRows: SelectedRows; 
-
+  selectedRows: SelectedRows;
 }
 
 interface SelectedRows {
@@ -26,13 +25,13 @@ interface ReduxReservationsProps {
   closeSnackBar: () => void;
   deletereservations: (id: string, dates: string, type: string) => void;
   getPersons: () => void;
-  persons: IPerson [];
-  reservations: Reservation [];
+  persons: IPerson[];
+  reservations: Reservation[];
   makeSearch: (startDate: string, endDate: string, person: string) => void;
   snackBarMessage: string;
   startLoadingDeletereservations: () => void;
   setDeleteReservationsNumber: (reservationsnumber: number) => void;
- }
+}
 
 type ReservationsProps = {} & ReduxReservationsProps;
 
@@ -43,20 +42,17 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     person: '',
     selectedRows: {} as SelectedRows,
     startDate: new Date(),
-    
   };
 
   handleStartDayChange = (date: Date | null) => {
-
-    this.setState({startDate: date});
+    this.setState({ startDate: date });
   }
   handleEndDayChange = (date: Date | null) => {
- 
-    this.setState({endDate: date});
+    this.setState({ endDate: date });
   }
   handlePersonChange = (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: ReactNode) => {
     const value: string = event.target.value as string;
-    this.setState({person: value});
+    this.setState({ person: value });
   }
   handleButtonClick = () => {
     let queryStartDay = '';
@@ -68,27 +64,22 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     } else if (this.state.endDate !== null && this.state.startDate !== null) {
       queryStartDay = this.state.startDate.toISOString().substring(0, 10);
       queryEndDay = this.state.endDate.toISOString().substring(0, 10);
-
     }
     this.props.makeSearch(queryStartDay, queryEndDay, this.state.person);
   }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
-   
+
     const value: string = event.target.value;
     const oldvalue = this.state.selectedRows[value];
-    const newSelectedRows = {...this.state.selectedRows};
+    const newSelectedRows = { ...this.state.selectedRows };
 
-    if (typeof oldvalue === "undefined") {
-     
+    if (typeof oldvalue === 'undefined') {
       newSelectedRows[value] = true;
-      this.setState({selectedRows: newSelectedRows});
-      
+      this.setState({ selectedRows: newSelectedRows });
     } else {
-     
       newSelectedRows[value] = !newSelectedRows[value];
-      this.setState({selectedRows: newSelectedRows});
-
+      this.setState({ selectedRows: newSelectedRows });
     }
   }
   handleDeleteReservationsClick = () => {
@@ -97,22 +88,20 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     Object.keys(this.state.selectedRows).forEach(row => {
 
       if (this.state.selectedRows[row]) {
-        deletereservationNumber += 1;       
-      }   
+        deletereservationNumber += 1;
+      }
     });
 
-    this.props.setDeleteReservationsNumber( deletereservationNumber);
+    this.props.setDeleteReservationsNumber(deletereservationNumber);
     this.props.startLoadingDeletereservations();
 
     Object.keys(this.state.selectedRows).forEach(row => {
       if (this.state.selectedRows[row]) {
-
-       const rowSplit = row.split('&');
-       const id = rowSplit[0];
-       const date = rowSplit[1];
-       this.props.deletereservations(id, date, 'reservationSearch');
+        const rowSplit = row.split('&');
+        const id = rowSplit[0];
+        const date = rowSplit[1];
+        this.props.deletereservations(id, date, 'reservationSearch');
       }
-     
     });
 
   }
@@ -120,13 +109,13 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
     this.props.getPersons();
     this.props.clearReservations();
   }
-  
+
   componentDidUpdate(prevProps: ReservationsProps) {
     if (prevProps.reservations !== this.props.reservations) {
       // Remove deleted reservations from selection
       const reservationKeys = new Set(...this.props.reservations.map(reservation => reservation.parkingSpotId + '&' + reservation.date));
       const filteredSelection = Object.entries(this.state.selectedRows).filter(([key]) => reservationKeys.has(key));
-      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+      this.setState({ selectedRows: Object.fromEntries(filteredSelection) });
     }
   }
 
@@ -135,9 +124,9 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
       .values(this.state.selectedRows)
       .filter(value => value)
       .length;
-    const persons = (this.props.persons || []).map(person => 
+    const persons = (this.props.persons || []).map(person =>
       <MenuItem key={person.id} value={person.id}> {person.name + ' (' + person.email + ')'}</MenuItem>);
-       
+
     persons.unshift(<MenuItem key={'1234567'} value=''>Clear selected person</MenuItem>);
 
     const content = (this.props.reservations || []).map(reservation => {
@@ -151,10 +140,9 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
             <Checkbox
               onChange={this.handleCheckBoxClick}
               value={reservation.parkingSpotId + '&' + reservation.date}
-              style={{ color: "#544C09"}}       
+              style={{ color: '#544C09' }}
               inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-            
           </td>
           <td>{dateUI}</td>
           <td>{reservation.parkingSpotName}</td>
@@ -162,11 +150,11 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
         </tr>
       );
     });
-    
+
     const resultTable = this.props.reservations.length !== 0
       ? (
-        <div className="table-container">
-          <table className="table">
+        <div className='table-container'>
+          <table className='table'>
 
             <thead>
               <tr>
@@ -180,90 +168,85 @@ class Reservations extends Component<ReservationsProps, ReservationsState> {
             <tbody>
               {content}
             </tbody>
-                                  
+
           </table>
-    
         </div>
       )
       : null;
 
     const snackLocation: SnackbarOrigin = {
-        horizontal: 'center',
-        vertical: 'bottom',
-      };
+      horizontal: 'center',
+      vertical: 'bottom',
+    };
 
     const deleteButton = this.props.reservations.length !== 0
-    ? (
-      <button 
-        className="button reservation-delete-button delete-button" 
-        onClick={this.handleDeleteReservationsClick}
-        disabled={numberOfSelectedRows === 0}
-      >
-        Delete
-      </button>
+      ? (
+        <button
+          className='button reservation-delete-button delete-button'
+          onClick={this.handleDeleteReservationsClick}
+          disabled={numberOfSelectedRows === 0}
+        >
+          Delete
+        </button>
       )
-    : null;
+      : null;
 
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <div className="flex-column search-reservation-container">
+        <div className='flex-column search-reservation-container'>
           <h3>Search reservations</h3>
-          <div className="flex-row search-reservations-input-container">
-            <div className="date-picker-start-day">
+          <div className='flex-row search-reservations-input-container'>
+            <div className='date-picker-start-day'>
               <KeyboardDatePicker
-                  disableToolbar={true}
-                  variant="inline"
-                  format="dd/MM/yyyy"
-                  margin="none"                 
-                  label="Start day"
-                  value={this.state.startDate}
-                  onChange={this.handleStartDayChange}
-                  KeyboardButtonProps={{ 'aria-label': 'change date'}}
-                          
+                disableToolbar={true}
+                variant='inline'
+                format='dd/MM/yyyy'
+                margin='none'
+                label='Start day'
+                value={this.state.startDate}
+                onChange={this.handleStartDayChange}
+                KeyboardButtonProps={{ 'aria-label': 'change date' }}
               />
             </div>
-          
-            <div className="date-picker-end-day">
+
+            <div className='date-picker-end-day'>
               <KeyboardDatePicker
-                  disableToolbar={true}
-                  variant="inline"
-                  format="dd/MM/yyyy"
-                  margin="none"
-                  label="End day"
-                  value={this.state.endDate}
-                  onChange={this.handleEndDayChange}
-                  KeyboardButtonProps={{ 'aria-label': 'change date'}}
-                          
+                disableToolbar={true}
+                variant='inline'
+                format='dd/MM/yyyy'
+                margin='none'
+                label='End day'
+                value={this.state.endDate}
+                onChange={this.handleEndDayChange}
+                KeyboardButtonProps={{ 'aria-label': 'change date' }}
               />
 
             </div>
-            <div className="reservations-person-drop-down">
+            <div className='reservations-person-drop-down'>
               <FormControl >
                 <InputLabel >Person</InputLabel>
-                <Select className="reservations-select" value={this.state.person} onChange={this.handlePersonChange}>
+                <Select className='reservations-select' value={this.state.person} onChange={this.handlePersonChange}>
                   {persons}
                 </Select>
               </FormControl>
-
             </div>
-       
-            <button className="button accept-button search-button"  onClick={this.handleButtonClick}>Search</button>
+
+            <button className='button accept-button search-button' onClick={this.handleButtonClick}>Search</button>
           </div>
           {resultTable}
-          <div className="align-left-button-container">
+          <div className='align-left-button-container'>
             {deleteButton}
           </div>
-          <Snackbar 
+          <Snackbar
             id='delete-snack'
             open={this.props.snackBarMessage !== ''}
             anchorOrigin={snackLocation}
             message={<span>{this.props.snackBarMessage}</span>}
             onClose={this.props.closeSnackBar}
             autoHideDuration={3000}
-         
           />
         </div>
-    </MuiPickersUtilsProvider>
+      </MuiPickersUtilsProvider>
     );
   }
 }
@@ -282,9 +265,10 @@ const MapDispatch = (dispatch: Dispatch) => {
     closeSnackBar: () => dispatch(hideReservationsSnackBar()),
     deletereservations: (id: string, dates: string, type: string) => dispatch(deleteReservations(id, dates, type)),
     getPersons: () => dispatch(getPersons()),
-    makeSearch : (startDate: string, endDate: string, person: string) => dispatch(getReservations(startDate, endDate, person)),
+    makeSearch: (startDate: string, endDate: string, person: string) => dispatch(getReservations(startDate, endDate, person)),
     setDeleteReservationsNumber: (reservationsnumber: number) => dispatch(SetDeletereservationNumber(reservationsnumber)),
     startLoadingDeletereservations: () => dispatch(startLoading()),
   };
 };
+
 export default connect(mapState, MapDispatch)(Reservations);

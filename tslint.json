@@ -1,29 +1,20 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint-react",
-        "tslint:recommended"
-    ],
-    "jsRules": {
-    },
-    "rules": {
-        "member-access": false,
-        "ordered-imports": false,
-        "quotemark": false,
-        "no-console": false,
-        "jsx-no-lambda": false,
-        "no-trailing-whitespace": false,
-        "interface-name": false,
-        "arrow-parens": false,
-        "max-line-length": [true, 140]
-
-    },
-    "rulesDirectory": [
-    ],
-    "linterOptions": {
-        "exclude": [
-            "config/**/*.js",
-            "node_modules/**/*.ts"
-       ]
-   }
+  "defaultSeverity": "error",
+  "extends": ["tslint-react", "tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "member-access": false,
+    "ordered-imports": false,
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+    "no-console": false,
+    "jsx-no-lambda": false,
+    "no-trailing-whitespace": false,
+    "interface-name": false,
+    "arrow-parens": false,
+    "max-line-length": [true, 140]
+  },
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
+  }
 }

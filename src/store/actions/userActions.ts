@@ -1,13 +1,13 @@
-import * as actionTypes from "./actionTypes";
-import axios from "axios";
-import { Dispatch } from "./../types";
-import { LoginState, PasswordLogInData } from "../types";
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
+import { Dispatch } from './../types';
+import { LoginState, PasswordLogInData } from '../types';
 
 axios.defaults.withCredentials = true;
 
 export const LogUserIn = (username: string, userRole: string) => {
   return {
-    payload: {username, userRole},
+    payload: { username, userRole },
     type: actionTypes.LOGIN,
   };
 };
@@ -20,32 +20,26 @@ export const LogOut = () => {
 
 export const logOutFromServer = () => {
   return (dispatch: Dispatch) => {
-    
-    const url =  process.env.REACT_APP_API_URL + "auth/logout";
-    axios.post<LoginState>(url, {})      
-      .then(response => dispatch(LogOut()));
+    const url = process.env.REACT_APP_API_URL + 'auth/logout';
+    axios.post<LoginState>(url, {}).then(response => dispatch(LogOut()));
   };
 };
 
 export const passwordLogIn = (data: PasswordLogInData) => {
   return (dispatch: Dispatch) => {
-
     const url = process.env.REACT_APP_API_URL + 'auth/login';
-    axios.post(url, data)
-      .then(res => 
-        checkLogIn()(dispatch),
-      )
+    axios
+      .post(url, data)
+      .then(res => checkLogIn()(dispatch))
       .catch(error => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         dispatch({
           payload: response && response.data && response.data.message,
           type: actionTypes.LOGINFAILED,
         });
       });
-
   };
-
 };
 
 export const checkLogIn = () => {
@@ -67,14 +61,14 @@ export const checkLogIn = () => {
 export const ChangePage = (page: string) => {
   return {
     payload: page,
-    type: actionTypes.CHANGEPAGE, 
+    type: actionTypes.CHANGEPAGE,
   };
 };
 
 export const closeUserSnackBar = () => {
   return (dispatch: Dispatch) => {
     dispatch({
-        type: actionTypes.HIDEUSERSNACKBAR,
-      }); 
+      type: actionTypes.HIDEUSERSNACKBAR,
+    });
   };
 };

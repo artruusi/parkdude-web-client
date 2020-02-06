@@ -17,7 +17,8 @@
   margin-bottom: 3vh;
 }
 
-.log-in-email, .log-in-password {
+.log-in-email,
+.log-in-password {
   border: none;
   margin: 10px 0;
   height: 40px;

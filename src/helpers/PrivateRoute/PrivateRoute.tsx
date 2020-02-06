@@ -1,7 +1,7 @@
-import React, { FunctionComponent, Component } from "react";
-import { Redirect, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import { AppState, UserRole } from "./../../store/types";
+import React, { FunctionComponent, Component } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { AppState, UserRole } from './../../store/types';
 
 interface PrivateRouteProps {
   component: FunctionComponent<{}> | any;
@@ -18,14 +18,14 @@ class PrivateRoute extends Component<PrivateRouteProps, {}> {
 
   renderRouteContent = () => {
     if (!this.props.loggedIn) {
-      return <Redirect to="/login" />;
+      return <Redirect to='/login' />;
     }
     if (this.props.userRole !== UserRole.ADMIN) {
-      return <Redirect to="/forbidden" />;
+      return <Redirect to='/forbidden' />;
     }
     const Layout = this.props.component;
     const page = this.props.page;
-    return <Layout page={page}/>;
+    return <Layout page={page} />;
   }
 }
 

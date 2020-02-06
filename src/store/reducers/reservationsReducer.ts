@@ -1,6 +1,6 @@
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 import * as actionTypes from '../actions/actionTypes';
-import { ReservationsState, UserReservations, Reservation } from "../types";
+import { ReservationsState, UserReservations, Reservation } from '../types';
 
 const initialState: ReservationsState = {
   deleteReservationsNumber: 0,
@@ -8,13 +8,13 @@ const initialState: ReservationsState = {
   reservations: [],
   snackBarMessage: '',
   userReservations: [],
-  
 };
 
-export const reservationsReducer: Reducer<ReservationsState, any> = (state = initialState, action) => {
-
+export const reservationsReducer: Reducer<ReservationsState, any> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
-
     case actionTypes.HIDERESERVATIONSSNACKBAR:
       return {
         ...state,
@@ -22,22 +22,31 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
       };
 
     case actionTypes.DELETERESERVATION:
-
       const stopLoading = state.deleteReservationsNumber !== 1;
 
-      const snackBarMessageDelete = !stopLoading && state.snackBarMessage === ''
-        ? 'Reservations deleted succesfully' 
-        : state.snackBarMessage;
+      const snackBarMessageDelete =
+        !stopLoading && state.snackBarMessage === ''
+          ? 'Reservations deleted succesfully'
+          : state.snackBarMessage;
 
-      let userReservations: UserReservations [] = [];
-      let listReservations: Reservation [] = [];
+      let userReservations: UserReservations[] = [];
+      let listReservations: Reservation[] = [];
       if (action.payload.type === 'personReservation') {
-        
-        userReservations = state.userReservations.filter(reservation =>
-          !( reservation.date === action.payload.dates && reservation.parkingSpot.id === action.payload.id) );
+        userReservations = state.userReservations.filter(
+          reservation =>
+            !(
+              reservation.date === action.payload.dates &&
+              reservation.parkingSpot.id === action.payload.id
+            ),
+        );
       } else {
-        listReservations = state.reservations.filter(reservation => 
-          !( reservation.date === action.payload.dates && reservation.parkingSpotId === action.payload.id));
+        listReservations = state.reservations.filter(
+          reservation =>
+            !(
+              reservation.date === action.payload.dates &&
+              reservation.parkingSpotId === action.payload.id
+            ),
+        );
       }
 
       return {
@@ -47,7 +56,6 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
         reservations: listReservations,
         snackBarMessage: snackBarMessageDelete,
         userReservations,
-                 
       };
 
     case actionTypes.DELETERESERVATIONFAILED:
@@ -63,23 +71,21 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
       };
 
     case actionTypes.SETDELETERESERVATIONNUMBER:
-
       return {
         ...state,
         deleteReservationsNumber: action.payload,
       };
 
     case actionTypes.GETRESERVATIONS:
-
       const reservations: [] = action.payload;
-      const snackBarMessage = reservations.length === 0 ? 'No results found' : '';
-      
+      const snackBarMessage =
+        reservations.length === 0 ? 'No results found' : '';
+
       return {
         ...state,
         loading: false,
         reservations: action.payload,
         snackBarMessage,
-           
       };
 
     case actionTypes.CLEARRESERVATIONS:
@@ -89,13 +95,12 @@ export const reservationsReducer: Reducer<ReservationsState, any> = (state = ini
         reservations: [],
         snackBarMessage: '',
         userReservations: [],
-       
       };
 
     case actionTypes.GETUSERRESERVATIONS:
       return {
         ...state,
-        loading: false,       
+        loading: false,
         userReservations: action.payload,
       };
 

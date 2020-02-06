@@ -1,4 +1,4 @@
-import React, {Component, ChangeEvent } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import { AppState, Dispatch, ParkingSpot, IPerson } from '../../store/types';
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal';
@@ -17,12 +17,12 @@ interface ListButtonProps {
   openChangeOwnerModalWithParams: (id: string, name: string) => void;
 }
 // should provide faster rendering
-const ListButton = (props: ListButtonProps ) => {
+const ListButton = (props: ListButtonProps) => {
   const handleClick = () => {
     props.openChangeOwnerModalWithParams(props.id, props.name);
   };
   return (
-    <button className="button table-button accept-button" onClick={handleClick}>Change owner</button>
+    <button className='button table-button accept-button' onClick={handleClick}>Change owner</button>
 
   );
 };
@@ -38,8 +38,8 @@ interface ReduxParkingSpotsProps {
   closeSnackBar: () => void;
   getParkingSpots: () => void;
   loading: boolean;
-  parkingSpots: ParkingSpot [];
-  persons: IPerson [];
+  parkingSpots: ParkingSpot[];
+  persons: IPerson[];
   deleteParkingSpot: (id: string) => void;
   getPersons: () => void;
   snackBarMessage: string;
@@ -51,7 +51,7 @@ interface ParkingspotSate {
   showAddSpotModal: boolean;
   showChangeOwnerModal: boolean;
   showDeleteModal: boolean;
-  selectedRows: SelectedRows; 
+  selectedRows: SelectedRows;
   clickedSpotName: string;
   clickedSpotId: string;
 }
@@ -69,21 +69,21 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
   };
 
   openAddSpotModal = () => {
-    this.setState({showAddSpotModal: true});
+    this.setState({ showAddSpotModal: true });
   }
 
   closeAddSpotModal = () => {
-    this.setState({showAddSpotModal: false});
+    this.setState({ showAddSpotModal: false });
   }
 
   openDeleteModal = () => {
-    this.setState({showDeleteModal: true});
+    this.setState({ showDeleteModal: true });
   }
   closeDeleteModal = () => {
-    this.setState({showDeleteModal: false});
+    this.setState({ showDeleteModal: false });
   }
   openChangeOwnerModal = () => {
-    this.setState({showChangeOwnerModal: true});
+    this.setState({ showChangeOwnerModal: true });
   }
   openChangeOwnerModalWithParams = (id: string, name: string) => {
     const newState = {
@@ -94,24 +94,24 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     this.setState(newState);
   }
   closechangeOwnerModal = () => {
-    this.setState({showChangeOwnerModal: false});
+    this.setState({ showChangeOwnerModal: false });
   }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
-   
+
     const value: string = event.target.value;
     const oldvalue = this.state.selectedRows[value];
-    const newSelectedRows = {...this.state.selectedRows};
+    const newSelectedRows = { ...this.state.selectedRows };
 
-    if (typeof oldvalue === "undefined") {
-     
+    if (typeof oldvalue === 'undefined') {
+
       newSelectedRows[value] = true;
-      this.setState({selectedRows: newSelectedRows});
-      
+      this.setState({ selectedRows: newSelectedRows });
+
     } else {
-     
+
       newSelectedRows[value] = !newSelectedRows[value];
-      this.setState({selectedRows: newSelectedRows});
+      this.setState({ selectedRows: newSelectedRows });
 
     }
   }
@@ -123,7 +123,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       if (this.state.selectedRows[row]) {
         this.props.deleteParkingSpot(row);
       }
-     
+
     });
 
   }
@@ -137,7 +137,7 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
     if (prevProps.parkingSpots !== this.props.parkingSpots) {
       const parkingSpotIds = new Set(...this.props.parkingSpots.map(parkingSpot => parkingSpot.id));
       const filteredSelection = Object.entries(this.state.selectedRows).filter(([id]) => parkingSpotIds.has(id));
-      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+      this.setState({ selectedRows: Object.fromEntries(filteredSelection) });
     }
   }
 
@@ -150,40 +150,40 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
       }
     }, 0);
 
-    const addButton = <button  className="button parking-spots-add-user accept-button" onClick={this.openAddSpotModal}>Add</button>;
-    const addSpotModal = this.state.showAddSpotModal 
-      ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} /> 
+    const addButton = <button className='button parking-spots-add-user accept-button' onClick={this.openAddSpotModal}>Add</button>;
+    const addSpotModal = this.state.showAddSpotModal
+      ? <Modal close={this.closeAddSpotModal} type='addSpot' persons={this.props.persons} />
       : null;
-    const changeOwnerModal = this.state.showChangeOwnerModal 
+    const changeOwnerModal = this.state.showChangeOwnerModal
       ? (
-        <Modal 
-          close={this.closechangeOwnerModal} 
-          type='changeOwner' 
-          persons={this.props.persons} 
-          spotId={this.state.clickedSpotId} 
-          spotname={this.state.clickedSpotName} 
+        <Modal
+          close={this.closechangeOwnerModal}
+          type='changeOwner'
+          persons={this.props.persons}
+          spotId={this.state.clickedSpotId}
+          spotname={this.state.clickedSpotName}
         />
-        ) 
+      )
       : null;
-    const deleteModal = this.state.showDeleteModal 
+    const deleteModal = this.state.showDeleteModal
       ? (
-        <Modal 
-          close={this.closeDeleteModal} 
-          confirmDelete={this.deleteParkingSpots} 
-          type='delete-spots' 
+        <Modal
+          close={this.closeDeleteModal}
+          confirmDelete={this.deleteParkingSpots}
+          type='delete-spots'
           deleteObjectNumber={deleteObjectNumber}
-        /> 
-        )
+        />
+      )
       : null;
     const deleteButton = (
-      <button 
-        className="button parking-spots-delete-button" 
+      <button
+        className='button parking-spots-delete-button'
         onClick={this.openDeleteModal}
         disabled={!deleteObjectNumber}
       >
         Delete
       </button>
-      );
+    );
 
     const tableHeader = (
       <tr>
@@ -191,48 +191,48 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
         <th>Number</th>
         <th>Regular spot</th>
         <th>Owner</th>
-        <th className="change-owner-column">{}</th>
+        <th className='change-owner-column'>{}</th>
       </tr>
     );
 
-    const content = this.props.parkingSpots.map(item => ( 
+    const content = this.props.parkingSpots.map(item => (
 
-    <tr key={item.id}>
-      <td>
-        <Checkbox
-          onChange={this.handleCheckBoxClick}
-          value={item.id}
-          style={{ color: "#544C09"}}       
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-      </td>
-       
-      <td>{item.name}</td>
-      <td>{item.owner ? <img src={checkIcon} className="table-check" alt="check icon"/> : null}</td>
-      <td>{item.owner ? item.owner.name : null}</td>
-      <td className="textRight">
-        <ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams}/>
-      </td> 
-    </tr>
+      <tr key={item.id}>
+        <td>
+          <Checkbox
+            onChange={this.handleCheckBoxClick}
+            value={item.id}
+            style={{ color: '#544C09' }}
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
+        </td>
 
-    ));  
-    
+        <td>{item.name}</td>
+        <td>{item.owner ? <img src={checkIcon} className='table-check' alt='check icon' /> : null}</td>
+        <td>{item.owner ? item.owner.name : null}</td>
+        <td className='textRight'>
+          <ListButton name={item.name} id={item.id} openChangeOwnerModalWithParams={this.openChangeOwnerModalWithParams} />
+        </td>
+      </tr>
+
+    ));
+
     const snackLocation: SnackbarOrigin = {
       horizontal: 'center',
       vertical: 'bottom',
     };
 
     let page = (
-      <div className="parking-spots">
-              
-        <div className="flex-row parking-spots-header-container">
+      <div className='parking-spots'>
+
+        <div className='flex-row parking-spots-header-container'>
           <h2>Parking spots </h2>
           {addButton}
-          
+
         </div>
 
-        <div className="table-container">
-          <table className="table">
+        <div className='table-container'>
+          <table className='table'>
 
             <thead>
               {tableHeader}
@@ -241,41 +241,41 @@ class Parkingspots extends Component<ParkingSpotsProps, ParkingspotSate> {
             <tbody>
               {content}
             </tbody>
-                                  
+
           </table>
-       
+
         </div>
 
-        <div  className="flex-row align-left-button-container parking-spots-delete-button-container">
-         {deleteButton}
-        </div>      
-      
+        <div className='flex-row align-left-button-container parking-spots-delete-button-container'>
+          {deleteButton}
+        </div>
+
         {addSpotModal}
         {deleteModal}
         {changeOwnerModal}
 
-        <Snackbar 
+        <Snackbar
           className='delete-snack'
           open={this.props.snackBarMessage !== ''}
           anchorOrigin={snackLocation}
           message={<span>{this.props.snackBarMessage}</span>}
           onClose={this.props.closeSnackBar}
           autoHideDuration={3000}
-         
+
         />
 
       </div>
     );
 
     if (this.props.loading) {
-        page = <Spinner/>;
+      page = <Spinner />;
     }
- 
+
     return (
 
-      <>     
+      <>
         {page}
-      </>    
+      </>
     );
   }
 }
@@ -286,7 +286,7 @@ const mapState = (state: AppState) => {
     parkingSpots: state.parkingSpot.parkingSpotList,
     persons: state.persons.personList,
     snackBarMessage: state.parkingSpot.snackBarMessage,
-   
+
   };
 };
 
@@ -296,7 +296,7 @@ const MapDispatch = (dispatch: Dispatch) => {
     deleteParkingSpot: (id: string) => dispatch(deleteParkingSpot(id)),
     getParkingSpots: () => dispatch(getParkingSpots()),
     getPersons: () => dispatch(getPersons()),
-    
+
   };
 };
 export default connect(mapState, MapDispatch)(Parkingspots);

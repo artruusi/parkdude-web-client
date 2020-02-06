@@ -15,7 +15,7 @@ interface SelectedRows {
 interface ReduxAcceptUserProps {
   getPersons: () => void;
   loading: boolean;
-  persons: IPerson [];
+  persons: IPerson[];
   acceptPerson: (person: IPerson, type: string) => void;
   closeSnackBar: () => void;
   snackBarMessage: string;
@@ -25,7 +25,7 @@ type AcceptUserProps = {} & ReduxAcceptUserProps;
 
 interface AcceptUserState {
   showAcceptModal: boolean;
-  selectedRows: SelectedRows; 
+  selectedRows: SelectedRows;
 }
 class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
 
@@ -38,29 +38,29 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     Object.keys(this.state.selectedRows).forEach(row => {
       if (this.state.selectedRows[row]) {
 
-        const index = this.props.persons.findIndex( person => person.id === row);     
+        const index = this.props.persons.findIndex(person => person.id === row);
         this.props.acceptPerson(this.props.persons[index], 'accept-user');
       }
-     
+
     });
 
   }
 
   handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
-   
+
     const value: string = event.target.value;
     const oldvalue = this.state.selectedRows[value];
-    const newSelectedRows = {...this.state.selectedRows};
+    const newSelectedRows = { ...this.state.selectedRows };
 
-    if (typeof oldvalue === "undefined") {
-     
+    if (typeof oldvalue === 'undefined') {
+
       newSelectedRows[value] = true;
-      this.setState({selectedRows: newSelectedRows});
-      
+      this.setState({ selectedRows: newSelectedRows });
+
     } else {
-     
+
       newSelectedRows[value] = !newSelectedRows[value];
-      this.setState({selectedRows: newSelectedRows});
+      this.setState({ selectedRows: newSelectedRows });
 
     }
   }
@@ -73,7 +73,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     if (prevProps.persons !== this.props.persons) {
       const personIds = new Set(...this.props.persons.map(person => person.id));
       const filteredSelection = Object.entries(this.state.selectedRows).filter(([id]) => personIds.has(id));
-      this.setState({selectedRows: Object.fromEntries(filteredSelection)});
+      this.setState({ selectedRows: Object.fromEntries(filteredSelection) });
     }
   }
 
@@ -85,8 +85,8 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
 
     const header = 'Accept users';
     const acceptButton = (
-      <button 
-        className="button accept-button" 
+      <button
+        className='button accept-button'
         disabled={numberOfSelectedRows === 0}
         onClick={this.acceptPersons}
       >
@@ -103,7 +103,7 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     );
 
     const content = this.props.persons.map((item) => {
-      if ( item.role === 'unverified') {
+      if (item.role === 'unverified') {
         return (
 
           <tr key={item.id}>
@@ -111,19 +111,19 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
               <Checkbox
                 onChange={this.handleCheckBoxClick}
                 value={item.id}
-                style={{ color: "#544C09"}}       
+                style={{ color: '#544C09' }}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
               />
 
             </td>
-         
+
             <td>{item.name}</td>
             <td>{item.email}</td>
           </tr>
 
         );
-      } else {return null; }
-     
+      } else { return null; }
+
     });
     const snackLocation: SnackbarOrigin = {
       horizontal: 'center',
@@ -131,15 +131,15 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
     };
 
     let page = (
-      <div className="accept-users">
-              
-        <div  className="flex-row accept-users-header-container">
+      <div className='accept-users'>
+
+        <div className='flex-row accept-users-header-container'>
           <h2>{header} </h2>
-          
+
         </div>
 
-        <div className="table-container">
-          <table className="table">
+        <div className='table-container'>
+          <table className='table'>
 
             <thead>
               {tableHeader}
@@ -148,37 +148,37 @@ class AcceptUsers extends Component<AcceptUserProps, AcceptUserState> {
             <tbody>
               {content}
             </tbody>
-                                  
+
           </table>
-        
+
         </div>
 
-        <div className="flex-row align-left-button-container ">
+        <div className='flex-row align-left-button-container '>
           {acceptButton}
-        </div> 
-        <Snackbar 
+        </div>
+        <Snackbar
           open={this.props.snackBarMessage !== ''}
           anchorOrigin={snackLocation}
           message={<span>{this.props.snackBarMessage}</span>}
           onClose={this.props.closeSnackBar}
           autoHideDuration={3000}
-          
-        />     
-      
+
+        />
+
       </div>
-      
+
     );
 
     if (this.props.loading) {
-      page = <Spinner/>;
+      page = <Spinner />;
     }
 
     return (
-  
+
       <>
-      {page}
+        {page}
       </>
-           
+
     );
   }
 }

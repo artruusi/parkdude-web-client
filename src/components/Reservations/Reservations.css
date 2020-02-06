@@ -8,8 +8,8 @@
   margin-bottom: 30px;
 }
 
-
-.date-picker-start-day, .date-picker-end-day {
+.date-picker-start-day,
+.date-picker-end-day {
   width: 15vw;
   margin-right: 3vw;
 }

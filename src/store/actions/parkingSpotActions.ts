@@ -1,22 +1,21 @@
-import * as actionTypes from "./actionTypes";
-import axios, { AxiosError } from "axios";
-import { Dispatch, CreateParkingSpotData } from "./../types";
+import * as actionTypes from './actionTypes';
+import axios, { AxiosError } from 'axios';
+import { Dispatch, CreateParkingSpotData } from './../types';
 import { checkLogIn } from './userActions';
-import { getPerson, freeParkingSpotFromPerson } from "./personsActions";
+import { getPerson, freeParkingSpotFromPerson } from './personsActions';
 
 axios.defaults.withCredentials = true;
 
 export const getParkingSpots = () => {
   return (dispatch: Dispatch) => {
-
     dispatch({
       type: actionTypes.STARTLOADINGPARKINGSPOTS,
     });
 
-    const url =  process.env.REACT_APP_API_URL + 'parking-spots';
-    axios.get(url)
+    const url = process.env.REACT_APP_API_URL + 'parking-spots';
+    axios
+      .get(url)
       .then(res => {
-
         dispatch({
           payload: res.data,
           type: actionTypes.GETSPOTS,
@@ -24,7 +23,7 @@ export const getParkingSpots = () => {
       })
       .catch((error: AxiosError) => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
@@ -38,43 +37,43 @@ export const getParkingSpots = () => {
 
 export const createParkingSpot = (data: CreateParkingSpotData) => {
   return (dispatch: Dispatch) => {
-    const url =  process.env.REACT_APP_API_URL + 'parking-spots';
-    axios.post(url, data)
-    .then(res => {
-
-      dispatch({
-        type: actionTypes.PARKINGSPOTCREATED,
+    const url = process.env.REACT_APP_API_URL + 'parking-spots';
+    axios
+      .post(url, data)
+      .then(res => {
+        dispatch({
+          type: actionTypes.PARKINGSPOTCREATED,
+        });
+        return dispatch(getParkingSpots());
+      })
+      .catch(error => {
+        console.log(error);
+        const { response } = error;
+        if (response && response.status === 401) {
+          checkLogIn()(dispatch);
+        }
+        dispatch({
+          payload: response && response.data && response.data.message,
+          type: actionTypes.PARKINGSPOTCREATEDFAILED,
+        });
       });
-      return dispatch(getParkingSpots());
-    })
-    .catch(error => {
-      console.log(error);
-      const {response} = error;
-      if (response && response.status === 401) {
-        checkLogIn()(dispatch);
-      }
-      dispatch({
-        payload: response && response.data && response.data.message,
-        type: actionTypes.PARKINGSPOTCREATEDFAILED,
-      });
-    });
   };
 };
 
 export const deleteParkingSpot = (id: string) => {
   return (dispatch: Dispatch) => {
-    const url =  process.env.REACT_APP_API_URL + 'parking-spots/' + id;
-    axios.delete(url)
+    const url = process.env.REACT_APP_API_URL + 'parking-spots/' + id;
+    axios
+      .delete(url)
       .then(res => {
-
         dispatch({
           payload: id,
-          type: actionTypes.DELETESPOT,        
+          type: actionTypes.DELETESPOT,
         });
       })
       .catch(error => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
@@ -86,7 +85,12 @@ export const deleteParkingSpot = (id: string) => {
   };
 };
 
-export const changeOwner = (id: string, name: string, newOwner: string, type: string) => {
+export const changeOwner = (
+  id: string,
+  name: string,
+  newOwner: string,
+  type: string,
+) => {
   return (dispatch: Dispatch) => {
     const url = process.env.REACT_APP_API_URL + 'parking-spots/' + id;
     const data = {
@@ -94,17 +98,18 @@ export const changeOwner = (id: string, name: string, newOwner: string, type: st
       ownerEmail: newOwner !== '' ? newOwner : undefined,
     };
 
-    axios.put(url, data)
+    axios
+      .put(url, data)
       .then(res => {
         dispatch(getParkingSpots());
-       
+
         dispatch({
           type: actionTypes.CHANGEOWNER,
         });
       })
       .catch(error => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
@@ -116,7 +121,12 @@ export const changeOwner = (id: string, name: string, newOwner: string, type: st
   };
 };
 
-export const giveSpot = (spotId: string, spotName: string, personId: string, personemail: string) => {
+export const giveSpot = (
+  spotId: string,
+  spotName: string,
+  personId: string,
+  personemail: string,
+) => {
   return (dispatch: Dispatch) => {
     dispatch({
       type: actionTypes.STARTLOADINGPARKINGSPOTS,
@@ -127,17 +137,17 @@ export const giveSpot = (spotId: string, spotName: string, personId: string, per
       ownerEmail: personemail !== '' ? personemail : undefined,
     };
 
-    axios.put(url, data)
+    axios
+      .put(url, data)
       .then(res => {
-
-        dispatch(getPerson(personId));    
+        dispatch(getPerson(personId));
         dispatch({
           type: actionTypes.CHANGEOWNER,
         });
       })
       .catch(error => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
@@ -147,11 +157,14 @@ export const giveSpot = (spotId: string, spotName: string, personId: string, per
         });
       });
   };
-
 };
 
-export const freeSpot = (spotId: string, spotName: string, personId: string) => {
-   return (dispatch: Dispatch) => {
+export const freeSpot = (
+  spotId: string,
+  spotName: string,
+  personId: string,
+) => {
+  return (dispatch: Dispatch) => {
     dispatch({
       type: actionTypes.STARTLOADINGPARKINGSPOTS,
     });
@@ -161,17 +174,17 @@ export const freeSpot = (spotId: string, spotName: string, personId: string) => 
       ownerEmail: undefined,
     };
 
-    axios.put(url, data)
+    axios
+      .put(url, data)
       .then(res => {
-
-        dispatch(freeParkingSpotFromPerson(personId, spotId));    
+        dispatch(freeParkingSpotFromPerson(personId, spotId));
         dispatch({
           type: actionTypes.CHANGEOWNER,
         });
       })
       .catch(error => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
@@ -181,15 +194,12 @@ export const freeSpot = (spotId: string, spotName: string, personId: string) => 
         });
       });
   };
-
 };
 
 export const closeParkingSpotsSnackBar = () => {
   return (dispatch: Dispatch) => {
-   
     dispatch({
-        type: actionTypes.HIDEPARKINGSPOTSNACKBAR,
-      }); 
+      type: actionTypes.HIDEPARKINGSPOTSNACKBAR,
+    });
   };
-  
 };

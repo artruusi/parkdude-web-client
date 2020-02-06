@@ -1,11 +1,10 @@
-import * as actionTypes from "./actionTypes";
-import axios from "axios";
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
 import { checkLogIn } from './userActions';
-import { Dispatch, IPerson, ParkingSpot } from "./../types";
+import { Dispatch, IPerson, ParkingSpot } from './../types';
 
 interface GetReservationsRes {
-  reservations: GetReservationsResReservations [];
-
+  reservations: GetReservationsResReservations[];
 }
 
 interface GetReservationsResReservations {
@@ -21,20 +20,23 @@ interface PayloadGetReservations {
   user: string;
 }
 
-export const getReservations = (startDate: string, endDate: string, person: string) => {
+export const getReservations = (
+  startDate: string,
+  endDate: string,
+  person: string,
+) => {
   return (dispatch: Dispatch) => {
-    let url =  process.env.REACT_APP_API_URL + "parking-reservations";
+    let url = process.env.REACT_APP_API_URL + 'parking-reservations';
     if (startDate !== '' && endDate !== '') {
       url += '?startDate=' + startDate + '&endDate=' + endDate;
     }
 
-    axios.get<GetReservationsRes>(url)
+    axios
+      .get<GetReservationsRes>(url)
       .then(res => {
+        const payloadRes: PayloadGetReservations[] = [];
 
-        const payloadRes: PayloadGetReservations []  = [];
-
-        res.data.reservations.forEach( reservation => {
-
+        res.data.reservations.forEach(reservation => {
           const data = {
             date: reservation.date,
             parkingSpotId: reservation.parkingSpot.id,
@@ -43,7 +45,6 @@ export const getReservations = (startDate: string, endDate: string, person: stri
           };
 
           if (person === '') {
-            
             payloadRes.push(data);
           } else {
             if (person === reservation.user.id) {
@@ -53,20 +54,18 @@ export const getReservations = (startDate: string, endDate: string, person: stri
         });
         const noResults = payloadRes.length === 0;
         dispatch({
-          noResults,   
-          payload: payloadRes,         
-          type: actionTypes.GETRESERVATIONS, 
-           
+          noResults,
+          payload: payloadRes,
+          type: actionTypes.GETRESERVATIONS,
         });
       })
       .catch(error => {
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
         console.log(error);
       });
-      
   };
 };
 
@@ -80,17 +79,22 @@ export const getUserReservations = (id: string) => {
   return (dispatch: Dispatch) => {
     const startDate = '2019-01-01'; // TODO calculate real start date
 
-    const url =  process.env.REACT_APP_API_URL + 'users/' + id + '/reservations?startDate=' +  startDate;
-    axios.get(url)
+    const url =
+      process.env.REACT_APP_API_URL +
+      'users/' +
+      id +
+      '/reservations?startDate=' +
+      startDate;
+    axios
+      .get(url)
       .then(res => {
         dispatch({
           payload: res.data.reservations,
           type: actionTypes.GETUSERRESERVATIONS,
-          
         });
       })
       .catch(error => {
-        const {response} = error;
+        const { response } = error;
         if (response && response.status === 401) {
           checkLogIn()(dispatch);
         }
@@ -101,26 +105,27 @@ export const getUserReservations = (id: string) => {
 
 export const deleteReservations = (id: string, dates: string, type: string) => {
   return (dispatch: Dispatch) => {
-    let url = process.env.REACT_APP_API_URL + 'parking-reservations/parking-spot/' + id;
+    let url =
+      process.env.REACT_APP_API_URL + 'parking-reservations/parking-spot/' + id;
 
     if (dates !== '') {
       url += '?dates=' + dates;
     }
-    axios.delete(url)
+    axios
+      .delete(url)
       .then(res => {
         dispatch({
           payload: {
             dates,
             id,
-            type,          
+            type,
           },
           type: actionTypes.DELETERESERVATION,
-          
         });
       })
       .catch(error => {
         console.log(error);
-        const {response} = error;
+        const { response } = error;
         dispatch({
           payload: response && response.data && response.data.message,
           type: actionTypes.DELETERESERVATIONFAILED,
@@ -133,7 +138,6 @@ export const SetDeletereservationNumber = (reservationsNumber: number) => {
   return {
     payload: reservationsNumber,
     type: actionTypes.SETDELETERESERVATIONNUMBER,
-   
   };
 };
 
