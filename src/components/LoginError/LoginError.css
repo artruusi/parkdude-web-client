@@ -1,0 +1,12 @@
+.login-error-view {
+  padding-top: 10vh;
+}
+
+.login-error-view .parkdude-logo {
+  width: 560px;
+  margin-bottom: 3vh;
+}
+
+.login-error-view .button {
+  background: var(--yellow-primary);
+}
