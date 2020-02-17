@@ -1,5 +1,7 @@
 # Parkdude web client
 
+[![Known Vulnerabilities](https://snyk.io/test/github/artruusi/parkdude-web-client/badge.svg)](https://snyk.io/test/github/artruusi/parkdude-web-client)
+
 ## Folder structure
 
 - `/src` source code folder
